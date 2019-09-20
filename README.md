@@ -2,7 +2,7 @@
   <img src="./images/logo/connect4.png" width="420">
 </p>
 
-[![Open Issues](https://img.shields.io/github/issues/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/issues) [![Forks](https://img.shields.io/github/forks/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/network/members) [![Stars](https://img.shields.io/github/stars/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/stargazers)
+[![Open Issues](https://img.shields.io/github/issues/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/issues) [![Forks](https://img.shields.io/github/forks/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/network/members) [![Stars](https://img.shields.io/github/stars/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/stargazers) ![Maintained](https://img.shields.io/maintenance/yes/2019?style=for-the-badge) ![Made with Python](https://img.shields.io/badge/Made%20with-Python-blueviolet?style=for-the-badge) ![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%99%A5-red?style=for-the-badge) ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A5-critical?style=for-the-badge)
 
 ## :ledger: Index
 
