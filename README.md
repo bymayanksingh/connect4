@@ -116,11 +116,11 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 
 ##  :camera: Gallery
 <p align="center">
-  <img src="./images/screenshots/1.png" width="220">
+  <img src="./images/screenshots/1.png" width="600">
 </p>
 
 <p align="center">
-  <img src="./images/screenshots/2.gif" width="220">
+  <img src="./images/screenshots/2.gif" width="600">
 </p>
 
 ## :star2: Credit/Acknowledgment
