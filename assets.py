@@ -1,4 +1,5 @@
 from os.path import join
+
 from pygame.image import load
 
 event_sound = join("sounds", "event.ogg")

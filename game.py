@@ -1,15 +1,15 @@
+import math
 import os
 import sys
-import math
+
 import pygame
-from config import *
-from assets import *
-from numpy import flip
-from numpy import zeros
+from numpy import flip, zeros
 from pygame import mixer
+from pygame.gfxdraw import aacircle, filled_circle
 from pygame.locals import KEYDOWN
-from pygame.gfxdraw import aacircle
-from pygame.gfxdraw import filled_circle
+
+from assets import *
+from config import *
 
 rows = 6
 cols = 7
