@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 connect_four.py &
+python3 game.py &
