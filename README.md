@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./images/logo/connect4.png" width="220">
+  <img src="./images/logo/connect4.png" width="420">
 </p>
 
 [![Open Issues](https://img.shields.io/github/issues/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/issues) [![Forks](https://img.shields.io/github/forks/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/network/members) [![Stars](https://img.shields.io/github/stars/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/stargazers)
@@ -116,11 +116,11 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 
 ##  :camera: Gallery
 <p align="center">
-  <img src="./images/screenshots/1.png" width="600">
+  <img src="./images/screenshots/1.png" width="800">
 </p>
 
 <p align="center">
-  <img src="./images/screenshots/2.gif" width="600">
+  <img src="./images/screenshots/2.gif" width="800">
 </p>
 
 ## :star2: Credit/Acknowledgment
