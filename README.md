@@ -81,7 +81,7 @@ $ python3 game.py
 
 - __Code Style__
 
-- `black`
+### `black`
 In order to maintain the code style consistency across entire project I use a code formatter. I kindly suggest you to do the same whenever you push commits to this project. 
 
 The python code formatter I chose is called Black. It is a great tool and it can be installed quickly by running 
@@ -106,7 +106,7 @@ black {source_file_or_directory}
 
 For more details and available options, please check their [psf/black](https://github.com/psf/black).
 
-- `isort`
+### `isort`
 I also use isort, it is a Python utility / library to sort imports alphabetically, and automatically separated into sections. It provides a command line utility which can be installed using.
 
 ```bash
