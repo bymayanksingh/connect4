@@ -58,46 +58,7 @@ def draw_yellow_coin(x, y):
 
 
 
-def winning_move(board, piece):
-    for c in range(cols - 3):
-        for r in range(rows):
-            if (
-                board[r][c] == piece
-                and board[r][c + 1] == piece
-                and board[r][c + 2] == piece
-                and board[r][c + 3] == piece
-            ):
-                return True
 
-    for c in range(cols):
-        for r in range(rows - 3):
-            if (
-                board[r][c] == piece
-                and board[r + 1][c] == piece
-                and board[r + 2][c] == piece
-                and board[r + 3][c] == piece
-            ):
-                return True
-
-    for c in range(cols - 3):
-        for r in range(rows - 3):
-            if (
-                board[r][c] == piece
-                and board[r + 1][c + 1] == piece
-                and board[r + 2][c + 2] == piece
-                and board[r + 3][c + 3] == piece
-            ):
-                return True
-
-    for c in range(cols - 3):
-        for r in range(3, rows):
-            if (
-                board[r][c] == piece
-                and board[r - 1][c + 1] == piece
-                and board[r - 2][c + 2] == piece
-                and board[r - 3][c + 3] == piece
-            ):
-                return True
 
 
 def tie_move():
@@ -190,7 +151,7 @@ while not game_data.game_over:
                     game_data.game_board.drop_piece( row, col, 1)
                 game_data.game_board.print_board()
                 draw_board(game_data.game_board.board)
-                if winning_move(game_data.game_board.board, 1):
+                if game_data.game_board.winning_move( 1):
                     label = myfont.render("PLAYER 1 WINS!", 1, red)
                     screen.blit(label, (40, 10))
                     mixer.music.load(event_sound)
@@ -207,7 +168,7 @@ while not game_data.game_over:
                     game_data.game_board.drop_piece( row, col, 2)
                 game_data.game_board.print_board()
                 draw_board(game_data.game_board.board)
-                if winning_move(game_data.game_board.board, 2):
+                if game_data.game_board.winning_move( 2):
                     label = myfont.render("PLAYER 2 WINS!", 1, yellow)
                     screen.blit(label, (40, 10))
                     mixer.music.load(event_sound)

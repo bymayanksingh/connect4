@@ -23,6 +23,46 @@ class GameBoard:
             if self.board[row][col] == 0:
                 return row
 
+    def winning_move(self, piece):
+        for c in range(self.cols - 3):
+            for r in range(self.rows):
+                if (
+                        self.board[r][c] == piece
+                        and self.board[r][c + 1] == piece
+                        and self.board[r][c + 2] == piece
+                        and self.board[r][c + 3] == piece
+                ):
+                    return True
+
+        for c in range(self.cols):
+            for r in range(self.rows - 3):
+                if (
+                        self.board[r][c] == piece
+                        and self.board[r + 1][c] == piece
+                        and self.board[r + 2][c] == piece
+                        and self.board[r + 3][c] == piece
+                ):
+                    return True
+
+        for c in range(self.cols - 3):
+            for r in range(self.rows - 3):
+                if (
+                        self.board[r][c] == piece
+                        and self.board[r + 1][c + 1] == piece
+                        and self.board[r + 2][c + 2] == piece
+                        and self.board[r + 3][c + 3] == piece
+                ):
+                    return True
+
+        for c in range(self.cols - 3):
+            for r in range(3, self.rows):
+                if (
+                        self.board[r][c] == piece
+                        and self.board[r - 1][c + 1] == piece
+                        and self.board[r - 2][c + 2] == piece
+                        and self.board[r - 3][c + 3] == piece
+                ):
+                    return True
 class GameData:
     def __init__(self):
         self.coin_position = 0
