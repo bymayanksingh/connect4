@@ -15,7 +15,6 @@ from game_data import GameData
 rows = 6
 cols = 7
 sq_size = 100
-turn = 0
 width = cols * sq_size
 height = (rows + 1) * sq_size
 size = (width, height)
@@ -190,14 +189,14 @@ while not game_data.game_over:
         if event.type == pygame.MOUSEMOTION:
             pygame.draw.rect(screen, black, (0, 0, width, sq_size))
             posx = event.pos[0]
-            if turn == 0:
+            if game_data.turn == 0:
                 draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
             else:
                 draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
         pygame.display.update()
         if event.type == pygame.MOUSEBUTTONDOWN:
             pygame.draw.rect(screen, black, (0, 0, width, sq_size))
-            if turn == 0:
+            if game_data.turn == 0:
                 posx = event.pos[0]
                 col = int(math.floor(posx / sq_size))
                 if is_valid_location(board, col):
@@ -231,16 +230,16 @@ while not game_data.game_over:
                     mixer.music.play(0)
                     game_data.game_over = True
                 pygame.display.update()
-            turn += 1
-            turn = turn % 2
+            game_data.turn += 1
+            game_data.turn = game_data.turn % 2
 
         if event.type == KEYDOWN:
             if event.key == pygame.K_z:
                 mods = pygame.key.get_mods()
                 if mods & pygame.KMOD_CTRL:
                     undo_move(board, last_move_row, last_move_col)
-                    turn += 1
-                    turn = turn % 2
+                    game_data.turn += 1
+                    game_data.turn = game_data.turn % 2
         # tie
         if tie_move():
             mixer.music.load("event.ogg")
