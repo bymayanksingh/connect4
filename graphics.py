@@ -7,6 +7,9 @@ from game_data import GameData
 
 
 class GameRenderer:
+    """
+    Draws the current game state to the screen.
+    """
     def __init__(self, screen):
         self.screen = screen
 

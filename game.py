@@ -80,7 +80,7 @@ while not game_data.game_over:
 
                 game_data.game_board.print_board()
 
-                if game_data.game_board.winning_move( 1):
+                if game_data.game_board.winning_move(1):
                     label = myfont.render("PLAYER 1 WINS!", 1, red)
                     screen.blit(label, (40, 10))
                     mixer.music.load(event_sound)
