@@ -49,8 +49,7 @@ def draw_yellow_coin(x, y):
 
 
 
-def is_valid_location(board, col):
-    return board[rows - 1][col] == 0
+
 
 
 def get_next_open_row(board, col):
@@ -187,7 +186,7 @@ while not game_data.game_over:
             if game_data.turn == 0:
                 posx = event.pos[0]
                 col = int(math.floor(posx / sq_size))
-                if is_valid_location(game_data.game_board.board, col):
+                if game_data.game_board.is_valid_location(col):
                     row = get_next_open_row(game_data.game_board.board, col)
                     game_data.last_move_row = row
                     game_data.last_move_col = col
@@ -204,7 +203,7 @@ while not game_data.game_over:
             else:
                 posx = event.pos[0]
                 col = int(math.floor(posx / sq_size))
-                if is_valid_location(game_data.game_board.board, col):
+                if game_data.game_board.is_valid_location(col):
                     row = get_next_open_row(game_data.game_board.board, col)
                     game_data.last_move_row = row
                     game_data.last_move_col = col

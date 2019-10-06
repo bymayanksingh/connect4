@@ -3,6 +3,8 @@ from numpy import flip, zeros
 
 class GameBoard:
     def __init__(self,rows =6, cols=7):
+        self.rows = rows
+        self.cols = cols
         self.board = zeros((rows, cols))
 
     def print_board(self):
@@ -12,6 +14,10 @@ class GameBoard:
 
     def drop_piece(self, row, col, piece):
         self.board[row][col] = piece
+
+    def is_valid_location(self, col):
+        return self.board[self.rows - 1][col] == 0
+
 
 class GameData:
     def __init__(self):
