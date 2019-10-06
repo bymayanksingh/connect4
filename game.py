@@ -62,10 +62,7 @@ def get_next_open_row(board, col):
             return row
 
 
-def print_board(board):
-    print(flip(board, 0))
-    print(" ---------------------")
-    print(" " + str([1, 2, 3, 4, 5, 6, 7]))
+
 
 
 def winning_move(board, piece):
@@ -130,7 +127,7 @@ def undo_move(board, row, col):
     filled_circle(screen, int(row), int(col), radius, black)
     aacircle(screen, int(row), int(col), radius, black)
     draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
-    print_board(board)
+    board.print_board()
 
 
 def draw_board(board):
@@ -171,7 +168,7 @@ def draw_board(board):
                 mixer.music.play(0)
     pygame.display.update()
 
-print_board(game_data.game_board.board)
+game_data.game_board.print_board()
 draw_board(game_data.game_board.board)
 pygame.display.update()
 pygame.time.wait(1000)
@@ -198,7 +195,7 @@ while not game_data.game_over:
                     game_data.last_move_row = row
                     game_data.last_move_col = col
                     drop_piece(game_data.game_board.board, row, col, 1)
-                print_board(game_data.game_board.board)
+                game_data.game_board.print_board()
                 draw_board(game_data.game_board.board)
                 if winning_move(game_data.game_board.board, 1):
                     label = myfont.render("PLAYER 1 WINS!", 1, red)
@@ -215,7 +212,7 @@ while not game_data.game_over:
                     game_data.last_move_row = row
                     game_data.last_move_col = col
                     drop_piece(game_data.game_board.board, row, col, 2)
-                print_board(game_data.game_board.board)
+                game_data.game_board.print_board()
                 draw_board(game_data.game_board.board)
                 if winning_move(game_data.game_board.board, 2):
                     label = myfont.render("PLAYER 2 WINS!", 1, yellow)

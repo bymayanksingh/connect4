@@ -5,6 +5,11 @@ class GameBoard:
     def __init__(self,rows =6, cols=7):
         self.board = zeros((rows, cols))
 
+    def print_board(self):
+        print(flip(self.board, 0))
+        print(" ---------------------")
+        print(" " + str([1, 2, 3, 4, 5, 6, 7]))
+
 class GameData:
     def __init__(self):
         self.coin_position = 0
