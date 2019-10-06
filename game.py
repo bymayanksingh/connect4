@@ -11,6 +11,7 @@ from pygame.locals import KEYDOWN
 from assets import *
 from config import *
 from game_data import GameData
+from graphics import GameRenderer
 
 rows = 6
 cols = 7
@@ -27,73 +28,26 @@ myfont = pygame.font.SysFont("monospace", 75)
 label = myfont.render("CONNECT FOUR!!", 1, white)
 
 game_data = GameData()
-
+renderer = GameRenderer(screen)
 
 screen.blit(label, (40, 10))
 pygame.display.update()
 
-
-def draw_black_coin(x, y):
-    screen.blit(black_coin, (x, y))
-
-
-def draw_red_coin(x, y):
-    screen.blit(red_coin, (x, y))
-
-
-def draw_yellow_coin(x, y):
-    screen.blit(yellow_coin, (x, y))
 
 
 def undo_move(board, row, col):
     game_data.game_board.drop_piece(row, col, 0)
     filled_circle(screen, int(row), int(col), radius, black)
     aacircle(screen, int(row), int(col), radius, black)
-    draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
+    renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
     board.print_board()
 
 
-def draw_board(board):
-    for c in range(cols):
-        for r in range(rows):
-            pygame.draw.rect(
-                screen, blue, (c * sq_size, (r + 1) * sq_size, sq_size, sq_size)
-            )
-            aacircle(
-                screen,
-                int(c * sq_size + sq_size / 2),
-                int((r + 1) * sq_size + sq_size / 2),
-                radius,
-                black,
-            )
-            filled_circle(
-                screen,
-                int(c * sq_size + sq_size / 2),
-                int((r + 1) * sq_size + sq_size / 2),
-                radius,
-                black,
-            )
-            # pygame.draw.circle(screen, black, (int(c*sq_size + sq_size/2), int((r+1) * sq_size + sq_size/2)), radius)
 
-    for c in range(cols):
-        for r in range(rows):
-            if board[r][c] == 1:
-                draw_red_coin(
-                    int(c * sq_size) + 5, height - int(r * sq_size + sq_size - 5)
-                )
-                mixer.music.load(disc_drop_1)
-                mixer.music.play(0)
-            elif board[r][c] == 2:
-                draw_yellow_coin(
-                    int(c * sq_size) + 5, height - int(r * sq_size + sq_size - 5)
-                )
-                mixer.music.load(disc_drop_2)
-                mixer.music.play(0)
-    pygame.display.update()
 
 
 game_data.game_board.print_board()
-draw_board(game_data.game_board.board)
+renderer.draw_board(game_data.game_board)
 pygame.display.update()
 pygame.time.wait(1000)
 
@@ -105,9 +59,9 @@ while not game_data.game_over:
             pygame.draw.rect(screen, black, (0, 0, width, sq_size))
             posx = event.pos[0]
             if game_data.turn == 0:
-                draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
+                renderer.draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
             else:
-                draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
+                renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
         pygame.display.update()
         if event.type == pygame.MOUSEBUTTONDOWN:
             pygame.draw.rect(screen, black, (0, 0, width, sq_size))
@@ -120,7 +74,7 @@ while not game_data.game_over:
                     game_data.last_move_col = col
                     game_data.game_board.drop_piece( row, col, 1)
                 game_data.game_board.print_board()
-                draw_board(game_data.game_board.board)
+                renderer.draw_board(game_data.game_board)
                 if game_data.game_board.winning_move( 1):
                     label = myfont.render("PLAYER 1 WINS!", 1, red)
                     screen.blit(label, (40, 10))
@@ -137,7 +91,7 @@ while not game_data.game_over:
                     game_data.last_move_col = col
                     game_data.game_board.drop_piece( row, col, 2)
                 game_data.game_board.print_board()
-                draw_board(game_data.game_board.board)
+                renderer.draw_board(game_data.game_board)
                 if game_data.game_board.winning_move( 2):
                     label = myfont.render("PLAYER 2 WINS!", 1, yellow)
                     screen.blit(label, (40, 10))
