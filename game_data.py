@@ -1,8 +1,13 @@
 
 from numpy import flip, zeros
+from numpy.core._multiarray_umath import ndarray
 
 
 class GameBoard:
+    board: ndarray
+    cols: int
+    rows: int
+
     def __init__(self,rows =6, cols=7):
         self.rows = rows
         self.cols = cols
@@ -66,7 +71,8 @@ class GameBoard:
                     return True
 
     def tie_move(self):
-        slots_filled = 0
+        slots_filled: int = 0
+
         for c in range(self.cols):
             for r in range(self.rows):
                 if self.board[r][c] != 0:
