@@ -45,9 +45,7 @@ def draw_yellow_coin(x, y):
     screen.blit(yellow_coin, (x, y))
 
 
-def init_board():
-    board = zeros((rows, cols))
-    return board
+
 
 
 def drop_piece(board, row, col, piece):
@@ -116,7 +114,7 @@ def tie_move():
     slots_filled = 0
     for c in range(cols):
         for r in range(rows):
-            if board[r][c] != 0:
+            if game_data.game_board.board[r][c] != 0:
                 slots_filled += 1
 
     if slots_filled == 42:
@@ -173,10 +171,8 @@ def draw_board(board):
                 mixer.music.play(0)
     pygame.display.update()
 
-
-board = init_board()
-print_board(board)
-draw_board(board)
+print_board(game_data.game_board.board)
+draw_board(game_data.game_board.board)
 pygame.display.update()
 pygame.time.wait(1000)
 
@@ -197,14 +193,14 @@ while not game_data.game_over:
             if game_data.turn == 0:
                 posx = event.pos[0]
                 col = int(math.floor(posx / sq_size))
-                if is_valid_location(board, col):
-                    row = get_next_open_row(board, col)
+                if is_valid_location(game_data.game_board.board, col):
+                    row = get_next_open_row(game_data.game_board.board, col)
                     game_data.last_move_row = row
                     game_data.last_move_col = col
-                    drop_piece(board, row, col, 1)
-                print_board(board)
-                draw_board(board)
-                if winning_move(board, 1):
+                    drop_piece(game_data.game_board.board, row, col, 1)
+                print_board(game_data.game_board.board)
+                draw_board(game_data.game_board.board)
+                if winning_move(game_data.game_board.board, 1):
                     label = myfont.render("PLAYER 1 WINS!", 1, red)
                     screen.blit(label, (40, 10))
                     mixer.music.load(event_sound)
@@ -214,14 +210,14 @@ while not game_data.game_over:
             else:
                 posx = event.pos[0]
                 col = int(math.floor(posx / sq_size))
-                if is_valid_location(board, col):
-                    row = get_next_open_row(board, col)
+                if is_valid_location(game_data.game_board.board, col):
+                    row = get_next_open_row(game_data.game_board.board, col)
                     game_data.last_move_row = row
                     game_data.last_move_col = col
-                    drop_piece(board, row, col, 2)
-                print_board(board)
-                draw_board(board)
-                if winning_move(board, 2):
+                    drop_piece(game_data.game_board.board, row, col, 2)
+                print_board(game_data.game_board.board)
+                draw_board(game_data.game_board.board)
+                if winning_move(game_data.game_board.board, 2):
                     label = myfont.render("PLAYER 2 WINS!", 1, yellow)
                     screen.blit(label, (40, 10))
                     mixer.music.load(event_sound)
@@ -235,7 +231,7 @@ while not game_data.game_over:
             if event.key == pygame.K_z:
                 mods = pygame.key.get_mods()
                 if mods & pygame.KMOD_CTRL:
-                    undo_move(board, game_data.last_move_row, game_data.last_move_col)
+                    undo_move(game_data.game_board.board, game_data.last_move_row, game_data.last_move_col)
                     game_data.turn += 1
                     game_data.turn = game_data.turn % 2
         # tie
