@@ -19,8 +19,6 @@ width = cols * sq_size
 height = (rows + 1) * sq_size
 size = (width, height)
 radius = int(sq_size / 2 - 5)
-last_move_row = 0
-last_move_col = 0
 
 pygame.init()
 screen = pygame.display.set_mode(size)
@@ -201,8 +199,8 @@ while not game_data.game_over:
                 col = int(math.floor(posx / sq_size))
                 if is_valid_location(board, col):
                     row = get_next_open_row(board, col)
-                    last_move_row = row
-                    last_move_col = col
+                    game_data.last_move_row = row
+                    game_data.last_move_col = col
                     drop_piece(board, row, col, 1)
                 print_board(board)
                 draw_board(board)
@@ -218,8 +216,8 @@ while not game_data.game_over:
                 col = int(math.floor(posx / sq_size))
                 if is_valid_location(board, col):
                     row = get_next_open_row(board, col)
-                    last_move_row = row
-                    last_move_col = col
+                    game_data.last_move_row = row
+                    game_data.last_move_col = col
                     drop_piece(board, row, col, 2)
                 print_board(board)
                 draw_board(board)
@@ -237,7 +235,7 @@ while not game_data.game_over:
             if event.key == pygame.K_z:
                 mods = pygame.key.get_mods()
                 if mods & pygame.KMOD_CTRL:
-                    undo_move(board, last_move_row, last_move_col)
+                    undo_move(board, game_data.last_move_row, game_data.last_move_col)
                     game_data.turn += 1
                     game_data.turn = game_data.turn % 2
         # tie
