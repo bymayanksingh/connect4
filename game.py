@@ -54,10 +54,12 @@ while not game_data.game_over:
         if event.type == pygame.MOUSEMOTION:
             pygame.draw.rect(screen, black, (0, 0, width, sq_size))
             posx = event.pos[0]
+
             if game_data.turn == 0:
                 renderer.draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
             else:
                 renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
+
         pygame.display.update()
         if event.type == pygame.MOUSEBUTTONDOWN:
             pygame.draw.rect(screen, black, (0, 0, width, sq_size))

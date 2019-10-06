@@ -11,13 +11,16 @@ class GameRenderer:
         self.screen = screen
 
     def draw_black_coin(self, x, y):
-        self.screen.blit(black_coin, (x, y))
+        self.draw_coin(black_coin, x, y)
 
     def draw_red_coin(self, x, y):
-        self.screen.blit(red_coin, (x, y))
+        self.draw_coin(red_coin, x, y)
 
     def draw_yellow_coin(self, x, y):
-        self.screen.blit(yellow_coin, (x, y))
+        self.draw_coin(yellow_coin, x, y)
+
+    def draw_coin(self, coin, x, y):
+        self.screen.blit(coin, (x, y))
 
     def draw(self, game_data: GameData):
         self.draw_board(game_data.game_board)
