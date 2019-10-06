@@ -19,7 +19,6 @@ class GameBoard:
     def is_valid_location(self, col):
         return self.board[self.rows - 1][col] == 0
 
-
     def get_next_open_row(self, col):
         for row in range(self.rows):
             if self.board[row][col] == 0:
@@ -65,6 +64,7 @@ class GameBoard:
                         and self.board[r - 3][c + 3] == piece
                 ):
                     return True
+
     def tie_move(self):
         slots_filled = 0
         for c in range(self.cols):
@@ -74,9 +74,15 @@ class GameBoard:
 
         return slots_filled == 42
 
+
 class GameData:
+    game_over: bool
+    turn: int
+    last_move_row: int
+    last_move_col: int
+    game_board: GameBoard
+
     def __init__(self):
-        self.coin_position = 0
         self.game_over = False
         self.turn = 0
         self.last_move_row = 0
