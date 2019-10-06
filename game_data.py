@@ -18,6 +18,10 @@ class GameBoard:
     def is_valid_location(self, col):
         return self.board[self.rows - 1][col] == 0
 
+    def get_next_open_row(self, col):
+        for row in range(self.rows):
+            if self.board[row][col] == 0:
+                return row
 
 class GameData:
     def __init__(self):
