@@ -48,9 +48,6 @@ def draw_yellow_coin(x, y):
 
 
 
-def drop_piece(board, row, col, piece):
-    board[row][col] = piece
-
 
 def is_valid_location(board, col):
     return board[rows - 1][col] == 0
@@ -194,7 +191,7 @@ while not game_data.game_over:
                     row = get_next_open_row(game_data.game_board.board, col)
                     game_data.last_move_row = row
                     game_data.last_move_col = col
-                    drop_piece(game_data.game_board.board, row, col, 1)
+                    game_data.game_board.drop_piece( row, col, 1)
                 game_data.game_board.print_board()
                 draw_board(game_data.game_board.board)
                 if winning_move(game_data.game_board.board, 1):
@@ -211,7 +208,7 @@ while not game_data.game_over:
                     row = get_next_open_row(game_data.game_board.board, col)
                     game_data.last_move_row = row
                     game_data.last_move_col = col
-                    drop_piece(game_data.game_board.board, row, col, 2)
+                    game_data.game_board.drop_piece( row, col, 2)
                 game_data.game_board.print_board()
                 draw_board(game_data.game_board.board)
                 if winning_move(game_data.game_board.board, 2):

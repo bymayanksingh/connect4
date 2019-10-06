@@ -10,6 +10,9 @@ class GameBoard:
         print(" ---------------------")
         print(" " + str([1, 2, 3, 4, 5, 6, 7]))
 
+    def drop_piece(self, row, col, piece):
+        self.board[row][col] = piece
+
 class GameData:
     def __init__(self):
         self.coin_position = 0
