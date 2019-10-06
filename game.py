@@ -34,16 +34,12 @@ screen.blit(label, (40, 10))
 pygame.display.update()
 
 
-
 def undo_move(board, row, col):
     game_data.game_board.drop_piece(row, col, 0)
     filled_circle(screen, int(row), int(col), radius, black)
     aacircle(screen, int(row), int(col), radius, black)
     renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
     board.print_board()
-
-
-
 
 
 game_data.game_board.print_board()
@@ -74,7 +70,7 @@ while not game_data.game_over:
                     game_data.last_move_col = col
                     game_data.game_board.drop_piece( row, col, 1)
                 game_data.game_board.print_board()
-                renderer.draw_board(game_data.game_board)
+
                 if game_data.game_board.winning_move( 1):
                     label = myfont.render("PLAYER 1 WINS!", 1, red)
                     screen.blit(label, (40, 10))
@@ -91,7 +87,7 @@ while not game_data.game_over:
                     game_data.last_move_col = col
                     game_data.game_board.drop_piece( row, col, 2)
                 game_data.game_board.print_board()
-                renderer.draw_board(game_data.game_board)
+
                 if game_data.game_board.winning_move( 2):
                     label = myfont.render("PLAYER 2 WINS!", 1, yellow)
                     screen.blit(label, (40, 10))
@@ -123,5 +119,6 @@ while not game_data.game_over:
         if game_data.game_over:
             # print(os.getpid())
             pygame.time.wait(3000)
-            os.system("kill " + str(os.getpid()))
-            os.system("./restart.sh")
+            #os.system("kill " + str(os.getpid()))
+            #os.system("./restart.sh")
+        renderer.draw_board(game_data.game_board)
