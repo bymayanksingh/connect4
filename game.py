@@ -3,7 +3,7 @@ import os
 import sys
 
 import pygame
-from numpy import flip, zeros
+
 from pygame import mixer
 from pygame.gfxdraw import aacircle, filled_circle
 from pygame.locals import KEYDOWN
@@ -43,25 +43,6 @@ def draw_red_coin(x, y):
 
 def draw_yellow_coin(x, y):
     screen.blit(yellow_coin, (x, y))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def undo_move(board, row, col):
@@ -109,6 +90,7 @@ def draw_board(board):
                 mixer.music.load(disc_drop_2)
                 mixer.music.play(0)
     pygame.display.update()
+
 
 game_data.game_board.print_board()
 draw_board(game_data.game_board.board)
@@ -178,7 +160,6 @@ while not game_data.game_over:
             mixer.music.load(os.path.join("sounds", "event.ogg"))
             mixer.music.play(0)
             game_data.game_over = True
-
 
             myfont = pygame.font.SysFont("monospace", 75)
             label = myfont.render("GAME DRAW !!!!", 1, white)
