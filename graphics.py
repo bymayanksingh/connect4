@@ -3,6 +3,7 @@ from pygame.gfxdraw import aacircle, filled_circle
 
 from assets import yellow_coin, red_coin, black_coin
 from config import blue, black
+from game_data import GameData
 
 
 class GameRenderer:
@@ -12,13 +13,14 @@ class GameRenderer:
     def draw_black_coin(self, x, y):
         self.screen.blit(black_coin, (x, y))
 
-
     def draw_red_coin(self, x, y):
         self.screen.blit(red_coin, (x, y))
 
-
     def draw_yellow_coin(self, x, y):
         self.screen.blit(yellow_coin, (x, y))
+
+    def draw(self, game_data: GameData):
+        self.draw_board(game_data.game_board)
 
     def draw_board(self, board):
         sq_size = 100
@@ -46,8 +48,6 @@ class GameRenderer:
                 )
                 # pygame.draw.circle(screen, black, (int(c*sq_size + sq_size/2), int((r+1) * sq_size + sq_size/2)), radius)
 
-
-
         for c in range(board.cols):
             for r in range(board.rows):
                 if board.board[r][c] == 1:
@@ -62,4 +62,5 @@ class GameRenderer:
                     )
                     #mixer.music.load(disc_drop_2)
                     #mixer.music.play(0)
+
         pygame.display.update()

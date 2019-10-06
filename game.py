@@ -121,4 +121,5 @@ while not game_data.game_over:
             pygame.time.wait(3000)
             #os.system("kill " + str(os.getpid()))
             #os.system("./restart.sh")
-        renderer.draw_board(game_data.game_board)
+
+        renderer.draw(game_data)
