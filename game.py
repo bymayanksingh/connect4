@@ -10,11 +10,11 @@ from pygame.locals import KEYDOWN
 
 from assets import *
 from config import *
+from game_data import GameData
 
 rows = 6
 cols = 7
 sq_size = 100
-game_over = False
 turn = 0
 width = cols * sq_size
 height = (rows + 1) * sq_size
@@ -28,6 +28,10 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Connect Four | Mayank Singh")
 myfont = pygame.font.SysFont("monospace", 75)
 label = myfont.render("CONNECT FOUR!!", 1, white)
+
+game_data = GameData()
+
+
 screen.blit(label, (40, 10))
 pygame.display.update()
 
@@ -179,7 +183,7 @@ draw_board(board)
 pygame.display.update()
 pygame.time.wait(1000)
 
-while not game_over:
+while not game_data.game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -208,7 +212,7 @@ while not game_over:
                     screen.blit(label, (40, 10))
                     mixer.music.load(event_sound)
                     mixer.music.play(0)
-                    game_over = True
+                    game_data.game_over = True
                 pygame.display.update()
             else:
                 posx = event.pos[0]
@@ -225,7 +229,7 @@ while not game_over:
                     screen.blit(label, (40, 10))
                     mixer.music.load(event_sound)
                     mixer.music.play(0)
-                    game_over = True
+                    game_data.game_over = True
                 pygame.display.update()
             turn += 1
             turn = turn % 2
@@ -241,9 +245,9 @@ while not game_over:
         if tie_move():
             mixer.music.load("event.ogg")
             mixer.music.play(0)
-            game_over = True
+            game_data.game_over = True
 
-        if game_over:
+        if game_data.game_over:
             # print(os.getpid())
             pygame.time.wait(3000)
             os.system("kill " + str(os.getpid()))
