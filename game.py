@@ -61,19 +61,7 @@ def draw_yellow_coin(x, y):
 
 
 
-def tie_move():
-    slots_filled = 0
-    for c in range(cols):
-        for r in range(rows):
-            if game_data.game_board.board[r][c] != 0:
-                slots_filled += 1
 
-    if slots_filled == 42:
-        myfont = pygame.font.SysFont("monospace", 75)
-        label = myfont.render("GAME DRAW !!!!", 1, white)
-        screen.blit(label, (40, 10))
-        pygame.display.update()
-        return True
 
 
 def undo_move(board, row, col):
@@ -186,10 +174,16 @@ while not game_data.game_over:
                     game_data.turn += 1
                     game_data.turn = game_data.turn % 2
         # tie
-        if tie_move():
-            mixer.music.load("event.ogg")
+        if game_data.game_board.tie_move():
+            mixer.music.load(os.path.join("sounds", "event.ogg"))
             mixer.music.play(0)
             game_data.game_over = True
+
+
+            myfont = pygame.font.SysFont("monospace", 75)
+            label = myfont.render("GAME DRAW !!!!", 1, white)
+            screen.blit(label, (40, 10))
+            pygame.display.update()
 
         if game_data.game_over:
             # print(os.getpid())

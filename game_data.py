@@ -63,6 +63,15 @@ class GameBoard:
                         and self.board[r - 3][c + 3] == piece
                 ):
                     return True
+    def tie_move(self):
+        slots_filled = 0
+        for c in range(self.cols):
+            for r in range(self.rows):
+                if self.board[r][c] != 0:
+                    slots_filled += 1
+
+        return slots_filled == 42
+
 class GameData:
     def __init__(self):
         self.coin_position = 0
