@@ -116,7 +116,7 @@ def tie_move():
 
 
 def undo_move(board, row, col):
-    drop_piece(board, row, col, 0)
+    game_data.game_board.drop_piece(row, col, 0)
     filled_circle(screen, int(row), int(col), radius, black)
     aacircle(screen, int(row), int(col), radius, black)
     draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
