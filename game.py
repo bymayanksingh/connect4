@@ -11,7 +11,8 @@ from pygame.locals import KEYDOWN
 
 from assets import *
 from config import *
-from game_data import GameData, GameBoard
+from config import black
+from game_data import GameData
 from graphics import GameRenderer
 
 sq_size: int = 100
@@ -44,13 +45,15 @@ class ConnectGame:
         sys.exit()
 
     def mouse_move(self, posx: int):
-        pygame.draw.rect(screen, black, (0, 0, width, sq_size))
+        # Queue message that mouse has been moved
 
+        ### Renderer should see action is mouse move, and draw this ##########################
+        pygame.draw.rect(screen, black, (0, 0, width, sq_size))
         if self.game_data.turn == 0:
             self.renderer.draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
         else:
             self.renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
-
+        #######################################################################################
     def mouse_click(self, posx: int):
         pygame.draw.rect(screen, black, (0, 0, width, sq_size))
         if self.game_data.turn == 0:
@@ -67,8 +70,11 @@ class ConnectGame:
             self.print_board()
 
             if self.game_data.game_board.winning_move(1):
+                ### Move to renderer #########################
                 label = myfont.render("PLAYER 1 WINS!", 1, red)
                 screen.blit(label, (40, 10))
+                ###############################################
+
                 mixer.music.load(event_sound)
                 mixer.music.play(0)
                 self.game_data.game_over = True
@@ -86,8 +92,11 @@ class ConnectGame:
             self.print_board()
 
             if self.game_data.game_board.winning_move( 2):
+                ##### Move to renderer ###
                 label = myfont.render("PLAYER 2 WINS!", 1, yellow)
                 screen.blit(label, (40, 10))
+                ##########################
+
                 mixer.music.load(event_sound)
                 mixer.music.play(0)
                 self.game_data.game_over = True
@@ -95,15 +104,16 @@ class ConnectGame:
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
 
-    def undo_move(self, row: int, col: int):
-        self.game_data.game_board.drop_piece(row, col, 0)
-        filled_circle(screen, int(row), int(col), radius, black)
-        aacircle(screen, int(row), int(col), radius, black)
-        self.renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
-        self.print_board()
-
     def undo(self):
-        self.undo_move(self.game_data.last_move_row, self.game_data.last_move_col)
+        self.game_data.game_board.drop_piece(self.game_data.last_move_row, self.game_data.last_move_col, 0)
+
+        ################## Move to Renderer #######################
+        filled_circle(screen, int(self.game_data.last_move_row), int(self.game_data.last_move_col), radius, black)
+        aacircle(screen, int(self.game_data.last_move_row), int(self.game_data.last_move_col), radius, black)
+        self.renderer.draw_black_coin(int(self.game_data.last_move_col * sq_size) + 5,
+                                      height - int(self.game_data.last_move_row * sq_size + sq_size - 5))
+        self.print_board()
+        ############################################################
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
 
