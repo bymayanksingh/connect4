@@ -108,13 +108,34 @@ class ConnectGame:
         self.game_data.turn = self.game_data.turn % 2
 
     def undo(self):
-        self.game_data.game_board.drop_piece(self.game_data.last_move_row, self.game_data.last_move_col, 0)
+        self.game_data.game_board.drop_piece(
+            self.game_data.last_move_row,
+            self.game_data.last_move_col,
+            0
+        )
 
         ################## Move to Renderer #######################
-        filled_circle(screen, int(self.game_data.last_move_row), int(self.game_data.last_move_col), radius, black)
-        aacircle(screen, int(self.game_data.last_move_row), int(self.game_data.last_move_col), radius, black)
-        self.renderer.draw_black_coin(int(self.game_data.last_move_col * sq_size) + 5,
-                                      height - int(self.game_data.last_move_row * sq_size + sq_size - 5))
+        filled_circle(
+            screen,
+            self.game_data.last_move_row,
+            self.game_data.last_move_col,
+            radius,
+            black
+        )
+
+        aacircle(
+            screen,
+            self.game_data.last_move_row,
+            self.game_data.last_move_col,
+            radius,
+            black
+        )
+
+        self.renderer.draw_black_coin(
+            self.game_data.last_move_col * sq_size + 5,
+            height - (self.game_data.last_move_row * sq_size + sq_size - 5)
+        )
+
         self.print_board()
         ############################################################
         self.game_data.turn += 1
