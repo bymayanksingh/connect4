@@ -1,7 +1,8 @@
 import pygame
+from pygame import mixer
 from pygame.gfxdraw import aacircle, filled_circle
 
-from assets import yellow_coin, red_coin, black_coin
+from assets import yellow_coin, red_coin, black_coin, disc_drop_1, disc_drop_2
 from config import blue, black, white
 from game_data import GameData
 
@@ -66,13 +67,13 @@ class GameRenderer:
                     self.draw_red_coin(
                         int(c * sq_size) + 5, height - int(r * sq_size + sq_size - 5)
                     )
-                    #mixer.music.load(disc_drop_1)
-                    #mixer.music.play(0)
+                    # mixer.music.load(disc_drop_1)
+                    # mixer.music.play(0)
                 elif board.board[r][c] == 2:
                     self.draw_yellow_coin(
                         int(c * sq_size) + 5, height - int(r * sq_size + sq_size - 5)
                     )
-                    #mixer.music.load(disc_drop_2)
-                    #mixer.music.play(0)
+                    # mixer.music.load(disc_drop_2)
+                    # mixer.music.play(0)
 
         pygame.display.update()

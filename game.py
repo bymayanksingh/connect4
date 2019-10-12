@@ -1,5 +1,3 @@
-import os
-
 from typing import Tuple
 
 import pygame
@@ -44,7 +42,6 @@ while not game.game_data.game_over:
                 mods: int = pygame.key.get_mods()
                 if mods & pygame.KMOD_CTRL:
                     game.undo()
-        # tie
 
         game.update()
         game.draw()
