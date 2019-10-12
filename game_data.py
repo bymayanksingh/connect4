@@ -4,6 +4,10 @@ from numpy.core._multiarray_umath import ndarray
 
 
 class GameBoard:
+    """
+    The GameBoard class holds the state of the game board,
+    and methods to manipulate and query the board.
+    """
     board: ndarray
     cols: int
     rows: int
@@ -82,6 +86,9 @@ class GameBoard:
 
 
 class GameData:
+    """
+    The game data class contains all of the data for the game.
+    """
     game_over: bool
     turn: int
     last_move_row: int
