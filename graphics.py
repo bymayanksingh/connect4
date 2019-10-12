@@ -2,7 +2,7 @@ import pygame
 from pygame.gfxdraw import aacircle, filled_circle
 
 from assets import yellow_coin, red_coin, black_coin
-from config import blue, black
+from config import blue, black, white
 from game_data import GameData
 
 
@@ -11,7 +11,13 @@ class GameRenderer:
     Draws the current game state to the screen.
     """
     def __init__(self, screen):
+        self.myfont = pygame.font.SysFont("monospace", 75)
+        self.label = self.myfont.render("CONNECT FOUR!!", 1, white)
+        screen.blit(self.label, (40, 10))
         self.screen = screen
+
+        pygame.display.set_caption("Connect Four | Mayank Singh")
+        pygame.display.update()
 
     def draw_black_coin(self, x, y):
         self.draw_coin(black_coin, x, y)

@@ -25,15 +25,6 @@ radius: int = int(sq_size / 2 - 5)
 pygame.init()
 screen = pygame.display.set_mode(size)
 
-### Myfont and label need to be moved to the renderer class. ###
-pygame.display.set_caption("Connect Four | Mayank Singh")
-myfont = pygame.font.SysFont("monospace", 75)
-label = myfont.render("CONNECT FOUR!!", 1, white)
-
-screen.blit(label, (40, 10))
-################################################################
-pygame.display.update()
-
 class ConnectGame:
     game_data: GameData
     renderer: GameRenderer
@@ -74,8 +65,8 @@ class ConnectGame:
 
             if self.game_data.game_board.winning_move(1):
                 ### Move to renderer #########################
-                label = myfont.render("PLAYER 1 WINS!", 1, red)
-                self.renderer.screen.blit(label, (40, 10))
+                self.renderer.label = self.renderer.myfont.render("PLAYER 1 WINS!", 1, red)
+                self.renderer.screen.blit(self.renderer.label, (40, 10))
                 ###############################################
 
                 mixer.music.load(event_sound)
@@ -96,8 +87,8 @@ class ConnectGame:
 
             if self.game_data.game_board.winning_move( 2):
                 ##### Move to renderer ###
-                label = myfont.render("PLAYER 2 WINS!", 1, yellow)
-                screen.blit(label, (40, 10))
+                self.renderer.label = self.renderer.myfont.render("PLAYER 2 WINS!", 1, yellow)
+                screen.blit(self.renderer.label, (40, 10))
                 ##########################
 
                 mixer.music.load(event_sound)
@@ -182,9 +173,9 @@ while not game.game_data.game_over:
             mixer.music.play(0)
             game.game_data.game_over = True
 
-            myfont = pygame.font.SysFont("monospace", 75)
-            label = myfont.render("GAME DRAW !!!!", 1, white)
-            screen.blit(label, (40, 10))
+            game.renderer.myfont = pygame.font.SysFont("monospace", 75)
+            game.renderer.label = game.renderer.myfont.render("GAME DRAW !!!!", 1, white)
+            screen.blit(game.renderer.label, (40, 10))
             pygame.display.update()
 
         if game.game_data.game_over:
