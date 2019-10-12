@@ -30,16 +30,13 @@ pygame.display.set_caption("Connect Four | Mayank Singh")
 myfont = pygame.font.SysFont("monospace", 75)
 label = myfont.render("CONNECT FOUR!!", 1, white)
 
-game_data: GameData = GameData()
-renderer: GameRenderer = GameRenderer(screen)
-
 screen.blit(label, (40, 10))
 pygame.display.update()
 
-
 class ConnectGame:
-    def __init__(self, game_data):
+    def __init__(self, game_data, renderer):
         self.game_data = game_data
+        self.renderer = renderer
 
     def quit(self):
         sys.exit()
@@ -48,9 +45,9 @@ class ConnectGame:
         pygame.draw.rect(screen, black, (0, 0, width, sq_size))
 
         if self.game_data.turn == 0:
-            renderer.draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
+            self.renderer.draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
         else:
-            renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
+            self.renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
 
     def mouse_click(self, posx):
         pygame.draw.rect(screen, black, (0, 0, width, sq_size))
@@ -101,17 +98,22 @@ class ConnectGame:
         game_data.turn += 1
         game_data.turn = game_data.turn % 2
 
+game_data: GameData = GameData()
+renderer: GameRenderer = GameRenderer(screen)
+
+game = ConnectGame(game_data, renderer)
+
 def undo_move(board: GameBoard, row: int, col: int):
     game_data.game_board.drop_piece(row, col, 0)
     filled_circle(screen, int(row), int(col), radius, black)
     aacircle(screen, int(row), int(col), radius, black)
-    renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
+    game.renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
     board.print_board()
 
-game = ConnectGame(game_data)
+
 
 game_data.game_board.print_board()
-renderer.draw_board(game_data.game_board)
+game.renderer.draw_board(game_data.game_board)
 pygame.display.update()
 pygame.time.wait(1000)
 
@@ -126,7 +128,6 @@ while not game_data.game_over:
         pygame.display.update()
         if event.type == pygame.MOUSEBUTTONDOWN:
             game.mouse_click(event.pos[0])
-
 
         if event.type == KEYDOWN:
             if event.key == pygame.K_z:
@@ -150,4 +151,4 @@ while not game_data.game_over:
             #os.system("kill " + str(os.getpid()))
             #os.system("./restart.sh")
 
-        renderer.draw(game_data)
+        game.renderer.draw(game.game_data)
