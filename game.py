@@ -37,6 +37,68 @@ screen.blit(label, (40, 10))
 pygame.display.update()
 
 
+class ConnectGame:
+    def __init__(self, game_data):
+        self.game_data = game_data
+
+    def quit(self):
+        sys.exit()
+
+    def mouse_move(self, posx):
+        pygame.draw.rect(screen, black, (0, 0, width, sq_size))
+
+        if self.game_data.turn == 0:
+            renderer.draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
+        else:
+            renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
+
+    def mouse_click(self, posx):
+        pygame.draw.rect(screen, black, (0, 0, width, sq_size))
+        if self.game_data.turn == 0:
+
+            col: int = int(math.floor(posx / sq_size))
+
+            if self.game_data.game_board.is_valid_location(col):
+                row: int = self.game_data.game_board.get_next_open_row( col)
+
+                self.game_data.last_move_row = row
+                self.game_data.last_move_col = col
+                self.game_data.game_board.drop_piece(row, col, 1)
+
+            self.game_data.game_board.print_board()
+
+            if self.game_data.game_board.winning_move(1):
+                label = myfont.render("PLAYER 1 WINS!", 1, red)
+                screen.blit(label, (40, 10))
+                mixer.music.load(event_sound)
+                mixer.music.play(0)
+                self.game_data.game_over = True
+            pygame.display.update()
+        else:
+            col: int = int(math.floor(posx / sq_size))
+
+            if self.game_data.game_board.is_valid_location(col):
+                row: int = self.game_data.game_board.get_next_open_row( col)
+
+                self.game_data.last_move_row = row
+                self.game_data.last_move_col = col
+                self.game_data.game_board.drop_piece( row, col, 2)
+
+            self.game_data.game_board.print_board()
+
+            if self.game_data.game_board.winning_move( 2):
+                label = myfont.render("PLAYER 2 WINS!", 1, yellow)
+                screen.blit(label, (40, 10))
+                mixer.music.load(event_sound)
+                mixer.music.play(0)
+                self.game_data.game_over = True
+            pygame.display.update()
+        self.game_data.turn += 1
+        self.game_data.turn = self.game_data.turn % 2
+
+    def undo(self):
+        pass
+
 def undo_move(board: GameBoard, row: int, col: int):
     game_data.game_board.drop_piece(row, col, 0)
     filled_circle(screen, int(row), int(col), radius, black)
@@ -44,6 +106,7 @@ def undo_move(board: GameBoard, row: int, col: int):
     renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
     board.print_board()
 
+game = ConnectGame(game_data)
 
 game_data.game_board.print_board()
 renderer.draw_board(game_data.game_board)
@@ -53,62 +116,15 @@ pygame.time.wait(1000)
 while not game_data.game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            sys.exit()
-        if event.type == pygame.MOUSEMOTION:
-            pygame.draw.rect(screen, black, (0, 0, width, sq_size))
-            posx: int = event.pos[0]
+            game.quit()
 
-            if game_data.turn == 0:
-                renderer.draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
-            else:
-                renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
+        if event.type == pygame.MOUSEMOTION:
+            game.mouse_move(event.pos[0])
 
         pygame.display.update()
         if event.type == pygame.MOUSEBUTTONDOWN:
-            pygame.draw.rect(screen, black, (0, 0, width, sq_size))
-            if game_data.turn == 0:
-                posx: int = event.pos[0]
+            game.mouse_click(event.pos[0])
 
-                col: int = int(math.floor(posx / sq_size))
-
-                if game_data.game_board.is_valid_location(col):
-                    row: int = game_data.game_board.get_next_open_row( col)
-
-                    game_data.last_move_row = row
-                    game_data.last_move_col = col
-                    game_data.game_board.drop_piece(row, col, 1)
-
-                game_data.game_board.print_board()
-
-                if game_data.game_board.winning_move(1):
-                    label = myfont.render("PLAYER 1 WINS!", 1, red)
-                    screen.blit(label, (40, 10))
-                    mixer.music.load(event_sound)
-                    mixer.music.play(0)
-                    game_data.game_over = True
-                pygame.display.update()
-            else:
-                posx: int = event.pos[0]
-                col: int = int(math.floor(posx / sq_size))
-
-                if game_data.game_board.is_valid_location(col):
-                    row: int = game_data.game_board.get_next_open_row( col)
-
-                    game_data.last_move_row = row
-                    game_data.last_move_col = col
-                    game_data.game_board.drop_piece( row, col, 2)
-
-                game_data.game_board.print_board()
-
-                if game_data.game_board.winning_move( 2):
-                    label = myfont.render("PLAYER 2 WINS!", 1, yellow)
-                    screen.blit(label, (40, 10))
-                    mixer.music.load(event_sound)
-                    mixer.music.play(0)
-                    game_data.game_over = True
-                pygame.display.update()
-            game_data.turn += 1
-            game_data.turn = game_data.turn % 2
 
         if event.type == KEYDOWN:
             if event.key == pygame.K_z:
