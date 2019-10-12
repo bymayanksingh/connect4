@@ -93,24 +93,25 @@ class ConnectGame:
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
 
+    def undo_move(self, row: int, col: int):
+        game_data.game_board.drop_piece(row, col, 0)
+        filled_circle(screen, int(row), int(col), radius, black)
+        aacircle(screen, int(row), int(col), radius, black)
+        game.renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
+        game_data.game_board.print_board()
+
     def undo(self):
-        undo_move(game_data.game_board, game_data.last_move_row, game_data.last_move_col)
+        self.undo_move(game_data.game_board, game_data.last_move_row, game_data.last_move_col)
         game_data.turn += 1
         game_data.turn = game_data.turn % 2
+    def update(self):
+        pass
+    def draw(self):
+        self.renderer.draw(game.game_data)
 
 game_data: GameData = GameData()
 renderer: GameRenderer = GameRenderer(screen)
-
 game = ConnectGame(game_data, renderer)
-
-def undo_move(board: GameBoard, row: int, col: int):
-    game_data.game_board.drop_piece(row, col, 0)
-    filled_circle(screen, int(row), int(col), radius, black)
-    aacircle(screen, int(row), int(col), radius, black)
-    game.renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
-    board.print_board()
-
-
 
 game_data.game_board.print_board()
 game.renderer.draw_board(game_data.game_board)
@@ -151,4 +152,4 @@ while not game_data.game_over:
             #os.system("kill " + str(os.getpid()))
             #os.system("./restart.sh")
 
-        game.renderer.draw(game.game_data)
+        game.draw()
