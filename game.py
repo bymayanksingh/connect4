@@ -49,7 +49,7 @@ class ConnectGame:
         # Queue message that mouse has been moved
 
         ### Renderer should see action is mouse move, and draw this ##########################
-        pygame.draw.rect(screen, black, (0, 0, width, sq_size))
+        pygame.draw.rect(self.renderer.screen, black, (0, 0, width, sq_size))
         if self.game_data.turn == 0:
             self.renderer.draw_red_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
         else:
@@ -57,7 +57,7 @@ class ConnectGame:
         #######################################################################################
     def mouse_click(self, posx: int):
         ### Renderer should see action is mouse click, and draw this ##########################
-        pygame.draw.rect(screen, black, (0, 0, width, sq_size))
+        pygame.draw.rect(self.renderer.screen, black, (0, 0, width, sq_size))
         #######################################################################################
         if self.game_data.turn == 0:
 
@@ -75,7 +75,7 @@ class ConnectGame:
             if self.game_data.game_board.winning_move(1):
                 ### Move to renderer #########################
                 label = myfont.render("PLAYER 1 WINS!", 1, red)
-                screen.blit(label, (40, 10))
+                self.renderer.screen.blit(label, (40, 10))
                 ###############################################
 
                 mixer.music.load(event_sound)
