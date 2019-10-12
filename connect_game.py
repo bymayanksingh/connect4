@@ -1,11 +1,12 @@
 import math
+import os
 import sys
 from typing import Tuple
 
 from pygame.gfxdraw import filled_circle, aacircle
 
 from assets import *
-from config import black, red, yellow
+from config import black, red, yellow, white
 from game_data import GameData
 from graphics import GameRenderer
 from pygame import mixer
@@ -127,7 +128,21 @@ class ConnectGame:
         self.game_data.turn = self.game_data.turn % 2
 
     def update(self):
-        pass
+        if self.game_data.game_board.tie_move():
+            mixer.music.load(os.path.join("sounds", "event.ogg"))
+            mixer.music.play(0)
+            self.game_data.game_over = True
+
+            self.renderer.myfont = pygame.font.SysFont("monospace", 75)
+            self.renderer.label = self.renderer.myfont.render("GAME DRAW !!!!", 1, white)
+            self.screen.blit(self.renderer.label, (40, 10))
+            pygame.display.update()
+
+        if self.game_data.game_over:
+            # print(os.getpid())
+            pygame.time.wait(3000)
+            #os.system("kill " + str(os.getpid()))
+            #os.system("./restart.sh")
 
     def draw(self):
         self.renderer.draw(self.game_data)

@@ -1,16 +1,10 @@
-import math
 import os
-import sys
+
 from typing import Tuple
 
 import pygame
 
-from pygame import mixer
-from pygame.gfxdraw import aacircle, filled_circle
 from pygame.locals import KEYDOWN
-
-
-from config import *
 from connect_game import ConnectGame
 from game_data import GameData
 from graphics import GameRenderer
@@ -51,20 +45,6 @@ while not game.game_data.game_over:
                 if mods & pygame.KMOD_CTRL:
                     game.undo()
         # tie
-        if game.game_data.game_board.tie_move():
-            mixer.music.load(os.path.join("sounds", "event.ogg"))
-            mixer.music.play(0)
-            game.game_data.game_over = True
 
-            game.renderer.myfont = pygame.font.SysFont("monospace", 75)
-            game.renderer.label = game.renderer.myfont.render("GAME DRAW !!!!", 1, white)
-            screen.blit(game.renderer.label, (40, 10))
-            pygame.display.update()
-
-        if game.game_data.game_over:
-            # print(os.getpid())
-            pygame.time.wait(3000)
-            #os.system("kill " + str(os.getpid()))
-            #os.system("./restart.sh")
-
+        game.update()
         game.draw()
