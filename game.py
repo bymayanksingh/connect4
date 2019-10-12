@@ -97,7 +97,9 @@ class ConnectGame:
         self.game_data.turn = self.game_data.turn % 2
 
     def undo(self):
-        pass
+        undo_move(game_data.game_board, game_data.last_move_row, game_data.last_move_col)
+        game_data.turn += 1
+        game_data.turn = game_data.turn % 2
 
 def undo_move(board: GameBoard, row: int, col: int):
     game_data.game_board.drop_piece(row, col, 0)
@@ -130,9 +132,7 @@ while not game_data.game_over:
             if event.key == pygame.K_z:
                 mods: int = pygame.key.get_mods()
                 if mods & pygame.KMOD_CTRL:
-                    undo_move(game_data.game_board, game_data.last_move_row, game_data.last_move_col)
-                    game_data.turn += 1
-                    game_data.turn = game_data.turn % 2
+                    game.undo()
         # tie
         if game_data.game_board.tie_move():
             mixer.music.load(os.path.join("sounds", "event.ogg"))
