@@ -62,7 +62,7 @@ class ConnectGame:
                 self.game_data.last_move_col = col
                 self.game_data.game_board.drop_piece(row, col, 1)
 
-            self.game_data.game_board.print_board()
+            self.print_board()
 
             if self.game_data.game_board.winning_move(1):
                 label = myfont.render("PLAYER 1 WINS!", 1, red)
@@ -81,7 +81,7 @@ class ConnectGame:
                 self.game_data.last_move_col = col
                 self.game_data.game_board.drop_piece( row, col, 2)
 
-            self.game_data.game_board.print_board()
+            self.print_board()
 
             if self.game_data.game_board.winning_move( 2):
                 label = myfont.render("PLAYER 2 WINS!", 1, yellow)
@@ -98,7 +98,7 @@ class ConnectGame:
         filled_circle(screen, int(row), int(col), radius, black)
         aacircle(screen, int(row), int(col), radius, black)
         self.renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
-        self.game_data.game_board.print_board()
+        self.print_board()
 
     def undo(self):
         self.undo_move(self.game_data.last_move_row, self.game_data.last_move_col)
@@ -108,11 +108,11 @@ class ConnectGame:
         pass
     def draw(self):
         self.renderer.draw(game.game_data)
-
+    def print_board(self):
+        self.game_data.game_board.print_board()
 
 game = ConnectGame(GameData(), GameRenderer(screen))
-
-game.game_data.game_board.print_board()
+game.print_board()
 game.draw()
 pygame.display.update()
 pygame.time.wait(1000)
