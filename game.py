@@ -94,31 +94,30 @@ class ConnectGame:
         self.game_data.turn = self.game_data.turn % 2
 
     def undo_move(self, row: int, col: int):
-        game_data.game_board.drop_piece(row, col, 0)
+        self.game_data.game_board.drop_piece(row, col, 0)
         filled_circle(screen, int(row), int(col), radius, black)
         aacircle(screen, int(row), int(col), radius, black)
-        game.renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
-        game_data.game_board.print_board()
+        self.renderer.draw_black_coin(int(col * sq_size) + 5, height - int(row * sq_size + sq_size - 5))
+        self.game_data.game_board.print_board()
 
     def undo(self):
-        self.undo_move(game_data.game_board, game_data.last_move_row, game_data.last_move_col)
-        game_data.turn += 1
-        game_data.turn = game_data.turn % 2
+        self.undo_move(self.game_data.last_move_row, self.game_data.last_move_col)
+        self.game_data.turn += 1
+        self.game_data.turn = self.game_data.turn % 2
     def update(self):
         pass
     def draw(self):
         self.renderer.draw(game.game_data)
 
-game_data: GameData = GameData()
-renderer: GameRenderer = GameRenderer(screen)
-game = ConnectGame(game_data, renderer)
 
-game_data.game_board.print_board()
-game.renderer.draw_board(game_data.game_board)
+game = ConnectGame(GameData(), GameRenderer(screen))
+
+game.game_data.game_board.print_board()
+game.draw()
 pygame.display.update()
 pygame.time.wait(1000)
 
-while not game_data.game_over:
+while not game.game_data.game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game.quit()
@@ -136,17 +135,17 @@ while not game_data.game_over:
                 if mods & pygame.KMOD_CTRL:
                     game.undo()
         # tie
-        if game_data.game_board.tie_move():
+        if game.game_data.game_board.tie_move():
             mixer.music.load(os.path.join("sounds", "event.ogg"))
             mixer.music.play(0)
-            game_data.game_over = True
+            game.game_data.game_over = True
 
             myfont = pygame.font.SysFont("monospace", 75)
             label = myfont.render("GAME DRAW !!!!", 1, white)
             screen.blit(label, (40, 10))
             pygame.display.update()
 
-        if game_data.game_over:
+        if game.game_data.game_over:
             # print(os.getpid())
             pygame.time.wait(3000)
             #os.system("kill " + str(os.getpid()))
