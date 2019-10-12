@@ -25,12 +25,13 @@ radius: int = int(sq_size / 2 - 5)
 pygame.init()
 screen = pygame.display.set_mode(size)
 
+### Myfont and label need to be moved to the renderer class. ###
 pygame.display.set_caption("Connect Four | Mayank Singh")
-
 myfont = pygame.font.SysFont("monospace", 75)
 label = myfont.render("CONNECT FOUR!!", 1, white)
 
 screen.blit(label, (40, 10))
+################################################################
 pygame.display.update()
 
 class ConnectGame:
@@ -55,7 +56,9 @@ class ConnectGame:
             self.renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
         #######################################################################################
     def mouse_click(self, posx: int):
+        ### Renderer should see action is mouse click, and draw this ##########################
         pygame.draw.rect(screen, black, (0, 0, width, sq_size))
+        #######################################################################################
         if self.game_data.turn == 0:
 
             col: int = int(math.floor(posx / sq_size))
