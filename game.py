@@ -14,11 +14,10 @@ from config import *
 from game_data import GameData, GameBoard
 from graphics import GameRenderer
 
-rows: int = 6
-cols: int = 7
 sq_size: int = 100
-width: int = cols * sq_size
-height: int = (rows + 1) * sq_size
+
+width: int = 7 * sq_size
+height: int = 7 * sq_size
 size: Tuple[int, int] = (width, height)
 radius: int = int(sq_size / 2 - 5)
 
@@ -34,14 +33,17 @@ screen.blit(label, (40, 10))
 pygame.display.update()
 
 class ConnectGame:
-    def __init__(self, game_data, renderer):
+    game_data: GameData
+    renderer: GameRenderer
+
+    def __init__(self, game_data: GameData, renderer: GameRenderer):
         self.game_data = game_data
         self.renderer = renderer
 
     def quit(self):
         sys.exit()
 
-    def mouse_move(self, posx):
+    def mouse_move(self, posx: int):
         pygame.draw.rect(screen, black, (0, 0, width, sq_size))
 
         if self.game_data.turn == 0:
@@ -49,7 +51,7 @@ class ConnectGame:
         else:
             self.renderer.draw_yellow_coin(posx - (sq_size / 2), int(sq_size) - sq_size + 5)
 
-    def mouse_click(self, posx):
+    def mouse_click(self, posx: int):
         pygame.draw.rect(screen, black, (0, 0, width, sq_size))
         if self.game_data.turn == 0:
 
@@ -104,16 +106,22 @@ class ConnectGame:
         self.undo_move(self.game_data.last_move_row, self.game_data.last_move_col)
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
+
     def update(self):
         pass
+
     def draw(self):
         self.renderer.draw(game.game_data)
+
     def print_board(self):
         self.game_data.game_board.print_board()
 
+
 game = ConnectGame(GameData(), GameRenderer(screen))
+
 game.print_board()
 game.draw()
+
 pygame.display.update()
 pygame.time.wait(1000)
 
