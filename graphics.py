@@ -1,9 +1,12 @@
+import os
+from typing import Tuple
+
 import pygame
 from pygame import mixer
 from pygame.gfxdraw import aacircle, filled_circle
 
-from assets import yellow_coin, red_coin, black_coin, disc_drop_1, disc_drop_2
-from config import blue, black, white
+from assets import yellow_coin, red_coin, black_coin, disc_drop_1, disc_drop_2, event_sound
+from config import blue, black, white, red, yellow
 from game_data import GameData
 
 
@@ -12,6 +15,13 @@ class GameRenderer:
     Draws the current game state to the screen.
     """
     def __init__(self, screen):
+        self.sq_size: int = 100
+
+        self.width: int = 7 * self.sq_size
+        self.height: int = 7 * self.sq_size
+        self.size: Tuple[int, int] = (self.width, self.height)
+        self.radius: int = int(self.sq_size / 2 - 5)
+
         self.myfont = pygame.font.SysFont("monospace", 75)
         self.label = self.myfont.render("CONNECT FOUR!!", 1, white)
         screen.blit(self.label, (40, 10))
@@ -33,6 +43,56 @@ class GameRenderer:
         self.screen.blit(coin, (x, y))
 
     def draw(self, game_data: GameData):
+        if game_data.action == "tie":
+            mixer.music.load(os.path.join("sounds", "event.ogg"))
+            mixer.music.play(0)
+            self.myfont = pygame.font.SysFont("monospace", 75)
+            self.label = self.myfont.render("GAME DRAW !!!!", 1, white)
+            self.screen.blit(self.label, (40, 10))
+            pygame.display.update()
+            game_data.action = None
+        elif game_data.action == "undo":
+            filled_circle(
+                self.screen,
+                game_data.last_move_row,
+                game_data.last_move_col,
+                self.radius,
+                black
+            )
+
+            aacircle(
+                self.screen,
+                game_data.last_move_row,
+                game_data.last_move_col,
+                self.radius,
+                black
+            )
+
+            self.draw_black_coin(
+                game_data.last_move_col * self.sq_size + 5,
+                self.height - (game_data.last_move_row * self.sq_size + self.sq_size - 5)
+            )
+
+            game_data.game_board.print_board()
+            game_data.action = None
+        elif game_data.action == "player_1_wins":
+
+            ### Move to renderer #########################
+            self.label = self.myfont.render("PLAYER 1 WINS!", 1, red)
+            self.screen.blit(self.label, (40, 10))
+            ###############################################
+
+            mixer.music.load(event_sound)
+            mixer.music.play(0)
+            game_data.action = None
+        elif game_data.action == "player_2_wins":
+            self.label = self.myfont.render("PLAYER 2 WINS!", 1, yellow)
+            self.screen.blit(self.label, (40, 10))
+
+            mixer.music.load(event_sound)
+            mixer.music.play(0)
+            game_data.action = None
+
         self.draw_board(game_data.game_board)
 
     def draw_board(self, board):

@@ -16,7 +16,6 @@ class GameBoard:
         self.rows = rows
         self.cols = cols
         self.board = zeros((rows, cols))
-
     def print_board(self):
         print(flip(self.board, 0))
         print(" ---------------------")
@@ -101,3 +100,4 @@ class GameData:
         self.last_move_row = 0
         self.last_move_col = 0
         self.game_board = GameBoard()
+        self.action = None

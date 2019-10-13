@@ -59,13 +59,7 @@ class ConnectGame:
             self.print_board()
 
             if self.game_data.game_board.winning_move(1):
-                ### Move to renderer #########################
-                self.renderer.label = self.renderer.myfont.render("PLAYER 1 WINS!", 1, red)
-                self.renderer.screen.blit(self.renderer.label, (40, 10))
-                ###############################################
-
-                mixer.music.load(event_sound)
-                mixer.music.play(0)
+                self.game_data.action ="player_1_wins"
                 self.game_data.game_over = True
             pygame.display.update()
         else:
@@ -81,13 +75,8 @@ class ConnectGame:
             self.print_board()
 
             if self.game_data.game_board.winning_move( 2):
-                ##### Move to renderer ###
-                self.renderer.label = self.renderer.myfont.render("PLAYER 2 WINS!", 1, yellow)
-                self.renderer.screen.blit(self.renderer.label, (40, 10))
-                ##########################
+                self.game_data.action = "player_2_wins"
 
-                mixer.music.load(event_sound)
-                mixer.music.play(0)
                 self.game_data.game_over = True
             pygame.display.update()
         self.game_data.turn += 1
@@ -100,47 +89,20 @@ class ConnectGame:
             0
         )
 
-        ################## Move to Renderer #######################
-        filled_circle(
-            self.renderer.screen,
-            self.game_data.last_move_row,
-            self.game_data.last_move_col,
-            self.radius,
-            black
-        )
+        self.game_data.action = "undo"
 
-        aacircle(
-            self.renderer.screen,
-            self.game_data.last_move_row,
-            self.game_data.last_move_col,
-            self.radius,
-            black
-        )
-
-        self.renderer.draw_black_coin(
-            self.game_data.last_move_col * self.sq_size + 5,
-            self.height - (self.game_data.last_move_row * self.sq_size + self.sq_size - 5)
-        )
-
-        self.print_board()
-        ############################################################
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
 
     def update(self):
         if self.game_data.game_board.tie_move():
-            mixer.music.load(os.path.join("sounds", "event.ogg"))
-            mixer.music.play(0)
+            self.game_data.action = "tie"
             self.game_data.game_over = True
 
-            self.renderer.myfont = pygame.font.SysFont("monospace", 75)
-            self.renderer.label = self.renderer.myfont.render("GAME DRAW !!!!", 1, white)
-            self.screen.blit(self.renderer.label, (40, 10))
-            pygame.display.update()
-
         if self.game_data.game_over:
+            pass
             # print(os.getpid())
-            pygame.time.wait(3000)
+            #pygame.time.wait(3000)
             #os.system("kill " + str(os.getpid()))
             #os.system("./restart.sh")
 
