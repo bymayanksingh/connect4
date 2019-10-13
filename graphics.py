@@ -5,7 +5,7 @@ import pygame
 from pygame import mixer
 from pygame.gfxdraw import aacircle, filled_circle
 
-from assets import yellow_coin, red_coin, black_coin, disc_drop_1, disc_drop_2, event_sound
+from assets import yellow_coin, red_coin, black_coin, event_sound
 from config import blue, black, white, red, yellow
 from game_data import GameData
 
@@ -76,11 +76,8 @@ class GameRenderer:
             game_data.game_board.print_board()
             game_data.action = None
         elif game_data.action == "player_1_wins":
-
-            ### Move to renderer #########################
             self.label = self.myfont.render("PLAYER 1 WINS!", 1, red)
             self.screen.blit(self.label, (40, 10))
-            ###############################################
 
             mixer.music.load(event_sound)
             mixer.music.play(0)

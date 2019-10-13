@@ -1,15 +1,9 @@
 import math
-import os
 import sys
 from typing import Tuple
-
-from pygame.gfxdraw import filled_circle, aacircle
-
-from assets import *
-from config import black, red, yellow, white
+from config import black
 from game_data import GameData
 from graphics import GameRenderer
-from pygame import mixer
 
 import pygame
 
@@ -33,7 +27,7 @@ class ConnectGame:
 
     def mouse_move(self, posx: int):
         # Queue message that mouse has been moved
-
+        # Set the x coordinate
         ### Renderer should see action is mouse move, and draw this ##########################
         pygame.draw.rect(self.renderer.screen, black, (0, 0, self.width, self.sq_size))
         if self.game_data.turn == 0:
@@ -41,7 +35,11 @@ class ConnectGame:
         else:
             self.renderer.draw_yellow_coin(posx - (self.sq_size / 2), int(self.sq_size) - self.sq_size + 5)
         #######################################################################################
+
     def mouse_click(self, posx: int):
+        # Queue message that the mouse has been clicked
+        # Set the x coordinate
+
         ### Renderer should see action is mouse click, and draw this ##########################
         pygame.draw.rect(self.renderer.screen, black, (0, 0, self.width, self.sq_size))
         #######################################################################################
@@ -61,7 +59,6 @@ class ConnectGame:
             if self.game_data.game_board.winning_move(1):
                 self.game_data.action ="player_1_wins"
                 self.game_data.game_over = True
-            pygame.display.update()
         else:
             col: int = int(math.floor(posx / self.sq_size))
 
@@ -76,9 +73,9 @@ class ConnectGame:
 
             if self.game_data.game_board.winning_move( 2):
                 self.game_data.action = "player_2_wins"
-
                 self.game_data.game_over = True
-            pygame.display.update()
+
+        pygame.display.update()
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
 
