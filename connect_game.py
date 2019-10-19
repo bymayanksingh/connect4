@@ -30,10 +30,7 @@ class ConnectGame:
         # Set the x coordinate
         ### Renderer should see action is mouse move, and draw this ##########################
         pygame.draw.rect(self.renderer.screen, black, (0, 0, self.width, self.sq_size))
-        if self.game_data.turn == 0:
-            self.renderer.draw_red_coin(posx - (self.sq_size / 2), int(self.sq_size) - self.sq_size + 5)
-        else:
-            self.renderer.draw_yellow_coin(posx - (self.sq_size / 2), int(self.sq_size) - self.sq_size + 5)
+        self.renderer.draw_coin(self.game_data, posx - (self.sq_size / 2), int(self.sq_size) - self.sq_size + 5)
         #######################################################################################
 
     def mouse_click(self, posx: int):
