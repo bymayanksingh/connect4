@@ -14,18 +14,12 @@ class GameRenderer:
     """
     Draws the current game state to the screen.
     """
-    def __init__(self, screen):
-        self.sq_size: int = 100
-
-        self.width: int = 7 * self.sq_size
-        self.height: int = 7 * self.sq_size
-        self.size: Tuple[int, int] = (self.width, self.height)
-        self.radius: int = int(self.sq_size / 2 - 5)
-
+    def __init__(self, screen, game_data: GameData):
         self.myfont = pygame.font.SysFont("monospace", 75)
         self.label = self.myfont.render("CONNECT FOUR!!", 1, white)
         screen.blit(self.label, (40, 10))
         self.screen = screen
+        self.game_data = game_data
 
         pygame.display.set_caption("Connect Four | Mayank Singh")
         pygame.display.update()
@@ -45,8 +39,6 @@ class GameRenderer:
         else:
             self.screen.blit(yellow_coin, (x, y))
 
-
-
     def draw(self, game_data: GameData):
         if game_data.action == "tie":
             mixer.music.load(os.path.join("sounds", "event.ogg"))
@@ -61,7 +53,7 @@ class GameRenderer:
                 self.screen,
                 game_data.last_move_row,
                 game_data.last_move_col,
-                self.radius,
+                self.game_data.radius,
                 black
             )
 
@@ -69,13 +61,13 @@ class GameRenderer:
                 self.screen,
                 game_data.last_move_row,
                 game_data.last_move_col,
-                self.radius,
+                self.game_data.radius,
                 black
             )
 
             self.draw_black_coin(
-                game_data.last_move_col * self.sq_size + 5,
-                self.height - (game_data.last_move_row * self.sq_size + self.sq_size - 5)
+                game_data.last_move_col * self.game_data.sq_size + 5,
+                self.game_data.height - (game_data.last_move_row * self.game_data.sq_size + self.game_data.sq_size - 5)
             )
 
             game_data.game_board.print_board()

@@ -15,13 +15,6 @@ class ConnectGame:
         self.game_data = game_data
         self.renderer = renderer
 
-        self.sq_size: int = 100
-
-        self.width: int = 7 * self.sq_size
-        self.height: int = 7 * self.sq_size
-        self.size: Tuple[int, int] = (self.width, self.height)
-        self.radius: int = int(self.sq_size / 2 - 5)
-
     def quit(self):
         sys.exit()
 
@@ -29,8 +22,8 @@ class ConnectGame:
         # Queue message that mouse has been moved
         # Set the x coordinate
         ### Renderer should see action is mouse move, and draw this ##########################
-        pygame.draw.rect(self.renderer.screen, black, (0, 0, self.width, self.sq_size))
-        self.renderer.draw_coin(self.game_data, posx - (self.sq_size / 2), int(self.sq_size) - self.sq_size + 5)
+        pygame.draw.rect(self.renderer.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
+        self.renderer.draw_coin(self.game_data, posx - (self.game_data.sq_size / 2), int(self.game_data.sq_size) - self.game_data.sq_size + 5)
         #######################################################################################
 
     def mouse_click(self, posx: int):
@@ -38,11 +31,11 @@ class ConnectGame:
         # Set the x coordinate
 
         ### Renderer should see action is mouse click, and draw this ##########################
-        pygame.draw.rect(self.renderer.screen, black, (0, 0, self.width, self.sq_size))
+        pygame.draw.rect(self.renderer.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
         #######################################################################################
         if self.game_data.turn == 0:
 
-            col: int = int(math.floor(posx / self.sq_size))
+            col: int = int(math.floor(posx / self.game_data.sq_size))
 
             if self.game_data.game_board.is_valid_location(col):
                 row: int = self.game_data.game_board.get_next_open_row( col)
@@ -57,7 +50,7 @@ class ConnectGame:
                 self.game_data.action ="player_1_wins"
                 self.game_data.game_over = True
         else:
-            col: int = int(math.floor(posx / self.sq_size))
+            col: int = int(math.floor(posx / self.game_data.sq_size))
 
             if self.game_data.game_board.is_valid_location(col):
                 row: int = self.game_data.game_board.get_next_open_row( col)

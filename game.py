@@ -7,17 +7,14 @@ from connect_game import ConnectGame
 from game_data import GameData
 from graphics import GameRenderer
 
-sq_size: int = 100
-
-width: int = 7 * sq_size
-height: int = 7 * sq_size
-size: Tuple[int, int] = (width, height)
-radius: int = int(sq_size / 2 - 5)
 
 pygame.init()
-screen = pygame.display.set_mode(size)
 
-game = ConnectGame(GameData(), GameRenderer(screen))
+data = GameData()
+screen = pygame.display.set_mode(data.size)
+game = ConnectGame(data, GameRenderer(screen, data))
+
+
 
 game.print_board()
 game.draw()
