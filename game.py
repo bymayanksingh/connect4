@@ -7,14 +7,11 @@ from connect_game import ConnectGame
 from game_data import GameData
 from graphics import GameRenderer
 
-
 pygame.init()
 
 data = GameData()
 screen = pygame.display.set_mode(data.size)
 game = ConnectGame(data, GameRenderer(screen, data))
-
-
 
 game.print_board()
 game.draw()

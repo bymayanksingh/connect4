@@ -1,6 +1,5 @@
 import math
 import sys
-from typing import Tuple
 from config import black
 from game_data import GameData
 from graphics import GameRenderer
@@ -33,37 +32,21 @@ class ConnectGame:
         ### Renderer should see action is mouse click, and draw this ##########################
         pygame.draw.rect(self.renderer.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
         #######################################################################################
-        if self.game_data.turn == 0:
 
-            col: int = int(math.floor(posx / self.game_data.sq_size))
+        col: int = int(math.floor(posx / self.game_data.sq_size))
 
-            if self.game_data.game_board.is_valid_location(col):
-                row: int = self.game_data.game_board.get_next_open_row( col)
+        if self.game_data.game_board.is_valid_location(col):
+            row: int = self.game_data.game_board.get_next_open_row( col)
 
-                self.game_data.last_move_row = row
-                self.game_data.last_move_col = col
-                self.game_data.game_board.drop_piece(row, col, 1)
+            self.game_data.last_move_row = row
+            self.game_data.last_move_col = col
+            self.game_data.game_board.drop_piece(row, col, self.game_data.turn+1)
 
-            self.print_board()
+        self.print_board()
 
-            if self.game_data.game_board.winning_move(1):
-                self.game_data.action ="player_1_wins"
-                self.game_data.game_over = True
-        else:
-            col: int = int(math.floor(posx / self.game_data.sq_size))
-
-            if self.game_data.game_board.is_valid_location(col):
-                row: int = self.game_data.game_board.get_next_open_row( col)
-
-                self.game_data.last_move_row = row
-                self.game_data.last_move_col = col
-                self.game_data.game_board.drop_piece( row, col, 2)
-
-            self.print_board()
-
-            if self.game_data.game_board.winning_move( 2):
-                self.game_data.action = "player_2_wins"
-                self.game_data.game_over = True
+        if self.game_data.game_board.winning_move(self.game_data.turn + 1):
+            self.game_data.action = f"player_{self.game_data.turn+1}_wins"
+            self.game_data.game_over = True
 
         pygame.display.update()
         self.game_data.turn += 1
