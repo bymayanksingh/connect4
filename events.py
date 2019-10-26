@@ -6,14 +6,6 @@ Holds the global event bus and the classes holding data for the event messages.
 from event_bus import EventBus
 bus = EventBus()
 
-mouse_hover_event = "mouse:hover"
-mouse_click_event = "mouse:click"
-game_undo_event = "game:undo"
-game_over_event = "game:over"
-game_quit = "game:quit"
-
-piece_drop_event = "piece:drop"
-
 class MouseHoverEvent:
     """
     Fired when a user has moved their mouse to place a piece.
@@ -40,6 +32,8 @@ class GameOver:
 
 
 class PieceDropEvent:
+    """
+    Fired when a game piece is dropped into an open slot.
+    """
     def __init__(self, side):
         self.side = side
-

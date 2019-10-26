@@ -21,6 +21,9 @@ game.draw()
 pygame.display.update()
 pygame.time.wait(1000)
 
+
+# Processes mouse and keyboard events, dispatching events to the event bus.
+# The events are handled by the ConnectGame and GameRenderer classes.
 while not game.game_data.game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
