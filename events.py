@@ -1,4 +1,8 @@
 
+"""
+Holds the global event bus and the classes holding data for the event messages.
+"""
+
 from event_bus import EventBus
 bus = EventBus()
 

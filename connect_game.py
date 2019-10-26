@@ -5,7 +5,7 @@ import sys
 
 
 from config import black
-from events import MouseHoverEvent
+from events import MouseHoverEvent, MouseClickEvent
 from game_data import GameData
 from graphics import GameRenderer
 
@@ -36,7 +36,8 @@ class ConnectGame:
         self.renderer.draw_coin(self.game_data, posx - (self.game_data.sq_size / 2), int(self.game_data.sq_size) - self.game_data.sq_size + 5)
         #######################################################################################
 
-    def mouse_click(self, posx: int):
+    @bus.on('mouse:click')
+    def mouse_click(self, event: MouseClickEvent):
         # Queue message that the mouse has been clicked
         # Set the x coordinate
 
@@ -44,7 +45,7 @@ class ConnectGame:
         pygame.draw.rect(self.renderer.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
         #######################################################################################
 
-        col: int = int(math.floor(posx / self.game_data.sq_size))
+        col: int = int(math.floor(event.posx / self.game_data.sq_size))
 
         if self.game_data.game_board.is_valid_location(col):
             row: int = self.game_data.game_board.get_next_open_row( col)

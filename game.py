@@ -1,7 +1,7 @@
 from typing import Tuple
 
 import pygame
-from events import bus
+from events import bus, MouseClickEvent
 
 from pygame.locals import KEYDOWN
 from connect_game import ConnectGame
@@ -32,7 +32,7 @@ while not game.game_data.game_over:
 
         pygame.display.update()
         if event.type == pygame.MOUSEBUTTONDOWN:
-            game.mouse_click(event.pos[0])
+            bus.emit('mouse:click', game, MouseClickEvent(event.pos[0]))
 
         if event.type == KEYDOWN:
             if event.key == pygame.K_z:
