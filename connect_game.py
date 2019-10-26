@@ -23,21 +23,17 @@ class ConnectGame:
 
     @bus.on('mouse:click')
     def mouse_click(self, event: MouseClickEvent):
-        # Queue message that the mouse has been clicked
-        # Set the x coordinate
-
-        ### Renderer should see action is mouse click, and draw this ##########################
         pygame.draw.rect(self.renderer.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
-        #######################################################################################
 
         col: int = int(math.floor(event.posx / self.game_data.sq_size))
 
         if self.game_data.game_board.is_valid_location(col):
-            row: int = self.game_data.game_board.get_next_open_row( col)
+            row: int = self.game_data.game_board.get_next_open_row(col)
 
             self.game_data.last_move_row = row
             self.game_data.last_move_col = col
             self.game_data.game_board.drop_piece(row, col, self.game_data.turn+1)
+
             bus.emit('piece:drop', PieceDropEvent(self.game_data.game_board.board[row][col]))
 
         self.print_board()
@@ -47,6 +43,7 @@ class ConnectGame:
             self.game_data.game_over = True
 
         pygame.display.update()
+
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
 
