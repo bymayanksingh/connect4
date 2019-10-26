@@ -1,2 +1,3 @@
 pygame
 numpy
+event-bus
