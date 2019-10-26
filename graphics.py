@@ -6,7 +6,7 @@ from pygame.gfxdraw import aacircle, filled_circle
 
 from assets import yellow_coin, red_coin, black_coin, event_sound, disc_drop_1, disc_drop_2
 from config import blue, black, white, red, yellow
-from events import PieceDropEvent, GameOver
+from events import PieceDropEvent, GameOver, MouseHoverEvent
 from game_data import GameData
 from events import bus
 
@@ -33,6 +33,13 @@ class GameRenderer:
 
         pygame.display.set_caption("Connect Four | Mayank Singh")
         pygame.display.update()
+
+    @bus.on('mouse:hover')
+    def on_mouse_move(self, event: MouseHoverEvent):
+        posx = event.posx
+
+        pygame.draw.rect(self.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
+        self.draw_coin(self.game_data, posx - (self.game_data.sq_size / 2), int(self.game_data.sq_size) - self.game_data.sq_size + 5)
 
     def draw_red_coin(self, x, y):
         self.screen.blit(red_coin, (x, y))

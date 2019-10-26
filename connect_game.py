@@ -10,7 +10,6 @@ from events import bus
 import pygame
 
 
-
 class ConnectGame:
     game_data: GameData
     renderer: GameRenderer
@@ -21,16 +20,6 @@ class ConnectGame:
 
     def quit(self):
         sys.exit()
-
-    @bus.on('mouse:hover')
-    def mouse_move(self, event: MouseHoverEvent):
-        posx = event.posx
-        # Queue message that mouse has been moved
-        # Set the x coordinate
-        ### Renderer should see action is mouse move, and draw this ##########################
-        pygame.draw.rect(self.renderer.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
-        self.renderer.draw_coin(self.game_data, posx - (self.game_data.sq_size / 2), int(self.game_data.sq_size) - self.game_data.sq_size + 5)
-        #######################################################################################
 
     @bus.on('mouse:click')
     def mouse_click(self, event: MouseClickEvent):
@@ -75,9 +64,7 @@ class ConnectGame:
 
     def update(self):
         if self.game_data.game_board.tie_move():
-
             bus.emit('game:over', GameOver(was_tie=True))
-
 
             self.game_data.game_over = True
 

@@ -27,7 +27,7 @@ while not game.game_data.game_over:
             game.quit()
 
         if event.type == pygame.MOUSEMOTION:
-            bus.emit('mouse:hover', game, MouseHoverEvent(event.pos[0]))
+            bus.emit('mouse:hover', game.renderer, MouseHoverEvent(event.pos[0]))
 
 
         pygame.display.update()
