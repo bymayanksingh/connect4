@@ -1,9 +1,11 @@
 from typing import Tuple
 
 import pygame
+from events import bus
 
 from pygame.locals import KEYDOWN
 from connect_game import ConnectGame
+from events import MouseHoverEvent
 from game_data import GameData
 from graphics import GameRenderer
 
@@ -25,7 +27,8 @@ while not game.game_data.game_over:
             game.quit()
 
         if event.type == pygame.MOUSEMOTION:
-            game.mouse_move(event.pos[0])
+            bus.emit('mouse:hover', game, MouseHoverEvent(event.pos[0]))
+
 
         pygame.display.update()
         if event.type == pygame.MOUSEBUTTONDOWN:

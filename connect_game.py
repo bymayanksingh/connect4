@@ -1,10 +1,19 @@
 import math
 import sys
+
+
+
+
 from config import black
+from events import MouseHoverEvent
 from game_data import GameData
 from graphics import GameRenderer
 
+from events import bus
+
 import pygame
+
+
 
 class ConnectGame:
     game_data: GameData
@@ -17,7 +26,9 @@ class ConnectGame:
     def quit(self):
         sys.exit()
 
-    def mouse_move(self, posx: int):
+    @bus.on('mouse:hover')
+    def mouse_move(self, event: MouseHoverEvent):
+        posx = event.posx
         # Queue message that mouse has been moved
         # Set the x coordinate
         ### Renderer should see action is mouse move, and draw this ##########################
