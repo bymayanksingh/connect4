@@ -1,11 +1,7 @@
 import math
 import sys
-
-
-
-
 from config import black
-from events import MouseHoverEvent, MouseClickEvent
+from events import MouseHoverEvent, MouseClickEvent, PieceDropEvent, GameOver
 from game_data import GameData
 from graphics import GameRenderer
 
@@ -53,11 +49,12 @@ class ConnectGame:
             self.game_data.last_move_row = row
             self.game_data.last_move_col = col
             self.game_data.game_board.drop_piece(row, col, self.game_data.turn+1)
+            bus.emit('piece:drop', PieceDropEvent(self.game_data.game_board.board[row][col]))
 
         self.print_board()
 
         if self.game_data.game_board.winning_move(self.game_data.turn + 1):
-            self.game_data.action = f"player_{self.game_data.turn+1}_wins"
+            bus.emit('game:over', self.renderer, GameOver(False, self.game_data.turn + 1))
             self.game_data.game_over = True
 
         pygame.display.update()
@@ -78,7 +75,10 @@ class ConnectGame:
 
     def update(self):
         if self.game_data.game_board.tie_move():
-            self.game_data.action = "tie"
+
+            bus.emit('game:over', GameOver(was_tie=True))
+
+
             self.game_data.game_over = True
 
         if self.game_data.game_over:

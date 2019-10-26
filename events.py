@@ -14,7 +14,6 @@ game_quit = "game:quit"
 
 piece_drop_event = "piece:drop"
 
-
 class MouseHoverEvent:
     """
     Fired when a user has moved their mouse to place a piece.
@@ -38,3 +37,9 @@ class GameOver:
     def __init__(self, was_tie=True, winner=None):
         self.was_tie = was_tie
         self.winner = winner
+
+
+class PieceDropEvent:
+    def __init__(self, side):
+        self.side = side
+
