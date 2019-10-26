@@ -12,22 +12,46 @@ class GameBoard:
     rows: int
 
     def __init__(self,rows =6, cols=7):
+        """
+        Initializes the game board.
+        :param rows: The height of the board in rows.
+        :param cols: The width of the boarrd in columns.
+        """
         self.rows = rows
         self.cols = cols
         self.board = zeros((rows, cols))
 
     def print_board(self):
+        """
+        Prints the state of the board to the console.
+        """
         print(flip(self.board, 0))
         print(" ---------------------")
         print(" " + str([1, 2, 3, 4, 5, 6, 7]))
 
     def drop_piece(self, row, col, piece):
+        """
+        Drops a piece into the slot at position (row, col)
+        :param row: The row of the slot.
+        :param col: The column of the slot.
+        :param piece: The piece to drop.
+        """
         self.board[row][col] = piece
 
     def is_valid_location(self, col):
+        """
+        Returns whether the position exists on the board.
+        :param col: The column to check.
+        :return: Whether the specified column exists on the board.
+        """
         return self.board[self.rows - 1][col] == 0
 
     def get_next_open_row(self, col):
+        """
+        Returns the next free row for a column.
+        :param col: The column to check for a free space.
+        :return: The next free row for a column.
+        """
         for row in range(self.rows):
             if self.board[row][col] == 0:
                 return row
@@ -116,7 +140,6 @@ class GameBoard:
                 ):
                     return True
         return False
-
 
     def tie_move(self):
         """
