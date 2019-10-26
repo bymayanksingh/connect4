@@ -29,8 +29,8 @@ while not game.game_data.game_over:
         if event.type == pygame.MOUSEMOTION:
             bus.emit('mouse:hover', game.renderer, MouseHoverEvent(event.pos[0]))
 
-
         pygame.display.update()
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             bus.emit('mouse:click', game, MouseClickEvent(event.pos[0]))
 
@@ -38,7 +38,7 @@ while not game.game_data.game_over:
             if event.key == pygame.K_z:
                 mods: int = pygame.key.get_mods()
                 if mods & pygame.KMOD_CTRL:
-                    game.undo()
+                    bus.emit('game:undo', game)
 
         game.update()
         game.draw()

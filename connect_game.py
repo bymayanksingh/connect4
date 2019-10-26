@@ -1,7 +1,7 @@
 import math
 import sys
 from config import black
-from events import MouseHoverEvent, MouseClickEvent, PieceDropEvent, GameOver
+from events import MouseClickEvent, PieceDropEvent, GameOver
 from game_data import GameData
 from graphics import GameRenderer
 
@@ -50,14 +50,13 @@ class ConnectGame:
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
 
+    @bus.on('game:undo')
     def undo(self):
         self.game_data.game_board.drop_piece(
             self.game_data.last_move_row,
             self.game_data.last_move_col,
             0
         )
-
-        self.game_data.action = "undo"
 
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
