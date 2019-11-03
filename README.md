@@ -46,8 +46,8 @@ $ python3 game.py
 ├── events.py
 ├── game_board.py
 ├── game_data.py
+├── game_renderer.py
 ├── game.py
-├── graphics.py
 ├── images
 │   ├── blackball91px.png
 │   ├── logo
@@ -78,8 +78,8 @@ $ python3 game.py
 | 4  | events.py          | Contains classes used to define and hold event data.
 | 5  | game_board.py      | Contains the GameBoard data structure and methods which operate on it.
 | 6  | game_data.py       | Contains the GameData class, which contains all of the data in the game.
-| 7  | game.py            | contains connect four game logic.
-| 8  | graphics.py        | Holds the Renderer class, which renders the game state using sound and graphics.
+| 7  | game_renderer.py   | Holds the GameRenderer class, which renders the game state using sound and graphics.
+| 8  | game.py            | contains connect four game logic.
 | 9  | images/            | contains image resources used in the game.
 | 10 | images/logo        | contains logo used in the README.
 | 11 | images/screenshots | contains game screenshots.

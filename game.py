@@ -7,7 +7,7 @@ from pygame.locals import KEYDOWN
 from connect_game import ConnectGame
 from events import MouseHoverEvent
 from game_data import GameData
-from graphics import GameRenderer
+from game_renderer import GameRenderer
 
 pygame.init()
 

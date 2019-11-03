@@ -3,7 +3,7 @@ import sys
 from config import black
 from events import MouseClickEvent, PieceDropEvent, GameOver
 from game_data import GameData
-from graphics import GameRenderer
+from game_renderer import GameRenderer
 
 from events import bus
 
