@@ -42,7 +42,12 @@ $ python3 game.py
 .
 ├── assets.py
 ├── config.py
+├── connect_game.py
+├── events.py
+├── game_board.py
+├── game_data.py
 ├── game.py
+├── graphics.py
 ├── images
 │   ├── blackball91px.png
 │   ├── logo
@@ -61,21 +66,27 @@ $ python3 game.py
     ├── disc_drop_2.wav
     └── event.ogg
 
-4 directories, 16 files
+4 directories, 21 files
+
 ```
 
-| No | File Name | Details 
-|----|------------|-------|
-| 1  | assets.py | used for loading sound and image files in python.
-| 2  | config.py | contains game's configuration settings.
-| 3  | game.py | contains connect four game logic.
-| 4  | images/ | contains image resources used in the game.
-| 5  | images/logo | contains logo used in the README.
-| 6  | images/screenshots | contains game screenshots.
-| 7  | LICENSE | this project uses MIT License.
-| 8  | requirements.txt | contains all the dependencies used in the game.
-| 9  | restart.sh | bash script to relaunch the game once it is finished.
-| 10  | sounds/ | contains sound resources used in the game.
+| No | File Name          | Details 
+|----|--------------------|-------------------------------------------------------------------------------------|
+| 1  | assets.py          | used for loading sound and image files in python.
+| 2  | config.py          | contains game's configuration settings.
+| 3  | connect_game.py    | Contains the ConnectGame class which holds the logic for the whole game.
+| 4  | events.py          | Contains classes used to define and hold event data.
+| 5  | game_board.py      | Contains the GameBoard data structure and methods which operate on it.
+| 6  | game_data.py       | Contains the GameData class, which contains all of the data in the game.
+| 7  | game.py            | contains connect four game logic.
+| 8  | graphics.py        | Holds the Renderer class, which renders the game state using sound and graphics.
+| 9  | images/            | contains image resources used in the game.
+| 10 | images/logo        | contains logo used in the README.
+| 11 | images/screenshots | contains game screenshots.
+| 12 | LICENSE            | this project uses MIT License.
+| 13 | requirements.txt   | contains all the dependencies used in the game.
+| 14 | restart.sh         | bash script to relaunch the game once it is finished.
+| 15 | sounds/            | contains sound resources used in the game.
 
 ##  :exclamation: Guideline
 
