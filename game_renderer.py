@@ -7,8 +7,14 @@ from pygame.font import FontType
 from pygame.ftfont import Font
 from pygame.gfxdraw import aacircle, filled_circle
 
-from assets import (black_coin, disc_drop_1, disc_drop_2, event_sound,
-                    red_coin, yellow_coin)
+from assets import (
+    black_coin,
+    disc_drop_1,
+    disc_drop_2,
+    event_sound,
+    red_coin,
+    yellow_coin,
+)
 from config import black, blue, red, white, yellow
 from events import GameOver, MouseHoverEvent, PieceDropEvent, bus
 from game_data import GameData
@@ -33,6 +39,7 @@ class GameRenderer:
     """
     Renders the current game state to the screen and the speakers.
     """
+
     game_data: GameData
     label: Optional[Any]
     myfont: Union[None, Font, FontType]
