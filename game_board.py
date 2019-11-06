@@ -7,11 +7,12 @@ class GameBoard:
     The GameBoard class holds the state of the game board,
     and methods to manipulate and query the board.
     """
+
     board: ndarray
     cols: int
     rows: int
 
-    def __init__(self,rows =6, cols=7):
+    def __init__(self, rows=6, cols=7):
         """
         Initializes the game board.
         :param rows: The height of the board in rows.
@@ -74,7 +75,7 @@ class GameBoard:
 
         return self.board[r][c] == piece
 
-    def horizontal_win(self, piece, r,c):
+    def horizontal_win(self, piece, r, c):
         """
         Checks if there is a horizontal win at the position (r,c)
         :param piece: The color of the chip to check for.
@@ -83,10 +84,10 @@ class GameBoard:
         :return: Whether there is a horizontal win at the position (r, c).
         """
         return (
-                self.check_square(piece, r, c)
-                and self.check_square(piece, r, c + 1)
-                and self.check_square(piece, r, c + 2)
-                and self.check_square(piece, r, c + 3)
+            self.check_square(piece, r, c)
+            and self.check_square(piece, r, c + 1)
+            and self.check_square(piece, r, c + 2)
+            and self.check_square(piece, r, c + 3)
         )
 
     def vertical_win(self, piece, r, c):
@@ -103,6 +104,7 @@ class GameBoard:
             and self.check_square(piece, r + 2, c)
             and self.check_square(piece, r + 3, c)
         )
+
     def diagonal_win(self, piece, r, c):
         """
         Checks if there is a diagonal_win at the position (r, c)
@@ -113,16 +115,15 @@ class GameBoard:
         """
         return (
             self.check_square(piece, r, c)
-            and  self.check_square(piece, r + 1, c + 1)
-            and  self.check_square(piece, r + 2, c + 2)
-            and  self.check_square(piece, r + 3, c + 3)
+            and self.check_square(piece, r + 1, c + 1)
+            and self.check_square(piece, r + 2, c + 2)
+            and self.check_square(piece, r + 3, c + 3)
         ) or (
             self.check_square(piece, r, c)
             and self.check_square(piece, r - 1, c + 1)
             and self.check_square(piece, r - 2, c + 2)
             and self.check_square(piece, r - 3, c + 3)
         )
-
 
     def winning_move(self, piece):
         """

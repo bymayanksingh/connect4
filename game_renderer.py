@@ -4,13 +4,21 @@ import pygame
 from pygame import mixer
 from pygame.gfxdraw import aacircle, filled_circle
 
-from assets import yellow_coin, red_coin, black_coin, event_sound, disc_drop_1, disc_drop_2
+from assets import (
+    yellow_coin,
+    red_coin,
+    black_coin,
+    event_sound,
+    disc_drop_1,
+    disc_drop_2,
+)
 from config import blue, black, white, red, yellow
 from events import PieceDropEvent, GameOver, MouseHoverEvent
 from game_data import GameData
 from events import bus
 
-@bus.on('piece:drop')
+
+@bus.on("piece:drop")
 def on_piece_drop(event: PieceDropEvent):
     """
     Plays a sound when a piece is dropped over an empty slot.
@@ -24,10 +32,12 @@ def on_piece_drop(event: PieceDropEvent):
         mixer.music.load(disc_drop_2)
         mixer.music.play(0)
 
+
 class GameRenderer:
     """
     Renders the current game state to the screen and the speakers.
     """
+
     def __init__(self, screen, game_data: GameData):
         """
         Initializes the game renderer.
@@ -43,7 +53,7 @@ class GameRenderer:
         pygame.display.set_caption("Connect Four | Mayank Singh")
         pygame.display.update()
 
-    @bus.on('mouse:hover')
+    @bus.on("mouse:hover")
     def on_mouse_move(self, event: MouseHoverEvent):
         """
         Draws a coin over the slot that the mouse is positioned.
@@ -51,8 +61,14 @@ class GameRenderer:
         """
         posx = event.posx
 
-        pygame.draw.rect(self.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
-        self.draw_coin(self.game_data, posx - (self.game_data.sq_size / 2), int(self.game_data.sq_size) - self.game_data.sq_size + 5)
+        pygame.draw.rect(
+            self.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size)
+        )
+        self.draw_coin(
+            self.game_data,
+            posx - (self.game_data.sq_size / 2),
+            int(self.game_data.sq_size) - self.game_data.sq_size + 5,
+        )
 
     def draw_red_coin(self, x, y):
         """
@@ -103,7 +119,7 @@ class GameRenderer:
                 game_data.last_move_row,
                 game_data.last_move_col,
                 self.game_data.radius,
-                black
+                black,
             )
 
             aacircle(
@@ -111,12 +127,17 @@ class GameRenderer:
                 game_data.last_move_row,
                 game_data.last_move_col,
                 self.game_data.radius,
-                black
+                black,
             )
 
             self.draw_black_coin(
                 game_data.last_move_col * self.game_data.sq_size + 5,
-                self.game_data.height - (game_data.last_move_row * self.game_data.sq_size + self.game_data.sq_size - 5)
+                self.game_data.height
+                - (
+                    game_data.last_move_row * self.game_data.sq_size
+                    + self.game_data.sq_size
+                    - 5
+                ),
             )
 
             game_data.game_board.print_board()
@@ -124,7 +145,7 @@ class GameRenderer:
 
         self.draw_board(game_data.game_board)
 
-    @bus.on('game:over')
+    @bus.on("game:over")
     def on_game_over(self, event: GameOver):
         """
         Handles a game over event.
@@ -162,7 +183,9 @@ class GameRenderer:
         for c in range(board.cols):
             for r in range(board.rows):
                 pygame.draw.rect(
-                    self.screen, blue, (c * sq_size, (r + 1) * sq_size, sq_size, sq_size)
+                    self.screen,
+                    blue,
+                    (c * sq_size, (r + 1) * sq_size, sq_size, sq_size),
                 )
                 aacircle(
                     self.screen,

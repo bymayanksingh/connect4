@@ -7,6 +7,7 @@ class GameData:
     """
     The game data class contains all of the data for the game.
     """
+
     radius: int
     height: int
     width: int

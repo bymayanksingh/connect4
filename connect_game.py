@@ -15,6 +15,7 @@ class ConnectGame:
     """
     Holds all of the game logic and game data.
     """
+
     game_data: GameData
     renderer: GameRenderer
 
@@ -33,13 +34,17 @@ class ConnectGame:
         """
         sys.exit()
 
-    @bus.on('mouse:click')
+    @bus.on("mouse:click")
     def mouse_click(self, event: MouseClickEvent):
         """
         Handles a mouse click event.
         :param event: Data about the mouse click
         """
-        pygame.draw.rect(self.renderer.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
+        pygame.draw.rect(
+            self.renderer.screen,
+            black,
+            (0, 0, self.game_data.width, self.game_data.sq_size),
+        )
 
         col: int = int(math.floor(event.posx / self.game_data.sq_size))
 
@@ -48,16 +53,20 @@ class ConnectGame:
 
             self.game_data.last_move_row = row
             self.game_data.last_move_col = col
-            self.game_data.game_board.drop_piece(row, col, self.game_data.turn+1)
+            self.game_data.game_board.drop_piece(row, col, self.game_data.turn + 1)
 
             self.draw()
 
-            bus.emit('piece:drop', PieceDropEvent(self.game_data.game_board.board[row][col]))
+            bus.emit(
+                "piece:drop", PieceDropEvent(self.game_data.game_board.board[row][col])
+            )
 
         self.print_board()
 
         if self.game_data.game_board.winning_move(self.game_data.turn + 1):
-            bus.emit('game:over', self.renderer, GameOver(False, self.game_data.turn + 1))
+            bus.emit(
+                "game:over", self.renderer, GameOver(False, self.game_data.turn + 1)
+            )
             self.game_data.game_over = True
 
         pygame.display.update()
@@ -65,7 +74,7 @@ class ConnectGame:
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
 
-    @bus.on('game:undo')
+    @bus.on("game:undo")
     def undo(self):
         """
         Handles the Ctrl+Z keyboard sequence, which
@@ -73,9 +82,7 @@ class ConnectGame:
         :return:
         """
         self.game_data.game_board.drop_piece(
-            self.game_data.last_move_row,
-            self.game_data.last_move_col,
-            0
+            self.game_data.last_move_row, self.game_data.last_move_col, 0
         )
 
         self.game_data.turn += 1
@@ -86,7 +93,7 @@ class ConnectGame:
         Checks the game state, dispatching events as needed.
         """
         if self.game_data.game_board.tie_move():
-            bus.emit('game:over', GameOver(was_tie=True))
+            bus.emit("game:over", GameOver(was_tie=True))
 
             self.game_data.game_over = True
 
