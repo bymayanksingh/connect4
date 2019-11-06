@@ -1,9 +1,8 @@
 import pygame
-from events import bus, MouseClickEvent
-
 from pygame.locals import KEYDOWN
+
 from connect_game import ConnectGame
-from events import MouseHoverEvent
+from events import MouseClickEvent, MouseHoverEvent, bus
 from game_data import GameData
 from game_renderer import GameRenderer
 

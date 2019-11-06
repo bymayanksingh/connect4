@@ -1,14 +1,13 @@
 import math
 import os
 import sys
-from config import black
-from events import MouseClickEvent, PieceDropEvent, GameOver
-from game_data import GameData
-from game_renderer import GameRenderer
-
-from events import bus
 
 import pygame
+
+from config import black
+from events import GameOver, MouseClickEvent, PieceDropEvent, bus
+from game_data import GameData
+from game_renderer import GameRenderer
 
 
 class ConnectGame:

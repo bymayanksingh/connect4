@@ -1,5 +1,5 @@
 import os
-from typing import Union, Optional, Any
+from typing import Any, Optional, Union
 
 import pygame
 from pygame import mixer
@@ -7,18 +7,11 @@ from pygame.font import FontType
 from pygame.ftfont import Font
 from pygame.gfxdraw import aacircle, filled_circle
 
-from assets import (
-    yellow_coin,
-    red_coin,
-    black_coin,
-    event_sound,
-    disc_drop_1,
-    disc_drop_2,
-)
-from config import blue, black, white, red, yellow
-from events import PieceDropEvent, GameOver, MouseHoverEvent
+from assets import (black_coin, disc_drop_1, disc_drop_2, event_sound,
+                    red_coin, yellow_coin)
+from config import black, blue, red, white, yellow
+from events import GameOver, MouseHoverEvent, PieceDropEvent, bus
 from game_data import GameData
-from events import bus
 
 
 @bus.on("piece:drop")
