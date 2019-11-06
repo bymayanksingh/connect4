@@ -50,6 +50,8 @@ class ConnectGame:
             self.game_data.last_move_col = col
             self.game_data.game_board.drop_piece(row, col, self.game_data.turn+1)
 
+            self.draw()
+
             bus.emit('piece:drop', PieceDropEvent(self.game_data.game_board.board[row][col]))
 
         self.print_board()
