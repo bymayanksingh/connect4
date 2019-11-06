@@ -1,4 +1,5 @@
 import math
+import os
 import sys
 from config import black
 from events import MouseClickEvent, PieceDropEvent, GameOver
@@ -88,11 +89,10 @@ class ConnectGame:
             self.game_data.game_over = True
 
         if self.game_data.game_over:
-            pass
-            # print(os.getpid())
-            #pygame.time.wait(3000)
-            #os.system("kill " + str(os.getpid()))
-            #os.system("./restart.sh")
+            print(os.getpid())
+            pygame.time.wait(3000)
+            os.system("kill " + str(os.getpid()))
+            os.system("./restart.sh")
 
     def draw(self):
         """
