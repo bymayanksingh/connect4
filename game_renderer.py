@@ -1,7 +1,10 @@
 import os
+from typing import Union, Optional, Any
 
 import pygame
 from pygame import mixer
+from pygame.font import FontType
+from pygame.ftfont import Font
 from pygame.gfxdraw import aacircle, filled_circle
 
 from assets import (
@@ -37,6 +40,9 @@ class GameRenderer:
     """
     Renders the current game state to the screen and the speakers.
     """
+    game_data: GameData
+    label: Optional[Any]
+    myfont: Union[None, Font, FontType]
 
     def __init__(self, screen, game_data: GameData):
         """
