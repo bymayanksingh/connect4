@@ -36,7 +36,7 @@ $ python3 game.py
 ```
 
 ##  :file_folder: File Structure
-- Add a file structure here with the basic details about files, below is an example.
+- Add a file structure here with the basic details about files, below is current file structure.
 
 ```
 .
