@@ -88,6 +88,12 @@ $ python3 game.py
 | 14 | restart.sh         | bash script to relaunch the game once it is finished.
 | 15 | sounds/            | contains sound resources used in the game.
 
+### Dependency Graph
+
+<p align="center">
+  <img src="./images/game.svg" width="800">
+</p>
+
 ##  :exclamation: Guideline
 
 - __Code Style__
