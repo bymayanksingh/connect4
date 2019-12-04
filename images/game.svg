@@ -11,12 +11,12 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-256 418.356,-256 418.356,4 -4,4"/>
 <!-- game_data -->
 <g id="node1" class="node"><title>game_data</title><style>.edge>path:hover{stroke-width:8}</style>
-<ellipse fill="#3bcece" stroke="black" cx="38.2631" cy="-234" rx="38.0276" ry="18"/>
+<ellipse fill="#ffffff" stroke="black" cx="38.2631" cy="-234" rx="38.0276" ry="18"/>
 <text text-anchor="middle" x="38.2631" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game_data</text>
 </g>
 <!-- connect_game -->
 <g id="node3" class="node"><title>connect_game</title><style>.edge>path:hover{stroke-width:8}</style>
-<ellipse fill="#9d4343" stroke="black" cx="216.263" cy="-90" rx="47.1863" ry="18"/>
+<ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-90" rx="47.1863" ry="18"/>
 <text text-anchor="middle" x="216.263" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ffffff">connect_game</text>
 </g>
 <!-- game_data&#45;&gt;connect_game -->
@@ -27,7 +27,7 @@
 </g>
 <!-- game_renderer -->
 <g id="node5" class="node"><title>game_renderer</title><style>.edge>path:hover{stroke-width:8}</style>
-<ellipse fill="#3a3ab0" stroke="black" cx="216.263" cy="-162" rx="47.8641" ry="18"/>
+<ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-162" rx="47.8641" ry="18"/>
 <text text-anchor="middle" x="216.263" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ffffff">game_renderer</text>
 </g>
 <!-- game_data&#45;&gt;game_renderer -->
@@ -37,7 +37,7 @@
 </g>
 <!-- game -->
 <g id="node6" class="node"><title>game</title><style>.edge>path:hover{stroke-width:8}</style>
-<ellipse fill="#3d8f3d" stroke="black" cx="216.263" cy="-18" rx="27" ry="18"/>
+<ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-18" rx="27" ry="18"/>
 <text text-anchor="middle" x="216.263" y="-15.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ffffff">game</text>
 </g>
 <!-- game_data&#45;&gt;game -->
@@ -48,7 +48,7 @@
 </g>
 <!-- events -->
 <g id="node2" class="node"><title>events</title><style>.edge>path:hover{stroke-width:8}</style>
-<ellipse fill="#cece3b" stroke="black" cx="121.263" cy="-234" rx="27.1572" ry="18"/>
+<ellipse fill="#ffffff" stroke="black" cx="121.263" cy="-234" rx="27.1572" ry="18"/>
 <text text-anchor="middle" x="121.263" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">events</text>
 </g>
 <!-- events&#45;&gt;connect_game -->
@@ -71,7 +71,7 @@
 </g>
 <!-- pygame -->
 <g id="node4" class="node"><title>pygame</title><style>.edge>path:hover{stroke-width:8}</style>
-<ellipse fill="#e619e6" stroke="black" cx="254.263" cy="-234" rx="30.0436" ry="18"/>
+<ellipse fill="#ffffff" stroke="black" cx="254.263" cy="-234" rx="30.0436" ry="18"/>
 <text text-anchor="middle" x="254.263" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ffffff">pygame</text>
 </g>
 <!-- pygame&#45;&gt;connect_game -->
@@ -102,7 +102,7 @@
 </g>
 <!-- pygame_locals -->
 <g id="node7" class="node"><title>pygame_locals</title><style>.edge>path:hover{stroke-width:8}</style>
-<ellipse fill="#b34cb3" stroke="black" cx="367.263" cy="-162" rx="47.1863" ry="18"/>
+<ellipse fill="#ffffff" stroke="black" cx="367.263" cy="-162" rx="47.1863" ry="18"/>
 <text text-anchor="middle" x="367.263" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#ffffff">pygame.locals</text>
 </g>
 <!-- pygame_locals&#45;&gt;game -->
