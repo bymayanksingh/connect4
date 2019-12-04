@@ -10,12 +10,12 @@
 <title>G</title><style>.edge>path:hover{stroke-width:8}</style>
 <polygon fill="white" stroke="none" points="-4,4 -4,-256 418.356,-256 418.356,4 -4,4"/>
 <!-- game_data -->
-<g id="node1" class="node"><title>game_data</title><style>.edge>path:hover{stroke-width:8}</style>
+<g id="node1" class="node"><title>game_data.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="38.2631" cy="-234" rx="38.0276" ry="18"/>
 <text text-anchor="middle" x="38.2631" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game_data</text>
 </g>
 <!-- connect_game -->
-<g id="node3" class="node"><title>connect_game</title><style>.edge>path:hover{stroke-width:8}</style>
+<g id="node3" class="node"><title>connect_game.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-90" rx="47.1863" ry="18"/>
 <text text-anchor="middle" x="216.263" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">connect_game</text>
 </g>
@@ -26,7 +26,7 @@
 <polygon fill="#000000" stroke="black" points="192.558,-115.943 197.769,-106.718 187.943,-110.679 192.558,-115.943"/>
 </g>
 <!-- game_renderer -->
-<g id="node5" class="node"><title>game_renderer</title><style>.edge>path:hover{stroke-width:8}</style>
+<g id="node5" class="node"><title>game_renderer.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-162" rx="47.8641" ry="18"/>
 <text text-anchor="middle" x="216.263" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game_renderer</text>
 </g>
@@ -36,7 +36,7 @@
 <polygon fill="#000000" stroke="black" points="176.404,-182.436 184.429,-175.519 173.842,-175.922 176.404,-182.436"/>
 </g>
 <!-- game -->
-<g id="node6" class="node"><title>game</title><style>.edge>path:hover{stroke-width:8}</style>
+<g id="node6" class="node"><title>game.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-18" rx="27" ry="18"/>
 <text text-anchor="middle" x="216.263" y="-15.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game</text>
 </g>
@@ -47,7 +47,7 @@
 <polygon fill="#000000" stroke="black" points="191.979,-40.4849 197.826,-31.6498 187.745,-34.91 191.979,-40.4849"/>
 </g>
 <!-- events -->
-<g id="node2" class="node"><title>events</title><style>.edge>path:hover{stroke-width:8}</style>
+<g id="node2" class="node"><title>events.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="121.263" cy="-234" rx="27.1572" ry="18"/>
 <text text-anchor="middle" x="121.263" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">events</text>
 </g>
