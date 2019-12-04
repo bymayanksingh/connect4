@@ -12,12 +12,12 @@
 <!-- game_data -->
 <g id="node1" class="node"><title>game_data.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="38.2631" cy="-234" rx="38.0276" ry="18"/>
-<text text-anchor="middle" x="38.2631" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game_data</text>
+<text text-anchor="middle" x="38.2631" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game_data.py</text>
 </g>
 <!-- connect_game -->
 <g id="node3" class="node"><title>connect_game.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-90" rx="47.1863" ry="18"/>
-<text text-anchor="middle" x="216.263" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">connect_game</text>
+<text text-anchor="middle" x="216.263" y="-87.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">connect_game.py</text>
 </g>
 <!-- game_data&#45;&gt;connect_game -->
 <g id="edge5" class="edge"><title>game_data&#45;&gt;connect_game</title><style>.edge>path:hover{stroke-width:8}</style>
@@ -28,7 +28,7 @@
 <!-- game_renderer -->
 <g id="node5" class="node"><title>game_renderer.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-162" rx="47.8641" ry="18"/>
-<text text-anchor="middle" x="216.263" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game_renderer</text>
+<text text-anchor="middle" x="216.263" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game_renderer.py</text>
 </g>
 <!-- game_data&#45;&gt;game_renderer -->
 <g id="edge7" class="edge"><title>game_data&#45;&gt;game_renderer</title><style>.edge>path:hover{stroke-width:8}</style>
@@ -38,7 +38,7 @@
 <!-- game -->
 <g id="node6" class="node"><title>game.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="216.263" cy="-18" rx="27" ry="18"/>
-<text text-anchor="middle" x="216.263" y="-15.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game</text>
+<text text-anchor="middle" x="216.263" y="-15.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">game.py</text>
 </g>
 <!-- game_data&#45;&gt;game -->
 <g id="edge6" class="edge"><title>game_data&#45;&gt;game</title><style>.edge>path:hover{stroke-width:8}</style>
@@ -49,7 +49,7 @@
 <!-- events -->
 <g id="node2" class="node"><title>events.py</title><style>.edge>path:hover{stroke-width:8}</style>
 <ellipse fill="#ffffff" stroke="black" cx="121.263" cy="-234" rx="27.1572" ry="18"/>
-<text text-anchor="middle" x="121.263" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">events</text>
+<text text-anchor="middle" x="121.263" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">events.py</text>
 </g>
 <!-- events&#45;&gt;connect_game -->
 <g id="edge2" class="edge"><title>events&#45;&gt;connect_game</title><style>.edge>path:hover{stroke-width:8}</style>
