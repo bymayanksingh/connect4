@@ -12,6 +12,7 @@ data = GameData()
 screen = pygame.display.set_mode(data.size)
 game = ConnectGame(data, GameRenderer(screen, data))
 
+
 game.print_board()
 game.draw()
 

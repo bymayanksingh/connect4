@@ -26,9 +26,9 @@ class GameBoard:
         """
         Prints the state of the board to the console.
         """
-        print(flip(self.board, 0))
-        print(" ---------------------")
-        print(" " + str([1, 2, 3, 4, 5, 6, 7]))
+        #print(flip(self.board, 0))
+        #print(" " + "---"*self.cols)
+        #print(" " + str([i+1 for i in range(self.cols)]))
 
     def drop_piece(self, row, col, piece):
         """
@@ -61,7 +61,6 @@ class GameBoard:
         """
         Checks if a particular square is a certain color.  If
         the space is off of the board it returns False.
-
         :param piece: The piece color to look for.
         :param r: The row to check.
         :param c: The column to check.
@@ -137,7 +136,6 @@ class GameBoard:
                     self.horizontal_win(piece, r, c)
                     or self.vertical_win(piece, r, c)
                     or self.diagonal_win(piece, r, c)
-                    or self.diagonal_win(piece, r, c)
                 ):
                     return True
         return False
@@ -154,4 +152,4 @@ class GameBoard:
                 if self.board[r][c] != 0:
                     slots_filled += 1
 
-        return slots_filled == 42
+        return slots_filled == self.rows*self.cols

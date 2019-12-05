@@ -2,6 +2,7 @@ import os
 from typing import Any, Optional, Union
 
 import pygame
+import time
 from pygame import mixer
 from pygame.font import FontType
 from pygame.ftfont import Font
@@ -9,6 +10,7 @@ from pygame.gfxdraw import aacircle, filled_circle
 
 from assets import (
     black_coin,
+    board_pattern,
     disc_drop_1,
     disc_drop_2,
     event_sound,
@@ -50,11 +52,15 @@ class GameRenderer:
         :param screen: The screen.
         :param game_data: All of the data for the game.
         """
-        self.myfont = pygame.font.SysFont("monospace", 75)
-        self.label = self.myfont.render("CONNECT FOUR!!", 1, white)
-        screen.blit(self.label, (40, 10))
-        self.screen = screen
         self.game_data = game_data
+        self.screen = screen
+
+        self.myfont = pygame.font.SysFont("monospace", self.game_data.title_height)
+        self.label = self.myfont.render("CONNECT FOUR!!", 1, white)
+        screen.blit(self.label, (self.game_data.margin, self.game_data.margin))
+
+        #self.red_coin = pygame.transform.scale(self.red_coin, (2*self.game_data.radius))
+        #self.yellow_coin = pygame.transform.scale(self.red_coin, (2*self.game_data.radius))
 
         pygame.display.set_caption("Connect Four | Mayank Singh")
         pygame.display.update()
@@ -66,14 +72,15 @@ class GameRenderer:
         :param event: Information about the hover, namely the x position
         """
         posx = event.posx
+        self.game_data.posx = event.posx
 
         pygame.draw.rect(
-            self.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size)
+            self.screen, black, (0, 0, self.game_data.width, self.game_data.title_height + self.game_data.margin*2 + self.game_data.sq_size)
         )
         self.draw_coin(
             self.game_data,
-            posx - (self.game_data.sq_size / 2),
-            int(self.game_data.sq_size) - self.game_data.sq_size + 5,
+            posx - self.game_data.radius,
+            self.game_data.title_height + self.game_data.margin*3,
         )
 
     def draw_red_coin(self, x, y):
@@ -82,7 +89,17 @@ class GameRenderer:
         :param x: The x position to draw the coin.
         :param y: The y position to draw the coin.
         """
-        self.screen.blit(red_coin, (x, y))
+        radius = self.game_data.radius
+        sq_size = self.game_data.sq_size
+        """
+        filled_circle(
+                    self.screen,
+                    x+radius,y+radius,
+                    radius,
+                    yellow,
+                )
+        """
+        self.screen.blit(pygame.transform.scale(red_coin, (2*radius, 2*radius)), (x, y))
 
     def draw_yellow_coin(self, x, y):
         """
@@ -90,7 +107,17 @@ class GameRenderer:
         :param x: The x position to draw the coin.
         :param y: The y position to draw the coin.
         """
-        self.screen.blit(yellow_coin, (x, y))
+        radius = self.game_data.radius
+        sq_size = self.game_data.sq_size
+        """
+        filled_circle(
+                    self.screen,
+                    x+radius,y+radius,
+                    radius,
+                    yellow,
+                )
+        """
+        self.screen.blit(pygame.transform.scale(yellow_coin, (2*radius, 2*radius)), (x, y))
 
     def draw_black_coin(self, x, y):
         """
@@ -110,46 +137,20 @@ class GameRenderer:
         :param y: The y position for the coin to be drawn.
         """
         if game_data.turn == 0:
-            self.screen.blit(red_coin, (x, y))
+            radius = game_data.radius
+            sq_size = game_data.sq_size
+            self.screen.blit(pygame.transform.scale(red_coin, (2*radius, 2*radius)), (x, y))
         else:
-            self.screen.blit(yellow_coin, (x, y))
+            radius = game_data.radius
+            sq_size = game_data.sq_size
+            self.screen.blit(pygame.transform.scale(yellow_coin, (2*radius, 2*radius)), (x, y))
 
     def draw(self, game_data: GameData):
         """
         Draws the game state, including the board and the pieces.
         :param game_data: All of the data associated with the game.
         """
-        if game_data.action == "undo":
-            filled_circle(
-                self.screen,
-                game_data.last_move_row,
-                game_data.last_move_col,
-                self.game_data.radius,
-                black,
-            )
-
-            aacircle(
-                self.screen,
-                game_data.last_move_row,
-                game_data.last_move_col,
-                self.game_data.radius,
-                black,
-            )
-
-            self.draw_black_coin(
-                game_data.last_move_col * self.game_data.sq_size + 5,
-                self.game_data.height
-                - (
-                    game_data.last_move_row * self.game_data.sq_size
-                    + self.game_data.sq_size
-                    - 5
-                ),
-            )
-
-            game_data.game_board.print_board()
-            game_data.action = None
-
-        self.draw_board(game_data.game_board)
+        self.draw_board(game_data)
 
     @bus.on("game:over")
     def on_game_over(self, event: GameOver):
@@ -166,58 +167,90 @@ class GameRenderer:
 
         if not event.was_tie:
             self.label = self.myfont.render(f"PLAYER {event.winner} WINS!", 1, color)
-            self.screen.blit(self.label, (40, 10))
+            self.screen.blit(self.label, (self.game_data.margin, self.game_data.margin))
 
             mixer.music.load(event_sound)
             mixer.music.play(0)
         else:
+            self.label = self.myfont.render("GAME DRAW !!!!", 1, white)
+            self.screen.blit(self.label, (self.game_data.margin, self.game_data.margin))
+
             mixer.music.load(os.path.join("sounds", "event.ogg"))
             mixer.music.play(0)
-            self.myfont = pygame.font.SysFont("monospace", 75)
-            self.label = self.myfont.render("GAME DRAW !!!!", 1, white)
-            self.screen.blit(self.label, (40, 10))
 
-    def draw_board(self, board):
+    def drop_piece(self, row, col, turn):
+        """
+        Animates the falling piece
+        :param row: The row in which the piece will land
+        :param col: The column in which the piece will fall
+        :param turn: Which player's coin fell
+        """
+        sq_size = self.game_data.sq_size
+        radius = self.game_data.radius
+        upper_margin = self.game_data.title_height + 2*self.game_data.margin
+
+        y = 0
+        acc = self.game_data.height*8
+        y_max = 0 + self.game_data.game_board.rows*sq_size - (row)*sq_size
+        delta_t = 0.005
+
+        t = 0
+        while(t<10):
+            t += delta_t
+            y = 0.5*acc*(t**2)
+            if(y>=y_max):
+                break
+            time.sleep(delta_t)
+            pygame.draw.rect(
+                self.screen,
+                black,
+                (col*sq_size, upper_margin, sq_size, self.game_data.game_board.rows*sq_size - (row)*sq_size)
+            )
+            if turn==1:
+                self.draw_red_coin(
+                    int(col * sq_size) + self.game_data.margin, int(y) + upper_margin
+                )
+
+            elif turn==2:
+                self.draw_yellow_coin(
+                    int(col * sq_size) + self.game_data.margin, int(y) + upper_margin
+                )
+                
+            for r in range(self.game_data.game_board.rows - row):
+                self.screen.blit(pygame.transform.scale(board_pattern, (sq_size, sq_size)), (col*sq_size, upper_margin + (r+1)*sq_size))
+            pygame.display.update()
+
+    def draw_board(self, data):
         """
         Draws the game board to the screen.
-        :param board: The game board.
+        :param data: All data associated with the game.
         """
-        sq_size = 100
-        height = 700
-        radius = int(sq_size / 2 - 5)
 
+        board = data.game_board
+
+        sq_size = data.sq_size
+        height = data.height
+        radius = data.radius
+        upper_margin = data.title_height + 2*data.margin
+        pygame.draw.rect(
+                            self.screen,
+                            black,
+                            (0,upper_margin + sq_size,self.game_data.width, self.game_data.height)
+                        )
         for c in range(board.cols):
             for r in range(board.rows):
-                pygame.draw.rect(
-                    self.screen,
-                    blue,
-                    (c * sq_size, (r + 1) * sq_size, sq_size, sq_size),
-                )
-                aacircle(
-                    self.screen,
-                    int(c * sq_size + sq_size / 2),
-                    int((r + 1) * sq_size + sq_size / 2),
-                    radius,
-                    black,
-                )
-                filled_circle(
-                    self.screen,
-                    int(c * sq_size + sq_size / 2),
-                    int((r + 1) * sq_size + sq_size / 2),
-                    radius,
-                    black,
-                )
+                self.screen.blit(pygame.transform.scale(board_pattern, (sq_size, sq_size)), (c*sq_size, upper_margin + (r+1)*sq_size))
 
         for c in range(board.cols):
             for r in range(board.rows):
                 if board.board[r][c] == 1:
                     self.draw_red_coin(
-                        int(c * sq_size) + 5, height - int(r * sq_size + sq_size - 5)
+                        int(c * sq_size) + self.game_data.margin, height - int(r * sq_size + sq_size - self.game_data.margin)
                     )
 
                 elif board.board[r][c] == 2:
                     self.draw_yellow_coin(
-                        int(c * sq_size) + 5, height - int(r * sq_size + sq_size - 5)
+                        int(c * sq_size) + self.game_data.margin, height - int(r * sq_size + sq_size - self.game_data.margin)
                     )
 
         pygame.display.update()
