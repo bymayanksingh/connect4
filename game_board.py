@@ -137,7 +137,6 @@ class GameBoard:
                     self.horizontal_win(piece, r, c)
                     or self.vertical_win(piece, r, c)
                     or self.diagonal_win(piece, r, c)
-                    or self.diagonal_win(piece, r, c)
                 ):
                     return True
         return False
