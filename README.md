@@ -1,7 +1,7 @@
 <div align=center>
   
 <p>
-  <img src="./images/logo/connect4.gif">
+  <img src="./images/logo/c4.gif">
 </p>
 
 [![Open Issues](https://img.shields.io/github/issues/code-monk08/connect-four?style=for-the-badge&logo=github)](https://github.com/code-monk08/connect-four/issues)  [![Forks](https://img.shields.io/github/forks/code-monk08/connect-four?style=for-the-badge&logo=github)](https://github.com/code-monk08/connect-four/network/members)  [![Stars](https://img.shields.io/github/stars/code-monk08/connect-four?style=for-the-badge&logo=reverbnation)](https://github.com/code-monk08/connect-four/stargazers)  ![Maintained](https://img.shields.io/maintenance/yes/2019?style=for-the-badge&logo=github)  ![Made with Python](https://img.shields.io/badge/Made%20with-Python-blueviolet?style=for-the-badge&logo=python)  ![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%99%A5-red?style=for-the-badge&logo=open-source-initiative)  ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A5-critical?style=for-the-badge&logo=ko-fi)  [![Follow Me](https://img.shields.io/twitter/follow/codemonk08_?color=blue&label=Follow%20%40codemonk08_&logo=twitter&style=for-the-badge)](https://twitter.com/intent/follow?screen_name=codemonk08_)  [![Slack](https://img.shields.io/badge/Slack-Chat-informational?style=for-the-badge&logo=slack)](https://join.slack.com/t/connectfourgroup/shared_invite/enQtODMxNTAwNDY4NDU0LTZmYTZkMzJiNWQwZDk1YjhlZTEzY2VhMDNkNjVhOGIzNGIyNmYxODM4NWI5MjNjYmJlZjk4MjA4MzQ3MjZhNDg)
