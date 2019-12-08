@@ -50,8 +50,8 @@ class ConnectGame:
         if self.game_data.game_board.is_valid_location(col):
             row: int = self.game_data.game_board.get_next_open_row(col)
 
-            self.game_data.last_move_row = row
-            self.game_data.last_move_col = col
+            self.game_data.last_move_row.append(row)
+            self.game_data.last_move_col.append(col)
             self.game_data.game_board.drop_piece(row, col, self.game_data.turn + 1)
 
             self.draw()
@@ -80,9 +80,10 @@ class ConnectGame:
         is used to roll back the last move.
         :return:
         """
-        self.game_data.game_board.drop_piece(
-            self.game_data.last_move_row, self.game_data.last_move_col, 0
-        )
+        if self.game_data.last_move_row:
+            self.game_data.game_board.drop_piece(
+                self.game_data.last_move_row.pop(), self.game_data.last_move_col.pop(), 0
+            )
 
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
