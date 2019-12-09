@@ -11,6 +11,7 @@
 ## :ledger: Index
 
 - [About](#beginner-about)
+- [Features](#page_facing_up-features)
 - [Usage](#zap-usage)
   - [Installation](#electric_plug-installation)
   - [Commands](#package-commands)
@@ -23,6 +24,15 @@
 
 ##  :beginner: About
 Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping one colored disc from the top into a seven-column, six-row vertically suspended grid. The pieces fall straight down, occupying the lowest available space within the column. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs.
+
+##  :page_facing_up: Features
+ - 2 player interactive game
+ - Supports undo operation
+ - Supports interactive game sounds
+ - Ability to play with computer AI (in development phase)
+ - Multiplayer on local network using sockets (in development phase)
+ - Ability to customize game theme (in development phase)
+ - Cross platform Linux, Windows, Mac (in development phase)
 
 ## :zap: Usage
 To use this project.
