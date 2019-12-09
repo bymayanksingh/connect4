@@ -27,7 +27,7 @@ class GameBoard:
         Prints the state of the board to the console.
         """
         print(flip(self.board, 0))
-        print(" ---------------------")
+        print(" " + "---"*self.cols)
         print(" " + str([1, 2, 3, 4, 5, 6, 7]))
 
     def drop_piece(self, row, col, piece):
@@ -153,4 +153,4 @@ class GameBoard:
                 if self.board[r][c] != 0:
                     slots_filled += 1
 
-        return slots_filled == 42
+        return slots_filled == self.rows*self.cols
