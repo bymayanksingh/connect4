@@ -28,7 +28,7 @@ class GameBoard:
         """
         print(flip(self.board, 0))
         print(" " + "---"*self.cols)
-        print(" " + str([1, 2, 3, 4, 5, 6, 7]))
+        print(" " + str([i+1 for i in range(self.cols)]))
 
     def drop_piece(self, row, col, piece):
         """
