@@ -93,7 +93,7 @@ class ConnectGame:
         Checks the game state, dispatching events as needed.
         """
         if self.game_data.game_board.tie_move():
-            bus.emit("game:over", GameOver(was_tie=True))
+            bus.emit("game:over", self.renderer, GameOver(was_tie=True)) #There was a syntax error in this line
 
             self.game_data.game_over = True
 
