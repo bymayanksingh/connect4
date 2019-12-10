@@ -61,7 +61,6 @@ class GameBoard:
         """
         Checks if a particular square is a certain color.  If
         the space is off of the board it returns False.
-
         :param piece: The piece color to look for.
         :param r: The row to check.
         :param c: The column to check.

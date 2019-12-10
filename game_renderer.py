@@ -149,7 +149,7 @@ class GameRenderer:
             game_data.game_board.print_board()
             game_data.action = None
 
-        self.draw_board(game_data.game_board)
+        self.draw_board(game_data)
 
     @bus.on("game:over")
     def on_game_over(self, event: GameOver):
@@ -177,13 +177,16 @@ class GameRenderer:
             self.label = self.myfont.render("GAME DRAW !!!!", 1, white)
             self.screen.blit(self.label, (40, 10))
 
-    def draw_board(self, board):
+    def draw_board(self, data):
         """
         Draws the game board to the screen.
         :param board: The game board.
         """
-        sq_size = 100
-        height = 700
+
+        board = data.game_board
+
+        sq_size = data.sq_size
+        height = data.height
         radius = int(sq_size / 2 - 5)
 
         for c in range(board.cols):
