@@ -47,11 +47,7 @@ class ConnectGame:
 
         col: int = int(math.floor(event.posx / self.game_data.sq_size))
 
-        change_turn = False
-
         if self.game_data.game_board.is_valid_location(col):
-            change_turn = True
-
             row: int = self.game_data.game_board.get_next_open_row(col)
 
             self.game_data.last_move_row.append(row)
@@ -74,8 +70,8 @@ class ConnectGame:
 
             pygame.display.update()
 
-        if(change_turn):
             self.game_data.turn += 1
+            
         self.game_data.turn = self.game_data.turn % 2
         self.renderer.draw_coin(self.game_data, event.posx - self.game_data.sq_size//2, self.game_data.title_height + self.game_data.margin*2 - self.game_data.sq_size//2 - 2*self.game_data.margin)
 
