@@ -73,7 +73,6 @@ class ConnectGame:
             self.game_data.turn += 1
             self.game_data.turn = self.game_data.turn % 2
 
-        
     @bus.on("game:undo")
     def undo(self):
         """
@@ -83,7 +82,9 @@ class ConnectGame:
         """
         if self.game_data.last_move_row:
             self.game_data.game_board.drop_piece(
-                self.game_data.last_move_row.pop(), self.game_data.last_move_col.pop(), 0
+                self.game_data.last_move_row.pop(),
+                self.game_data.last_move_col.pop(),
+                0,
             )
 
         self.game_data.turn += 1
