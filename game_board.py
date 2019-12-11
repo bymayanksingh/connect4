@@ -26,9 +26,9 @@ class GameBoard:
         """
         Prints the state of the board to the console.
         """
-        print(flip(self.board, 0))
-        print(" " + "---"*self.cols)
-        print(" " + str([i+1 for i in range(self.cols)]))
+        #print(flip(self.board, 0))
+        #print(" " + "---"*self.cols)
+        #print(" " + str([i+1 for i in range(self.cols)]))
 
     def drop_piece(self, row, col, piece):
         """
