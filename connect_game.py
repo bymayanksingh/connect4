@@ -47,12 +47,10 @@ class ConnectGame:
 
         col: int = int(math.floor(event.posx / self.game_data.sq_size))
 
-        change_turn = False
-
         if self.game_data.game_board.is_valid_location(col):
-            change_turn = True
-
             row: int = self.game_data.game_board.get_next_open_row(col)
+
+            self.renderer.drop_piece(row, col, self.game_data.turn + 1)
 
             self.game_data.last_move_row.append(row)
             self.game_data.last_move_col.append(col)
@@ -76,7 +74,7 @@ class ConnectGame:
 
             self.game_data.turn += 1
             self.game_data.turn = self.game_data.turn % 2
-
+            
     @bus.on("game:undo")
     def undo(self):
         """
@@ -93,6 +91,8 @@ class ConnectGame:
 
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
+        pygame.draw.rect(self.renderer.screen, black, (0, self.game_data.title_height + self.game_data.margin*2, self.game_data.width, self.game_data.sq_size))
+        self.renderer.draw_coin(self.renderer.game_data, self.renderer.game_data.posx - self.game_data.radius, self.game_data.title_height + self.game_data.margin*3)
 
     def update(self):
         """
