@@ -77,9 +77,6 @@ class ConnectGame:
             self.game_data.turn += 1
             self.game_data.turn = self.game_data.turn % 2
 
-            #Solved the BUG when a column gets filled issue #21
-            #By pushing the latter part of this function into the "if" condition
-
         
     @bus.on("game:undo")
     def undo(self):
