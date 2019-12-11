@@ -64,15 +64,15 @@ class ConnectGame:
                 "piece:drop", PieceDropEvent(self.game_data.game_board.board[row][col])
             )
 
-        self.print_board()
+            self.print_board()
 
-        if self.game_data.game_board.winning_move(self.game_data.turn + 1):
-            bus.emit(
-                "game:over", self.renderer, GameOver(False, self.game_data.turn + 1)
-            )
-            self.game_data.game_over = True
+            if self.game_data.game_board.winning_move(self.game_data.turn + 1):
+                bus.emit(
+                    "game:over", self.renderer, GameOver(False, self.game_data.turn + 1)
+                )
+                self.game_data.game_over = True
 
-        pygame.display.update()
+            pygame.display.update()
 
         if(change_turn):
             self.game_data.turn += 1
@@ -88,7 +88,9 @@ class ConnectGame:
         """
         if self.game_data.last_move_row:
             self.game_data.game_board.drop_piece(
-                self.game_data.last_move_row.pop(), self.game_data.last_move_col.pop(), 0
+                self.game_data.last_move_row.pop(),
+                self.game_data.last_move_col.pop(),
+                0,
             )
 
         self.game_data.turn += 1
