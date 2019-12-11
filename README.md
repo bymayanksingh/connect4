@@ -81,26 +81,25 @@ $ python3 game.py
     └── event.ogg
 
 4 directories, 21 files
-
 ```
 
 | No | File Name          | Details 
 |----|--------------------|-------------------------------------------------------------------------------------|
-| 1  | assets.py          | used for loading sound and image files in python.
-| 2  | config.py          | contains game's configuration settings.
-| 3  | connect_game.py    | Contains the ConnectGame class which holds the logic for the whole game.
-| 4  | events.py          | Contains classes used to define and hold event data.
-| 5  | game_board.py      | Contains the GameBoard data structure and methods which operate on it.
-| 6  | game_data.py       | Contains the GameData class, which contains all of the data in the game.
-| 7  | game_renderer.py   | Holds the GameRenderer class, which renders the game state using sound and graphics.
-| 8  | game.py            | contains connect four game logic.
-| 9  | images/            | contains image resources used in the game.
-| 10 | images/logo        | contains logo used in the README.
-| 11 | images/screenshots | contains game screenshots.
-| 12 | LICENSE            | this project uses MIT License.
-| 13 | requirements.txt   | contains all the dependencies used in the game.
-| 14 | restart.sh         | bash script to relaunch the game once it is finished.
-| 15 | sounds/            | contains sound resources used in the game.
+| 1.  | [assets.py](assets.py)          | used for loading sound and image files in python.
+| 2.  | [config.py](config.py)          | contains game's configuration settings.
+| 3.  | [connect_game.py](connect_game.py)    | Contains the ConnectGame class which holds the logic for the whole game.
+| 4.  | [events.py](events.py)          | Contains classes used to define and hold event data.
+| 5.  | [game_board.py](game_board.py)      | Contains the GameBoard data structure and methods which operate on it.
+| 6.  | [game_data.py](game_data.py)       | Contains the GameData class, which contains all of the data in the game.
+| 7.  | [game_renderer.py](game_renderer.py)   | Holds the GameRenderer class, which renders the game state using sound and graphics.
+| 8.  | [game.py](game.py)            | contains connect four game logic.
+| 9.  | images/            | contains image resources used in the game.
+| 10. | images/logo/        | contains logo used in the README.
+| 11. | images/screenshots/ | contains game screenshots.
+| 12. | [LICENSE](LICENSE)            | this project uses MIT License.
+| 13. | [requirements.txt](requirements.txt)   | contains all the dependencies used in the game.
+| 14. | [restart.sh](restart.sh)         | bash script to relaunch the game once it is finished.
+| 15. | sounds/            | contains sound resources used in the game.
 
 - __Dependency Graph__
 
