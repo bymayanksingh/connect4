@@ -60,19 +60,23 @@ class ConnectGame:
                 "piece:drop", PieceDropEvent(self.game_data.game_board.board[row][col])
             )
 
-        self.print_board()
+            self.print_board()
 
-        if self.game_data.game_board.winning_move(self.game_data.turn + 1):
-            bus.emit(
-                "game:over", self.renderer, GameOver(False, self.game_data.turn + 1)
-            )
-            self.game_data.game_over = True
+            if self.game_data.game_board.winning_move(self.game_data.turn + 1):
+                bus.emit(
+                    "game:over", self.renderer, GameOver(False, self.game_data.turn + 1)
+                )
+                self.game_data.game_over = True
 
-        pygame.display.update()
+            pygame.display.update()
 
-        self.game_data.turn += 1
-        self.game_data.turn = self.game_data.turn % 2
+            self.game_data.turn += 1
+            self.game_data.turn = self.game_data.turn % 2
 
+            #Solved the BUG when a column gets filled issue #21
+            #By pushing the latter part of this function into the "if" condition
+
+        
     @bus.on("game:undo")
     def undo(self):
         """
