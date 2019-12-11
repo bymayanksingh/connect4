@@ -60,19 +60,20 @@ class ConnectGame:
                 "piece:drop", PieceDropEvent(self.game_data.game_board.board[row][col])
             )
 
-        self.print_board()
+            self.print_board()
 
-        if self.game_data.game_board.winning_move(self.game_data.turn + 1):
-            bus.emit(
-                "game:over", self.renderer, GameOver(False, self.game_data.turn + 1)
-            )
-            self.game_data.game_over = True
+            if self.game_data.game_board.winning_move(self.game_data.turn + 1):
+                bus.emit(
+                    "game:over", self.renderer, GameOver(False, self.game_data.turn + 1)
+                )
+                self.game_data.game_over = True
 
-        pygame.display.update()
+            pygame.display.update()
 
-        self.game_data.turn += 1
-        self.game_data.turn = self.game_data.turn % 2
+            self.game_data.turn += 1
+            self.game_data.turn = self.game_data.turn % 2
 
+        
     @bus.on("game:undo")
     def undo(self):
         """
@@ -93,7 +94,7 @@ class ConnectGame:
         Checks the game state, dispatching events as needed.
         """
         if self.game_data.game_board.tie_move():
-            bus.emit("game:over", GameOver(was_tie=True))
+            bus.emit("game:over", self.renderer, GameOver(was_tie=True))
 
             self.game_data.game_over = True
 
