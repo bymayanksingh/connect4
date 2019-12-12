@@ -76,8 +76,8 @@ class GameRenderer:
         )
         self.draw_coin(
             self.game_data,
-            posx - (self.game_data.sq_size // 2),
-            int(self.game_data.sq_size) - self.game_data.sq_size + self.game_data.margin,
+            posx - self.game_data.radius,
+            self.game_data.title_height + self.game_data.margin*3,
         )
 
     def draw_red_coin(self, x, y):
@@ -144,7 +144,7 @@ class GameRenderer:
                         red,
                     )
             """
-            self.screen.blit(pygame.transform.scale(red_coin, (2*radius, 2*radius)), (x, y + self.game_data.title_height + self.game_data.margin))
+            self.screen.blit(pygame.transform.scale(red_coin, (2*radius, 2*radius)), (x, y))
         else:
             radius = game_data.radius
             sq_size = game_data.sq_size
@@ -156,7 +156,7 @@ class GameRenderer:
                         yellow,
                     )
             """
-            self.screen.blit(pygame.transform.scale(yellow_coin, (2*radius, 2*radius)), (x, y + self.game_data.title_height + self.game_data.margin))
+            self.screen.blit(pygame.transform.scale(yellow_coin, (2*radius, 2*radius)), (x, y))
 
     def draw(self, game_data: GameData):
         """

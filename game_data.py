@@ -27,13 +27,13 @@ class GameData:
         self.turn = 0
         self.last_move_row = []
         self.last_move_col = []
-        self.game_board = GameBoard(6,7) #Change the size of the board here
+        self.game_board = GameBoard(10,15) #Change the size of the board here
         self.action = None
 
         SCREEN_WIDTH, SCREEN_HEIGHT = pyautogui.size() #Resolution of the screen
 
-        self.height: int = (SCREEN_HEIGHT*8)//10
-        self.width: int = (SCREEN_WIDTH*9)//10
+        self.height: int = (SCREEN_HEIGHT*7)//10
+        self.width: int = (SCREEN_WIDTH*8)//10
         self.sq_size: int = min(self.height//(self.game_board.rows), self.width//(self.game_board.cols), 100)
         self.margin: int = self.sq_size//20
         self.title_height = SCREEN_HEIGHT//20

@@ -71,9 +71,9 @@ class ConnectGame:
             pygame.display.update()
 
             self.game_data.turn += 1
-            
-        self.game_data.turn = self.game_data.turn % 2
-        self.renderer.draw_coin(self.game_data, event.posx - self.game_data.sq_size//2, self.game_data.title_height + self.game_data.margin*2 - self.game_data.sq_size//2 - 2*self.game_data.margin)
+            self.game_data.turn = self.game_data.turn % 2
+
+        self.renderer.draw_coin(self.game_data, event.posx - self.game_data.radius, self.game_data.title_height + self.game_data.margin*3)
 
     @bus.on("game:undo")
     def undo(self):
