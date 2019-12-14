@@ -16,6 +16,9 @@
   - [Installation](#electric_plug-installation)
   - [Commands](#package-commands)
 - [File Structure](#file_folder-file-structure)
+- [Community](#cherry_blossom-community)
+  - [Contribution](#fire-contribution)
+  - [Branches](#cactus-branches)
 - [Guideline](#exclamation-guideline)  
 - [Resources](#page_facing_up-resources)
 - [Gallery](#camera-gallery)
@@ -100,7 +103,7 @@ $ python3 game.py
 | 13. | [requirements.txt](requirements.txt)   | contains all the dependencies used in the game.
 | 14. | [restart.sh](restart.sh)         | bash script to relaunch the game once it is finished.
 | 15. | sounds/            | contains sound resources used in the game.
-
+| 16. | [Code_of_Conduct.md](https://github.com/code-monk08/connect4/blob/master/CODE_OF_CONDUCT.md) | tells about our responsibilities as a team
 - __Dependency Graph__
 
 <p align="center">
@@ -155,6 +158,27 @@ For more details and available options, please check their [timothycrosley/isort
 - __Close Issues__
 
 Close issues using keywords: [how to ?](https://help.github.com/en/articles/closing-issues-using-keywords)
+
+## :cherry_blossom: Community
+___
+
+If it's open-source, talk about the community here, ask social media links and other links.
+
+ ###  :fire: Contribution
+
+ Your contributions are always welcome and appreciated. Following are the things you can do to contribute to this project.
+
+ 1. **Report a bug** <br>
+ If you think you have encountered a issue, and I should know about it, feel free to report it [here](https://github.com/code-monk08/connect4/issues/new) and I will take care of it.
+
+ 3. **Create a pull request** <br>
+ It can't get better then this, your pull request will be appreciated by the community. You can get started by picking up any open issues from [here](https://github.com/code-monk08/connect4/issues) and make a pull request.
+
+ > If you are new to open-source, make sure to check read more about it [here](https://www.digitalocean.com/community/tutorial_series/an-introduction-to-open-source) and learn more about creating a pull request [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github).
+
+ ### :cactus: Branches
+
+- No other permanent branches should be created in the main repository, you can create feature branches but they should get merged with the master.
 
 ##  :page_facing_up: Resources
 - [PyGame Documentation](https://www.pygame.org/docs/) : Pygame is a cross-platform set of Python modules designed for writing video games. It includes computer graphics and sound libraries designed to be used with the Python programming language.
