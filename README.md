@@ -165,7 +165,6 @@ For more details and available options, please check their [timothycrosley/isort
 Close issues using keywords: [how to ?](https://help.github.com/en/articles/closing-issues-using-keywords)
 
 ## :cherry_blossom: Community
-___
 
  ###  :fire: Contribution
 
