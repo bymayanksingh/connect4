@@ -58,16 +58,21 @@ $ python3 game.py
 ```
 .
 ├── assets.py
+├── CODE_OF_CONDUCT.md
 ├── config.py
+├── _config.yml
 ├── connect_game.py
 ├── events.py
 ├── game_board.py
 ├── game_data.py
-├── game_renderer.py
 ├── game.py
+├── game_renderer.py
 ├── images
 │   ├── blackball91px.png
+│   ├── game.svg
 │   ├── logo
+│   │   ├── c4.gif
+│   │   ├── connect4.gif
 │   │   └── connect4.png
 │   ├── redball90px.png
 │   ├── screenshots
@@ -83,7 +88,7 @@ $ python3 game.py
     ├── disc_drop_2.wav
     └── event.ogg
 
-4 directories, 21 files
+4 directories, 26 files
 ```
 
 | No | File Name          | Details 
@@ -103,7 +108,7 @@ $ python3 game.py
 | 13. | [requirements.txt](requirements.txt)   | contains all the dependencies used in the game.
 | 14. | [restart.sh](restart.sh)         | bash script to relaunch the game once it is finished.
 | 15. | sounds/            | contains sound resources used in the game.
-| 16. | [Code_of_Conduct.md](https://github.com/code-monk08/connect4/blob/master/CODE_OF_CONDUCT.md) | tells about our responsibilities as a team
+| 16. | [CODE_OF_CONDUCT.md](https://github.com/code-monk08/connect4/blob/master/CODE_OF_CONDUCT.md) | tells about our responsibilities as a team
 - __Dependency Graph__
 
 <p align="center">
