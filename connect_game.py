@@ -1,8 +1,9 @@
+import pygame
 import math
 import os
 import sys
 
-import pygame
+
 
 from config import black
 from events import GameOver, MouseClickEvent, PieceDropEvent, bus
@@ -98,9 +99,8 @@ class ConnectGame:
 
         if self.game_data.game_over:
             print(os.getpid())
-            pygame.time.wait(3000)
-            os.system("kill " + str(os.getpid()))
-            os.system("./restart.sh")
+            pygame.time.wait(1000)
+            os.system('game.py')
 
     def draw(self):
         """
