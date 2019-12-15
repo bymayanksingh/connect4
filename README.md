@@ -162,8 +162,6 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 ## :cherry_blossom: Community
 ___
 
-If it's open-source, talk about the community here, ask social media links and other links.
-
  ###  :fire: Contribution
 
  Your contributions are always welcome and appreciated. Following are the things you can do to contribute to this project.
