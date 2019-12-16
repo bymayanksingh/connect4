@@ -63,12 +63,6 @@ def message_display(text,color,p,q,v):
 
 message_display('Connect 4!!',blue,350,150,150)
 message_display('Have Fun!',(23, 196, 243),350,300,110)
-#playering = pygame.image.load("images/logo/connect.gif")
-
-
-# def player(x, y):
-#     screen.blit(playering, (x, y))
-
 
 running = True
 while running:
@@ -76,9 +70,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    #player(0, 30)
-
 
     def button(msg, x, y, w, h, ic, ac, action=None):
         mouse = pygame.mouse.get_pos()
