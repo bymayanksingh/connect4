@@ -51,7 +51,7 @@ class ConnectGame:
             row: int = self.game_data.game_board.get_next_open_row(col)
 
             self.renderer.drop_piece(row, col, self.game_data.turn + 1)
-
+  
             self.game_data.last_move_row.append(row)
             self.game_data.last_move_col.append(col)
             self.game_data.game_board.drop_piece(row, col, self.game_data.turn + 1)
@@ -71,7 +71,7 @@ class ConnectGame:
                 self.game_data.game_over = True
 
             pygame.display.update()
-
+            
             self.game_data.turn += 1
             self.game_data.turn = self.game_data.turn % 2
             
