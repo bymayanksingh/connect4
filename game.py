@@ -49,25 +49,25 @@ width = 700, 700
 screen = pygame.display.set_mode(width)
 pygame.display.set_caption("space")
 
-def text_objects(text, font):
-    textSurface = font.render(text, True, red)
+def text_objects(text, font,color):
+    textSurface = font.render(text, True,color)
     return textSurface, textSurface.get_rect()
 
 
-def message_display(text):
-    largeText = pygame.font.Font('freesansbold.ttf', 115)
-    TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = (350, 300)
+def message_display(text,color,p,q,v):
+    largeText = pygame.font.SysFont("gabriola", v)
+    TextSurf, TextRect = text_objects(text, largeText,color)
+    TextRect.center = (p,q)
     screen.blit(TextSurf, TextRect)
 
 
-message_display('Enjoy game!!')
+message_display('Connect 4!!',blue,350,150,150)
+message_display('Have Fun!',(23, 196, 243),350,300,110)
+#playering = pygame.image.load("images/logo/connect.gif")
 
-playering = pygame.image.load("images/logo/connect.gif")
 
-
-def player(x, y):
-    screen.blit(playering, (x, y))
+# def player(x, y):
+#     screen.blit(playering, (x, y))
 
 
 running = True
@@ -77,7 +77,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    player(0, 30)
+    #player(0, 30)
 
 
     def button(msg, x, y, w, h, ic, ac, action=None):
@@ -92,12 +92,14 @@ while running:
         else:
             pygame.draw.rect(screen, ic, (x, y, w, h))
 
-        smallText = pygame.font.SysFont("freesansbold.ttf", 30)
-        textSurf, textRect = text_objects(msg, smallText)
+        smallText = pygame.font.SysFont("comicsansms", 30)
+        textSurf, textRect = text_objects(msg, smallText,white)
         textRect.center = ((x + (w / 2)), (y + (h / 2)))
         screen.blit(textSurf, textRect)
 
 
     button("Play!", 150, 450, 100, 50, white, white,strat)
+    button("Play", 152, 452, 96, 46, black, black, strat)
     button("Quit", 450, 450, 100, 50, white, white,quit)
+    button("Quit", 452, 452, 96, 46, black, black, quit)
     pygame.display.update()
