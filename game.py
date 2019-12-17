@@ -10,8 +10,6 @@ from game_data import GameData
 from game_renderer import GameRenderer
 
 
-
-
 def quit():
     sys.exit()
 

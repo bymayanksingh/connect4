@@ -188,10 +188,22 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 ##  :camera: Gallery
 <p align="center">
   <img src="./images/screenshots/1.png" width="800">
+  Start Game Window
 </p>
 
 <p align="center">
-  <img src="./images/screenshots/2.gif" width="800">
+  <img src="./images/screenshots/2.png" width="800">
+  Game Play
+</p>
+
+<p align="center">
+  <img src="./images/screenshots/3.gif" width="800">
+  Game Play Gif
+</p>
+
+<p align="center">
+  <img src="./images/screenshots/4.png" width="800">
+  Restart or Quit as the Game ends.
 </p>
 
 ## :star2: Credit/Acknowledgment
