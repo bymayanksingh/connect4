@@ -1,5 +1,5 @@
 <div align=center>
-  
+
 <p>
   <img src="./images/logo/c4.gif">
 </p>
@@ -24,6 +24,7 @@
 - [Gallery](#camera-gallery)
 - [Credit/Acknowledgment](#star2-creditacknowledgment)
 - [License](#lock-license)
+- [Hall Of Fame](#sparkles-hall-of-fame)
 
 ##  :beginner: About
 Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping one colored disc from the top into a seven-column, six-row vertically suspended grid. The pieces fall straight down, occupying the lowest available space within the column. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs.
@@ -91,7 +92,7 @@ $ python3 game.py
 4 directories, 26 files
 ```
 
-| No | File Name          | Details 
+| No | File Name          | Details
 |----|--------------------|-------------------------------------------------------------------------------------|
 | 1.  | [assets.py](assets.py)          | used for loading sound and image files in python.
 | 2.  | [config.py](config.py)          | contains game's configuration settings.
@@ -120,9 +121,9 @@ $ python3 game.py
 - __Code Style__
 
 ### `black`
-In order to maintain the code style consistency across entire project I use a code formatter. I kindly suggest you to do the same whenever you push commits to this project. 
+In order to maintain the code style consistency across entire project I use a code formatter. I kindly suggest you to do the same whenever you push commits to this project.
 
-The python code formatter I chose is called Black. It is a great tool and it can be installed quickly by running 
+The python code formatter I chose is called Black. It is a great tool and it can be installed quickly by running
 
 ```bash
 sudo -H pip3 install black
@@ -148,7 +149,7 @@ For more details and available options, please check their [psf/black](https://g
 I also use isort, it is a Python utility / library to sort imports alphabetically, and automatically separated into sections. It provides a command line utility which can be installed using.
 
 ```bash
-sudo -H pip3 install isort 
+sudo -H pip3 install isort
 ```
 
 - __Usage__
@@ -211,3 +212,6 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 
 ##  :lock: License
 [![License](https://img.shields.io/github/license/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/blob/master/LICENSE)
+
+##  :sparkles: Hall Of Fame
+[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/0)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/0)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/1)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/1)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/2)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/2)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/3)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/3)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/4)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/4)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/5)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/5)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/6)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/6)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/7)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/7)
