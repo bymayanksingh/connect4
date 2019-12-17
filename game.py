@@ -1,16 +1,20 @@
-import pygame,sys
+import sys
+
+import pygame
 from pygame.locals import KEYDOWN
-from config import black, blue, red, white, yellow
+
+from config import black, blue, white
 from connect_game import ConnectGame
 from events import MouseClickEvent, MouseHoverEvent, bus
 from game_data import GameData
 from game_renderer import GameRenderer
 
-pygame.init()
+
 def quit():
     sys.exit()
 
-def strat():
+
+def start():
     data = GameData()
     screen = pygame.display.set_mode(data.size)
     game = ConnectGame(data, GameRenderer(screen, data))
@@ -20,7 +24,6 @@ def strat():
 
     pygame.display.update()
     pygame.time.wait(1000)
-
 
     # Processes mouse and keyboard events, dispatching events to the event bus.
     # The events are handled by the ConnectGame and GameRenderer classes.
@@ -45,24 +48,26 @@ def strat():
 
             game.update()
             game.draw()
-width = 700, 700
-screen = pygame.display.set_mode(width)
-pygame.display.set_caption("space")
 
-def text_objects(text, font,color):
-    textSurface = font.render(text, True,color)
+
+def text_objects(text, font, color):
+    textSurface = font.render(text, True, color)
     return textSurface, textSurface.get_rect()
 
 
-def message_display(text,color,p,q,v):
+def message_display(text, color, p, q, v):
     largeText = pygame.font.SysFont("gabriola", v)
-    TextSurf, TextRect = text_objects(text, largeText,color)
-    TextRect.center = (p,q)
+    TextSurf, TextRect = text_objects(text, largeText, color)
+    TextRect.center = (p, q)
     screen.blit(TextSurf, TextRect)
 
 
-message_display('Connect 4!!',blue,350,150,150)
-message_display('Have Fun!',(23, 196, 243),350,300,110)
+pygame.init()
+width = 700, 700
+screen = pygame.display.set_mode(width)
+pygame.display.set_caption("Connect Four | Mayank Singh")
+message_display("Connect 4!!", blue, 350, 150, 150)
+message_display("Have Fun!", (23, 196, 243), 350, 300, 110)
 
 running = True
 while running:
@@ -84,13 +89,12 @@ while running:
             pygame.draw.rect(screen, ic, (x, y, w, h))
 
         smallText = pygame.font.SysFont("comicsansms", 30)
-        textSurf, textRect = text_objects(msg, smallText,white)
+        textSurf, textRect = text_objects(msg, smallText, white)
         textRect.center = ((x + (w / 2)), (y + (h / 2)))
         screen.blit(textSurf, textRect)
 
-
-    button("Play!", 150, 450, 100, 50, white, white,strat)
-    button("Play", 152, 452, 96, 46, black, black, strat)
-    button("Quit", 450, 450, 100, 50, white, white,quit)
+    button("Play!", 150, 450, 100, 50, white, white, start)
+    button("Play", 152, 452, 96, 46, black, black, start)
+    button("Quit", 450, 450, 100, 50, white, white, quit)
     button("Quit", 452, 452, 96, 46, black, black, quit)
     pygame.display.update()
