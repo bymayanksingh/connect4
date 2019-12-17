@@ -1,44 +1,100 @@
+import sys
+
 import pygame
 from pygame.locals import KEYDOWN
 
+from config import black, blue, white
 from connect_game import ConnectGame
 from events import MouseClickEvent, MouseHoverEvent, bus
 from game_data import GameData
 from game_renderer import GameRenderer
 
+
+def quit():
+    sys.exit()
+
+
+def start():
+    data = GameData()
+    screen = pygame.display.set_mode(data.size)
+    game = ConnectGame(data, GameRenderer(screen, data))
+
+    game.print_board()
+    game.draw()
+
+    pygame.display.update()
+    pygame.time.wait(1000)
+
+    # Processes mouse and keyboard events, dispatching events to the event bus.
+    # The events are handled by the ConnectGame and GameRenderer classes.
+    while not game.game_data.game_over:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game.quit()
+
+            if event.type == pygame.MOUSEMOTION:
+                bus.emit("mouse:hover", game.renderer, MouseHoverEvent(event.pos[0]))
+
+            pygame.display.update()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                bus.emit("mouse:click", game, MouseClickEvent(event.pos[0]))
+
+            if event.type == KEYDOWN:
+                if event.key == pygame.K_z:
+                    mods: int = pygame.key.get_mods()
+                    if mods & pygame.KMOD_CTRL:
+                        bus.emit("game:undo", game)
+
+            game.update()
+            game.draw()
+
+
+def text_objects(text, font, color):
+    textSurface = font.render(text, True, color)
+    return textSurface, textSurface.get_rect()
+
+
+def message_display(text, color, p, q, v):
+    largeText = pygame.font.SysFont("gabriola", v)
+    TextSurf, TextRect = text_objects(text, largeText, color)
+    TextRect.center = (p, q)
+    screen.blit(TextSurf, TextRect)
+
+
 pygame.init()
+width = 700, 700
+screen = pygame.display.set_mode(width)
+pygame.display.set_caption("Connect Four | Mayank Singh")
+message_display("Connect 4!!", blue, 350, 150, 150)
+message_display("Have Fun!", (23, 196, 243), 350, 300, 110)
 
-data = GameData()
-screen = pygame.display.set_mode(data.size)
-game = ConnectGame(data, GameRenderer(screen, data))
+running = True
+while running:
 
-game.print_board()
-game.draw()
-
-pygame.display.update()
-pygame.time.wait(1000)
-
-
-# Processes mouse and keyboard events, dispatching events to the event bus.
-# The events are handled by the ConnectGame and GameRenderer classes.
-while not game.game_data.game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            game.quit()
+            running = False
 
-        if event.type == pygame.MOUSEMOTION:
-            bus.emit("mouse:hover", game.renderer, MouseHoverEvent(event.pos[0]))
+    def button(msg, x, y, w, h, ic, ac, action=None):
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
 
-        pygame.display.update()
+        if x + w > mouse[0] > x and y + h > mouse[1] > y:
+            pygame.draw.rect(screen, ac, (x, y, w, h))
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            bus.emit("mouse:click", game, MouseClickEvent(event.pos[0]))
+            if click[0] == 1 and action != None:
+                action()
+        else:
+            pygame.draw.rect(screen, ic, (x, y, w, h))
 
-        if event.type == KEYDOWN:
-            if event.key == pygame.K_z:
-                mods: int = pygame.key.get_mods()
-                if mods & pygame.KMOD_CTRL:
-                    bus.emit("game:undo", game)
+        smallText = pygame.font.SysFont("comicsansms", 30)
+        textSurf, textRect = text_objects(msg, smallText, white)
+        textRect.center = ((x + (w / 2)), (y + (h / 2)))
+        screen.blit(textSurf, textRect)
 
-        game.update()
-        game.draw()
+    button("Play!", 150, 450, 100, 50, white, white, start)
+    button("Play", 152, 452, 96, 46, black, black, start)
+    button("Quit", 450, 450, 100, 50, white, white, quit)
+    button("Quit", 452, 452, 96, 46, black, black, quit)
+    pygame.display.update()
