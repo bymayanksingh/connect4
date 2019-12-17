@@ -56,7 +56,7 @@ def text_objects(text, font, color):
 
 
 def message_display(text, color, p, q, v):
-    largeText = pygame.font.SysFont("gabriola", v)
+    largeText = pygame.font.SysFont("monospace", v)
     TextSurf, TextRect = text_objects(text, largeText, color)
     TextRect.center = (p, q)
     screen.blit(TextSurf, TextRect)
@@ -66,8 +66,8 @@ pygame.init()
 width = 700, 700
 screen = pygame.display.set_mode(width)
 pygame.display.set_caption("Connect Four | Mayank Singh")
-message_display("Connect 4!!", blue, 350, 150, 150)
-message_display("Have Fun!", (23, 196, 243), 350, 300, 110)
+message_display("CONNECT FOUR!!", white, 350, 150, 75)
+message_display("HAVE FUN!", (23, 196, 243), 350, 300, 75)
 
 running = True
 while running:
@@ -88,13 +88,13 @@ while running:
         else:
             pygame.draw.rect(screen, ic, (x, y, w, h))
 
-        smallText = pygame.font.SysFont("comicsansms", 30)
+        smallText = pygame.font.SysFont("monospace", 30)
         textSurf, textRect = text_objects(msg, smallText, white)
         textRect.center = ((x + (w / 2)), (y + (h / 2)))
         screen.blit(textSurf, textRect)
 
-    button("Play!", 150, 450, 100, 50, white, white, start)
-    button("Play", 152, 452, 96, 46, black, black, start)
-    button("Quit", 450, 450, 100, 50, white, white, quit)
-    button("Quit", 452, 452, 96, 46, black, black, quit)
+    button("PLAY!", 150, 450, 100, 50, white, white, start)
+    button("PLAY", 152, 452, 96, 46, black, black, start)
+    button("QUIT", 450, 450, 100, 50, white, white, quit)
+    button("QUIT", 452, 452, 96, 46, black, black, quit)
     pygame.display.update()
