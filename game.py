@@ -10,6 +10,8 @@ from game_data import GameData
 from game_renderer import GameRenderer
 
 
+
+
 def quit():
     sys.exit()
 
@@ -63,8 +65,7 @@ def message_display(text, color, p, q, v):
 
 
 pygame.init()
-width = 700, 700
-screen = pygame.display.set_mode(width)
+screen = pygame.display.set_mode(GameData().size)
 pygame.display.set_caption("Connect Four | Mayank Singh")
 message_display("CONNECT FOUR!!", white, 350, 150, 75)
 message_display("HAVE FUN!", (23, 196, 243), 350, 300, 75)
