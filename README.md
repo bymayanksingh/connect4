@@ -188,23 +188,23 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 ##  :camera: Gallery
 <p align="center">
   <img src="./images/screenshots/1.png" width="800">
-  Start Game Window
 </p>
+<p align="center">Start Game Window</p>
 
 <p align="center">
   <img src="./images/screenshots/2.png" width="800">
-  Game Play
 </p>
+<p align="center">Game Play</p>
 
 <p align="center">
   <img src="./images/screenshots/3.gif" width="800">
-  Game Play Gif
 </p>
+<p align="center">Game Play GIF</p>
 
 <p align="center">
   <img src="./images/screenshots/4.png" width="800">
-  Restart or Quit as the Game ends.
 </p>
+<p align="center">Restart or Quit as the Game ends.</p>
 
 ## :star2: Credit/Acknowledgment
 [![Contributors](https://img.shields.io/github/contributors/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/graphs/contributors)
