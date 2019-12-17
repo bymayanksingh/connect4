@@ -21,7 +21,7 @@
 - [Gallery](#camera-gallery)
 - [Credit/Acknowledgment](#star2-creditacknowledgment)
 - [License](#lock-license)
-- [Hall Of Fame](#hall-of-fame)
+- [Hall Of Fame](#sparkles-hall-of-fame)
 
 ##  :beginner: About
 Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping one colored disc from the top into a seven-column, six-row vertically suspended grid. The pieces fall straight down, occupying the lowest available space within the column. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs.
@@ -176,5 +176,5 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 ##  :lock: License
 [![License](https://img.shields.io/github/license/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/blob/master/LICENSE)
 
-##  Hall Of Fame
+##  :sparkles: Hall Of Fame
 [![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/0)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/0)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/1)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/1)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/2)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/2)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/3)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/3)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/4)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/4)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/5)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/5)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/6)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/6)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/7)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/7)
