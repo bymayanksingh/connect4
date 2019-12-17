@@ -101,9 +101,7 @@ class ConnectGame:
 
         if self.game_data.game_over:
             print(os.getpid())
-            pygame.time.wait(3000)
-            os.system("kill " + str(os.getpid()))
-            os.system("./restart.sh")
+            pygame.time.wait(1000)
 
     def draw(self):
         """

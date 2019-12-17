@@ -16,6 +16,9 @@
   - [Installation](#electric_plug-installation)
   - [Commands](#package-commands)
 - [File Structure](#file_folder-file-structure)
+- [Community](#cherry_blossom-community)
+  - [Contribution](#fire-contribution)
+  - [Branches](#cactus-branches)
 - [Guideline](#exclamation-guideline)  
 - [Resources](#page_facing_up-resources)
 - [Gallery](#camera-gallery)
@@ -55,16 +58,21 @@ $ python3 game.py
 ```
 .
 ├── assets.py
+├── CODE_OF_CONDUCT.md
 ├── config.py
+├── _config.yml
 ├── connect_game.py
 ├── events.py
 ├── game_board.py
 ├── game_data.py
-├── game_renderer.py
 ├── game.py
+├── game_renderer.py
 ├── images
 │   ├── blackball91px.png
+│   ├── game.svg
 │   ├── logo
+│   │   ├── c4.gif
+│   │   ├── connect4.gif
 │   │   └── connect4.png
 │   ├── redball90px.png
 │   ├── screenshots
@@ -80,28 +88,27 @@ $ python3 game.py
     ├── disc_drop_2.wav
     └── event.ogg
 
-4 directories, 21 files
-
+4 directories, 26 files
 ```
 
 | No | File Name          | Details 
 |----|--------------------|-------------------------------------------------------------------------------------|
-| 1  | assets.py          | used for loading sound and image files in python.
-| 2  | config.py          | contains game's configuration settings.
-| 3  | connect_game.py    | Contains the ConnectGame class which holds the logic for the whole game.
-| 4  | events.py          | Contains classes used to define and hold event data.
-| 5  | game_board.py      | Contains the GameBoard data structure and methods which operate on it.
-| 6  | game_data.py       | Contains the GameData class, which contains all of the data in the game.
-| 7  | game_renderer.py   | Holds the GameRenderer class, which renders the game state using sound and graphics.
-| 8  | game.py            | contains connect four game logic.
-| 9  | images/            | contains image resources used in the game.
-| 10 | images/logo        | contains logo used in the README.
-| 11 | images/screenshots | contains game screenshots.
-| 12 | LICENSE            | this project uses MIT License.
-| 13 | requirements.txt   | contains all the dependencies used in the game.
-| 14 | restart.sh         | bash script to relaunch the game once it is finished.
-| 15 | sounds/            | contains sound resources used in the game.
-
+| 1.  | [assets.py](assets.py)          | used for loading sound and image files in python.
+| 2.  | [config.py](config.py)          | contains game's configuration settings.
+| 3.  | [connect_game.py](connect_game.py)    | Contains the ConnectGame class which holds the logic for the whole game.
+| 4.  | [events.py](events.py)          | Contains classes used to define and hold event data.
+| 5.  | [game_board.py](game_board.py)      | Contains the GameBoard data structure and methods which operate on it.
+| 6.  | [game_data.py](game_data.py)       | Contains the GameData class, which contains all of the data in the game.
+| 7.  | [game_renderer.py](game_renderer.py)   | Holds the GameRenderer class, which renders the game state using sound and graphics.
+| 8.  | [game.py](game.py)            | contains connect four game logic.
+| 9.  | images/            | contains image resources used in the game.
+| 10. | images/logo/        | contains logo used in the README.
+| 11. | images/screenshots/ | contains game screenshots.
+| 12. | [LICENSE](LICENSE)            | this project uses MIT License.
+| 13. | [requirements.txt](requirements.txt)   | contains all the dependencies used in the game.
+| 14. | [restart.sh](restart.sh)         | bash script to relaunch the game once it is finished.
+| 15. | sounds/            | contains sound resources used in the game.
+| 16. | [CODE_OF_CONDUCT.md](https://github.com/code-monk08/connect4/blob/master/CODE_OF_CONDUCT.md) | tells about our responsibilities as a team
 - __Dependency Graph__
 
 <p align="center">
@@ -157,6 +164,24 @@ For more details and available options, please check their [timothycrosley/isort
 
 Close issues using keywords: [how to ?](https://help.github.com/en/articles/closing-issues-using-keywords)
 
+## :cherry_blossom: Community
+
+ ###  :fire: Contribution
+
+ Your contributions are always welcome and appreciated. Following are the things you can do to contribute to this project.
+
+ 1. **Report a bug** <br>
+ If you think you have encountered a issue, and I should know about it, feel free to report it [here](https://github.com/code-monk08/connect4/issues/new) and I will take care of it.
+
+ 3. **Create a pull request** <br>
+ It can't get better then this, your pull request will be appreciated by the community. You can get started by picking up any open issues from [here](https://github.com/code-monk08/connect4/issues) and make a pull request.
+
+ > If you are new to open-source, make sure to check read more about it [here](https://www.digitalocean.com/community/tutorial_series/an-introduction-to-open-source) and learn more about creating a pull request [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github).
+
+ ### :cactus: Branches
+
+- No other permanent branches should be created in the main repository, you can create feature branches but they should get merged with the master.
+
 ##  :page_facing_up: Resources
 - [PyGame Documentation](https://www.pygame.org/docs/) : Pygame is a cross-platform set of Python modules designed for writing video games. It includes computer graphics and sound libraries designed to be used with the Python programming language.
 
@@ -164,10 +189,22 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 <p align="center">
   <img src="./images/screenshots/1.png" width="800">
 </p>
+<p align="center">Start Game Window</p>
 
 <p align="center">
-  <img src="./images/screenshots/2.gif" width="800">
+  <img src="./images/screenshots/2.png" width="800">
 </p>
+<p align="center">Game Play</p>
+
+<p align="center">
+  <img src="./images/screenshots/3.gif" width="800">
+</p>
+<p align="center">Game Play GIF</p>
+
+<p align="center">
+  <img src="./images/screenshots/4.png" width="800">
+</p>
+<p align="center">Restart or Quit as the Game ends.</p>
 
 ## :star2: Credit/Acknowledgment
 [![Contributors](https://img.shields.io/github/contributors/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/graphs/contributors)
