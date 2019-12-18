@@ -55,12 +55,11 @@ class GameRenderer:
         self.game_data = game_data
         self.screen = screen
 
-        self.myfont = pygame.font.SysFont("monospace", self.game_data.title_height)
-        self.label = self.myfont.render("CONNECT FOUR!!", 1, white)
-        screen.blit(self.label, (self.game_data.margin, self.game_data.margin))
-
-        #self.red_coin = pygame.transform.scale(self.red_coin, (2*self.game_data.radius))
-        #self.yellow_coin = pygame.transform.scale(self.red_coin, (2*self.game_data.radius))
+        self.myfont = pygame.font.SysFont("monospace", self.game_data.font_size)
+        message = "CONNECT FOUR!"
+        self.label = self.myfont.render(message, 1, white)
+        self.screen.blit(self.label, ((self.game_data.width - len(message)*self.game_data.character_width)//2, 
+        self.game_data.margin))
 
         pygame.display.set_caption("Connect Four | Mayank Singh")
         pygame.display.update()
@@ -75,12 +74,11 @@ class GameRenderer:
         self.game_data.posx = event.posx
 
         pygame.draw.rect(
-            self.screen, black, (0, 0, self.game_data.width, self.game_data.title_height + self.game_data.margin*2 + self.game_data.sq_size)
+            self.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size)
         )
         self.draw_coin(
             self.game_data,
-            posx - self.game_data.radius,
-            self.game_data.title_height + self.game_data.margin*3,
+            posx - self.game_data.radius, self.game_data.margin,
         )
 
     def draw_red_coin(self, x, y):
@@ -91,14 +89,6 @@ class GameRenderer:
         """
         radius = self.game_data.radius
         sq_size = self.game_data.sq_size
-        """
-        filled_circle(
-                    self.screen,
-                    x+radius,y+radius,
-                    radius,
-                    yellow,
-                )
-        """
         self.screen.blit(pygame.transform.scale(red_coin, (2*radius, 2*radius)), (x, y))
 
     def draw_yellow_coin(self, x, y):
@@ -109,14 +99,6 @@ class GameRenderer:
         """
         radius = self.game_data.radius
         sq_size = self.game_data.sq_size
-        """
-        filled_circle(
-                    self.screen,
-                    x+radius,y+radius,
-                    radius,
-                    yellow,
-                )
-        """
         self.screen.blit(pygame.transform.scale(yellow_coin, (2*radius, 2*radius)), (x, y))
 
     def draw_black_coin(self, x, y):
@@ -166,14 +148,18 @@ class GameRenderer:
             color = yellow
 
         if not event.was_tie:
-            self.label = self.myfont.render(f"PLAYER {event.winner} WINS!", 1, color)
-            self.screen.blit(self.label, (self.game_data.margin, self.game_data.margin))
+            message = f"PLAYER {event.winner} WINS!"
+            self.label = self.myfont.render(message, 1, color)
+            self.screen.blit(self.label, ((self.game_data.width - len(message)*self.game_data.character_width)//2, 
+        self.game_data.margin))
 
             mixer.music.load(event_sound)
             mixer.music.play(0)
         else:
-            self.label = self.myfont.render("GAME DRAW !!!!", 1, white)
-            self.screen.blit(self.label, (self.game_data.margin, self.game_data.margin))
+            message = "GAME DRAW!"
+            self.label = self.myfont.render(message, 1, white)
+            self.screen.blit(self.label, ((self.game_data.width - len(message)*self.game_data.character_width)//2, 
+        self.game_data.margin))
 
             mixer.music.load(os.path.join("sounds", "event.ogg"))
             mixer.music.play(0)
@@ -187,7 +173,6 @@ class GameRenderer:
         """
         sq_size = self.game_data.sq_size
         radius = self.game_data.radius
-        upper_margin = self.game_data.title_height + 2*self.game_data.margin
 
         y = 0
         acc = self.game_data.height*8
@@ -199,25 +184,30 @@ class GameRenderer:
             t += delta_t
             y = 0.5*acc*(t**2)
             if(y>=y_max):
+                pygame.draw.rect(
+                    self.screen,
+                    black,
+                    (0,0, self.game_data.width, sq_size)
+                )
                 break
             time.sleep(delta_t)
             pygame.draw.rect(
                 self.screen,
                 black,
-                (col*sq_size, upper_margin, sq_size, self.game_data.game_board.rows*sq_size - (row)*sq_size)
+                (col*sq_size, 0, sq_size, self.game_data.game_board.rows*sq_size - (row)*sq_size)
             )
             if turn==1:
                 self.draw_red_coin(
-                    int(col * sq_size) + self.game_data.margin, int(y) + upper_margin
+                    int(col * sq_size) + self.game_data.margin, int(y)
                 )
 
             elif turn==2:
                 self.draw_yellow_coin(
-                    int(col * sq_size) + self.game_data.margin, int(y) + upper_margin
+                    int(col * sq_size) + self.game_data.margin, int(y)
                 )
                 
             for r in range(self.game_data.game_board.rows - row):
-                self.screen.blit(pygame.transform.scale(board_pattern, (sq_size, sq_size)), (col*sq_size, upper_margin + (r+1)*sq_size))
+                self.screen.blit(pygame.transform.scale(board_pattern, (sq_size, sq_size)), (col*sq_size, (r+1)*sq_size))
             pygame.display.update()
 
     def draw_board(self, data):
@@ -231,15 +221,15 @@ class GameRenderer:
         sq_size = data.sq_size
         height = data.height
         radius = data.radius
-        upper_margin = data.title_height + 2*data.margin
+        
         pygame.draw.rect(
                             self.screen,
                             black,
-                            (0,upper_margin + sq_size,self.game_data.width, self.game_data.height)
+                            (0, sq_size, self.game_data.width, self.game_data.height)
                         )
         for c in range(board.cols):
             for r in range(board.rows):
-                self.screen.blit(pygame.transform.scale(board_pattern, (sq_size, sq_size)), (c*sq_size, upper_margin + (r+1)*sq_size))
+                self.screen.blit(pygame.transform.scale(board_pattern, (sq_size, sq_size)), (c*sq_size, (r+1)*sq_size))
 
         for c in range(board.cols):
             for r in range(board.rows):

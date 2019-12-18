@@ -12,8 +12,9 @@ class GameData:
     radius: int
     height: int
     width: int
-    title_height: int
     sq_size: int
+    font_size: int
+    character_width: int
     margin: int
     size: Tuple[int, int]
     game_over: bool
@@ -36,9 +37,10 @@ class GameData:
         self.height: int = (SCREEN_HEIGHT*7)//10
         self.width: int = (SCREEN_WIDTH*8)//10
         self.sq_size: int = min(self.height//(self.game_board.rows), self.width//(self.game_board.cols), 100)
+        self.font_size = int(self.sq_size*0.8)
+        self.character_width = self.font_size*3//5
         self.margin: int = self.sq_size//20
-        self.title_height = SCREEN_HEIGHT//20
-        self.height: int = self.sq_size * (self.game_board.rows) + self.title_height + 2*self.margin + self.sq_size
+        self.height: int = self.sq_size * (self.game_board.rows) + self.sq_size
         self.width: int = self.sq_size * self.game_board.cols
         self.size: Tuple[int, int] = (self.width, self.height)
         self.radius: int = int(self.sq_size / 2 - self.margin)

@@ -42,7 +42,7 @@ class ConnectGame:
         pygame.draw.rect(
             self.renderer.screen,
             black,
-            (0, 0, self.game_data.width, self.game_data.title_height + self.game_data.margin*2 + self.game_data.sq_size),
+            (0, 0, self.game_data.width, self.game_data.sq_size),
         )
 
         col: int = int(math.floor(event.posx / self.game_data.sq_size))
@@ -91,8 +91,8 @@ class ConnectGame:
 
         self.game_data.turn += 1
         self.game_data.turn = self.game_data.turn % 2
-        pygame.draw.rect(self.renderer.screen, black, (0, self.game_data.title_height + self.game_data.margin*2, self.game_data.width, self.game_data.sq_size))
-        self.renderer.draw_coin(self.renderer.game_data, self.renderer.game_data.posx - self.game_data.radius, self.game_data.title_height + self.game_data.margin*3)
+        pygame.draw.rect(self.renderer.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size))
+        self.renderer.draw_coin(self.renderer.game_data, self.renderer.game_data.posx - self.game_data.radius, self.game_data.margin)
 
     def update(self):
         """
