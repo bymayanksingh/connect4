@@ -1,10 +1,11 @@
 <div align=center>
-  
+
 <p>
   <img src="./images/logo/c4.gif">
 </p>
 
-[![Open Issues](https://img.shields.io/github/issues/code-monk08/connect-four?style=for-the-badge&logo=github)](https://github.com/code-monk08/connect-four/issues)  [![Forks](https://img.shields.io/github/forks/code-monk08/connect-four?style=for-the-badge&logo=github)](https://github.com/code-monk08/connect-four/network/members)  [![Stars](https://img.shields.io/github/stars/code-monk08/connect-four?style=for-the-badge&logo=reverbnation)](https://github.com/code-monk08/connect-four/stargazers)  ![Maintained](https://img.shields.io/maintenance/yes/2019?style=for-the-badge&logo=github)  ![Made with Python](https://img.shields.io/badge/Made%20with-Python-blueviolet?style=for-the-badge&logo=python)  ![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%99%A5-red?style=for-the-badge&logo=open-source-initiative)  ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A5-critical?style=for-the-badge&logo=ko-fi)  [![Follow Me](https://img.shields.io/twitter/follow/codemonk08_?color=blue&label=Follow%20%40codemonk08_&logo=twitter&style=for-the-badge)](https://twitter.com/intent/follow?screen_name=codemonk08_)  [![Slack](https://img.shields.io/badge/Slack-Chat-informational?style=for-the-badge&logo=slack)](https://join.slack.com/t/connectfourgroup/shared_invite/enQtODMxNTAwNDY4NDU0LTZmYTZkMzJiNWQwZDk1YjhlZTEzY2VhMDNkNjVhOGIzNGIyNmYxODM4NWI5MjNjYmJlZjk4MjA4MzQ3MjZhNDg)
+[![Open Issues](https://img.shields.io/github/issues/code-monk08/connect-four?style=for-the-badge&logo=github)](https://github.com/code-monk08/connect-four/issues)  [![Forks](https://img.shields.io/github/forks/code-monk08/connect-four?style=for-the-badge&logo=github)](https://github.com/code-monk08/connect-four/network/members)  [![Stars](https://img.shields.io/github/stars/code-monk08/connect-four?style=for-the-badge&logo=reverbnation)](https://github.com/code-monk08/connect-four/stargazers)  ![Maintained](https://img.shields.io/maintenance/yes/2019?style=for-the-badge&logo=github)  ![Made with Python](https://img.shields.io/badge/Made%20with-Python-blueviolet?style=for-the-badge&logo=python)  ![Open Source Love](https://img.shields.io/badge/Open%20Source-%E2%99%A5-red?style=for-the-badge&logo=open-source-initiative)  ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A5-critical?style=for-the-badge&logo=ko-fi)  [![Follow Me](https://img.shields.io/twitter/follow/codemonk08_?color=blue&label=Follow%20%40codemonk08_&logo=twitter&style=for-the-badge)](https://twitter.com/intent/follow?screen_name=codemonk08_) 
+[![GitHub followers](https://img.shields.io/github/followers/code-monk08.svg?label=Follow&style=for-the-badge&logo=github)](https://github.com/code-monk08/)  [![Slack](https://img.shields.io/badge/Slack-Chat-informational?style=for-the-badge&logo=slack)](https://join.slack.com/t/connectfourgroup/shared_invite/enQtODMxNTAwNDY4NDU0LTZmYTZkMzJiNWQwZDk1YjhlZTEzY2VhMDNkNjVhOGIzNGIyNmYxODM4NWI5MjNjYmJlZjk4MjA4MzQ3MjZhNDg)
 
 </div>
 
@@ -24,6 +25,7 @@
 - [Gallery](#camera-gallery)
 - [Credit/Acknowledgment](#star2-creditacknowledgment)
 - [License](#lock-license)
+- [Hall Of Fame](#sparkles-hall-of-fame)
 
 ##  :beginner: About
 Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping one colored disc from the top into a seven-column, six-row vertically suspended grid. The pieces fall straight down, occupying the lowest available space within the column. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs.
@@ -91,7 +93,7 @@ $ python3 game.py
 4 directories, 26 files
 ```
 
-| No | File Name          | Details 
+| No | File Name          | Details
 |----|--------------------|-------------------------------------------------------------------------------------|
 | 1.  | [assets.py](assets.py)          | used for loading sound and image files in python.
 | 2.  | [config.py](config.py)          | contains game's configuration settings.
@@ -120,9 +122,9 @@ $ python3 game.py
 - __Code Style__
 
 ### `black`
-In order to maintain the code style consistency across entire project I use a code formatter. I kindly suggest you to do the same whenever you push commits to this project. 
+In order to maintain the code style consistency across entire project I use a code formatter. I kindly suggest you to do the same whenever you push commits to this project.
 
-The python code formatter I chose is called Black. It is a great tool and it can be installed quickly by running 
+The python code formatter I chose is called Black. It is a great tool and it can be installed quickly by running
 
 ```bash
 sudo -H pip3 install black
@@ -148,7 +150,7 @@ For more details and available options, please check their [psf/black](https://g
 I also use isort, it is a Python utility / library to sort imports alphabetically, and automatically separated into sections. It provides a command line utility which can be installed using.
 
 ```bash
-sudo -H pip3 install isort 
+sudo -H pip3 install isort
 ```
 
 - __Usage__
@@ -189,13 +191,28 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
 <p align="center">
   <img src="./images/screenshots/1.png" width="800">
 </p>
+<p align="center">Start Game Window</p>
 
 <p align="center">
-  <img src="./images/screenshots/2.gif" width="800">
+  <img src="./images/screenshots/2.png" width="800">
 </p>
+<p align="center">Game Play</p>
+
+<p align="center">
+  <img src="./images/screenshots/3.gif" width="800">
+</p>
+<p align="center">Game Play GIF</p>
+
+<p align="center">
+  <img src="./images/screenshots/4.png" width="800">
+</p>
+<p align="center">Restart or Quit as the Game ends.</p>
 
 ## :star2: Credit/Acknowledgment
 [![Contributors](https://img.shields.io/github/contributors/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/graphs/contributors)
 
 ##  :lock: License
 [![License](https://img.shields.io/github/license/code-monk08/connect-four?style=for-the-badge)](https://github.com/code-monk08/connect-four/blob/master/LICENSE)
+
+##  :sparkles: Hall Of Fame
+[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/0)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/0)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/1)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/1)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/2)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/2)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/3)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/3)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/4)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/4)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/5)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/5)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/6)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/6)[![](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/images/7)](https://sourcerer.io/fame/code-monk08/code-monk08/connect4/links/7)
