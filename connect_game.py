@@ -102,6 +102,7 @@ class ConnectGame:
         if self.game_data.game_over:
             print(os.getpid())
             pygame.time.wait(1000)
+            os.system("game.py")
 
     def draw(self):
         """
