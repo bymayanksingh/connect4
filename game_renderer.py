@@ -7,9 +7,10 @@ from pygame.font import FontType
 from pygame.ftfont import Font
 from pygame.gfxdraw import aacircle, filled_circle
 
-from assets import (black_coin, disc_drop_1, disc_drop_2, event_sound,
-                    red_coin, yellow_coin)
-from config import black, blue, red, white, yellow
+from assets import (black_coin, blue_coin, disc_drop_1, disc_drop_2,
+                    event_sound, gray_coin, green_coin, red_coin, violet_coin,
+                    yellow_coin)
+from config import black, blue, gray, green, red, violet, white, yellow
 from events import GameOver, MouseHoverEvent, PieceDropEvent, bus
 from game_data import GameData
 
@@ -28,6 +29,22 @@ def on_piece_drop(event: PieceDropEvent):
         mixer.music.load(disc_drop_2)
         mixer.music.play(0)
 
+
+def coin_color(color):
+    k = red_coin
+    if color == green:
+        k = green_coin
+    elif color == blue:
+        k = blue_coin
+    elif color == violet:
+        k = violet_coin
+    elif color == yellow:
+        k = yellow_coin
+    elif color == gray:
+        k = gray_coin
+
+    return k
+    
 
 class GameRenderer:
     """
@@ -70,21 +87,21 @@ class GameRenderer:
             int(self.game_data.sq_size) - self.game_data.sq_size + 5,
         )
 
-    def draw_red_coin(self, x, y):
+    def draw_coin_p1(self, x, y):
         """
-        Draws a red coin.
+        Draws the coin of player 1.
         :param x: The x position to draw the coin.
         :param y: The y position to draw the coin.
         """
-        self.screen.blit(red_coin, (x, y))
+        self.screen.blit(coin_color(self.game_data.c1), (x, y))
 
-    def draw_yellow_coin(self, x, y):
+    def draw_coin_p2(self, x, y):
         """
-        Draws a yellow coin.
+        Draws the coin of player 2.
         :param x: The x position to draw the coin.
         :param y: The y position to draw the coin.
         """
-        self.screen.blit(yellow_coin, (x, y))
+        self.screen.blit(coin_color(self.game_data.c2), (x, y))
 
     def draw_black_coin(self, x, y):
         """
@@ -104,9 +121,9 @@ class GameRenderer:
         :param y: The y position for the coin to be drawn.
         """
         if game_data.turn == 0:
-            self.screen.blit(red_coin, (x, y))
+            self.screen.blit(coin_color(game_data.c1), (x, y))
         else:
-            self.screen.blit(yellow_coin, (x, y))
+            self.screen.blit(coin_color(game_data.c2), (x, y))
 
     def draw(self, game_data: GameData):
         """
@@ -154,9 +171,9 @@ class GameRenderer:
         color = None
 
         if event.winner == 1:
-            color = red
+            color = self.game_data.c1
         if event.winner == 2:
-            color = yellow
+            color = self.game_data.c2
 
         if not event.was_tie:
             self.label = self.myfont.render(f"PLAYER {event.winner} WINS!", 1, color)
@@ -184,7 +201,7 @@ class GameRenderer:
             for r in range(board.rows):
                 pygame.draw.rect(
                     self.screen,
-                    blue,
+                    (self.game_data.bg),
                     (c * sq_size, (r + 1) * sq_size, sq_size, sq_size),
                 )
                 aacircle(
@@ -205,12 +222,12 @@ class GameRenderer:
         for c in range(board.cols):
             for r in range(board.rows):
                 if board.board[r][c] == 1:
-                    self.draw_red_coin(
+                    self.draw_coin_p1(
                         int(c * sq_size) + 5, height - int(r * sq_size + sq_size - 5)
                     )
 
                 elif board.board[r][c] == 2:
-                    self.draw_yellow_coin(
+                    self.draw_coin_p2(
                         int(c * sq_size) + 5, height - int(r * sq_size + sq_size - 5)
                     )
 
