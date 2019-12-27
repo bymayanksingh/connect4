@@ -103,13 +103,13 @@ $ python3 game.py
 | 6.  | [game_data.py](game_data.py)       | Contains the GameData class, which contains all of the data in the game.
 | 7.  | [game_renderer.py](game_renderer.py)   | Holds the GameRenderer class, which renders the game state using sound and graphics.
 | 8.  | [game.py](game.py)            | contains connect four game logic.
-| 9.  | images/            | contains image resources used in the game.
-| 10. | images/logo/        | contains logo used in the README.
-| 11. | images/screenshots/ | contains game screenshots.
+| 9.  | [images/](https://github.com/code-monk08/connect4/tree/master/images)            | contains image resources used in the game.
+| 10. | [images/logo/](https://github.com/code-monk08/connect4/tree/master/images/logo)        | contains logo used in the README.
+| 11. | [images/screenshots/](https://github.com/code-monk08/connect4/tree/master/images/screenshots) | contains game screenshots.
 | 12. | [LICENSE](LICENSE)            | this project uses MIT License.
 | 13. | [requirements.txt](requirements.txt)   | contains all the dependencies used in the game.
 | 14. | [restart.sh](restart.sh)         | bash script to relaunch the game once it is finished.
-| 15. | sounds/            | contains sound resources used in the game.
+| 15. | [sounds/](https://github.com/code-monk08/connect4/tree/master/sounds)            | contains sound resources used in the game.
 | 16. | [CODE_OF_CONDUCT.md](https://github.com/code-monk08/connect4/blob/master/CODE_OF_CONDUCT.md) | tells about our responsibilities as a team
 - __Dependency Graph__
 
@@ -173,7 +173,7 @@ Close issues using keywords: [how to ?](https://help.github.com/en/articles/clos
  Your contributions are always welcome and appreciated. Following are the things you can do to contribute to this project.
 
  1. **Report a bug** <br>
- If you think you have encountered a issue, and I should know about it, feel free to report it [here](https://github.com/code-monk08/connect4/issues/new) and I will take care of it.
+ If you think you have encountered a new issue, and I should know about it, feel free to report it [here](https://github.com/code-monk08/connect4/issues/new) and I will take care of it.
 
  3. **Create a pull request** <br>
  It can't get better then this, your pull request will be appreciated by the community. You can get started by picking up any open issues from [here](https://github.com/code-monk08/connect4/issues) and make a pull request.
