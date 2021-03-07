@@ -59,9 +59,6 @@ class GameBoard:
             if coord in self.p1_win_squares:
                 self.p1_win_squares.remove(coord)
 
-        print("P1:", self.p1_win_squares)
-        print("P2:", self.p2_win_squares)
-
     def is_valid_location(self, col):
         """
         Returns whether the position exists on the board.
