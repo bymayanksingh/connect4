@@ -3,7 +3,7 @@ import sys
 import pygame
 from pygame.locals import KEYDOWN
 
-from config import black, blue, white
+from config import black, white
 from connect_game import ConnectGame
 from events import MouseClickEvent, MouseHoverEvent, bus
 from game_data import GameData
@@ -51,15 +51,15 @@ def start():
 
 
 def text_objects(text, font, color):
-    textSurface = font.render(text, True, color)
-    return textSurface, textSurface.get_rect()
+    text_surface = font.render(text, True, color)
+    return text_surface, text_surface.get_rect()
 
 
 def message_display(text, color, p, q, v):
-    largeText = pygame.font.SysFont("monospace", v)
-    TextSurf, TextRect = text_objects(text, largeText, color)
-    TextRect.center = (p, q)
-    screen.blit(TextSurf, TextRect)
+    large_text = pygame.font.SysFont("monospace", v)
+    text_surf, text_rect = text_objects(text, large_text, color)
+    text_rect.center = (p, q)
+    screen.blit(text_surf, text_rect)
 
 
 pygame.init()
@@ -82,15 +82,15 @@ while running:
         if x + w > mouse[0] > x and y + h > mouse[1] > y:
             pygame.draw.rect(screen, ac, (x, y, w, h))
 
-            if click[0] == 1 and action != None:
+            if click[0] == 1 and action is not None:
                 action()
         else:
             pygame.draw.rect(screen, ic, (x, y, w, h))
 
-        smallText = pygame.font.SysFont("monospace", 30)
-        textSurf, textRect = text_objects(msg, smallText, white)
-        textRect.center = ((x + (w / 2)), (y + (h / 2)))
-        screen.blit(textSurf, textRect)
+        small_text = pygame.font.SysFont("monospace", 30)
+        text_surf, text_rect = text_objects(msg, small_text, white)
+        text_rect.center = ((x + (w / 2)), (y + (h / 2)))
+        screen.blit(text_surf, text_rect)
 
     button("PLAY!", 150, 450, 100, 50, white, white, start)
     button("PLAY", 152, 452, 96, 46, black, black, start)
