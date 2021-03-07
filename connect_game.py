@@ -70,6 +70,7 @@ class ConnectGame:
 
     def do_movement(self, col: int):
         """
+        Allows to make a movement without a mouse click.
         Inserts a new piece in the specified column and prints the new board
         """
         if self.game_data.game_board.is_valid_location(col):
@@ -101,6 +102,7 @@ class ConnectGame:
     @staticmethod
     def compare_agents(agent1: Agent, agent2: Agent, n=100, alternate=True) -> List[int]:
         """
+        The 2 given agents will play between them n times. The games are not showed.
         :param agent1: an AI agent
         :param agent2: an AI agent
         :param n: number of matches

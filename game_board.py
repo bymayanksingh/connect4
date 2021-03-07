@@ -43,7 +43,8 @@ class GameBoard:
 
     def drop_piece(self, row, col, piece):
         """
-        Drops a piece into the slot at position (row, col)
+        Drops a piece into the slot at position (row, col).
+        It also delete from pX_win_squares a coordinate if a enemy piece is placed.
         :param row: The row of the slot.
         :param col: The column of the slot.
         :param piece: The piece to drop.
@@ -58,6 +59,9 @@ class GameBoard:
         elif piece == 2:
             if coord in self.p1_win_squares:
                 self.p1_win_squares.remove(coord)
+
+        print("P1:", self.p1_win_squares)
+        print("P2:", self.p2_win_squares)
 
     def is_valid_location(self, col):
         """
@@ -172,7 +176,7 @@ class GameBoard:
 
     def _set_horizontal_win_squares(self, piece, r, c):
         """
-        Set the squares where is a horizontal win square surround the position (r, c)
+        Add all the win squares placed in a horizontal direction respect a given coordinate (r, c)
         :param piece: The color of the chip to check for.
         :param r: The row.
         :param c: The column.
@@ -183,7 +187,7 @@ class GameBoard:
 
     def _set_vertical_win_squares(self, piece, r, c):
         """
-        Set the squares where is a vertical win square surround the position (r, c)
+        Add all the win squares placed in a vertical direction respect a given coordinate (r, c)
         :param piece: The color of the chip to check for.
         :param r: The row
         :param c: The column
@@ -194,7 +198,7 @@ class GameBoard:
 
     def _set_diagonal_win_squares(self, piece, r, c):
         """
-        Set the squares where is a diagonal win square surround the position (r, c)
+        Add all the win squares placed in a diagonal direction respect a given coordinate (r, c)
         :param piece: The color of the chip to check for.
         :param r: The row
         :param c: The column
@@ -208,9 +212,9 @@ class GameBoard:
 
     def _set_win_square(self, piece, r, c, direction: str):
         """
-        Add the coordinates of the winning squares surround
-        the given coordinates to the pertinent attribute
-        (p1_win_squares or p2_win_squares) if is a winning square
+        Add the given coordinates in the correspondent attribute
+        (p1_win_squares or p2_win_squares) if the correspond square is a
+        win square.
         :param piece: The color of the chip to check for.
         :param r: The row
         :param c: The column
@@ -238,8 +242,8 @@ class GameBoard:
 
     def _analyze_square(self, piece, r, c):
         """
-        This function check for all the possible winning squares
-        surround the given coordinates and add them to the pertinent attribute
+        This function find ALL the possible winning squares
+        surround the given coordinates and add them to the correspond attribute
         (p1_win_squares or p2_win_squares)
         :param piece: The color of the chip to check for.
         :param r: The row
@@ -252,6 +256,7 @@ class GameBoard:
     def winning_move(self, piece, r, c) -> bool:
         """
         Checks if the current piece has won the game.
+        It also calls to _analyze_square().
         :param piece: The color of the chip to check for.
         :param r: The row
         :param c: The column

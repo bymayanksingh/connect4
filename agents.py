@@ -4,6 +4,9 @@ import abc
 
 
 class Agent(abc.ABC):
+	"""
+	It is an abstract class. All the agents should inheritance from this class.
+	"""
 
 	@staticmethod
 	def get_move(game_data: GameData) -> int:
@@ -11,6 +14,9 @@ class Agent(abc.ABC):
 
 
 class RandomAgent(Agent):
+	"""
+	An agent which makes random moves
+	"""
 
 	@staticmethod
 	def get_move(data) -> int:
