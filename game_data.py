@@ -13,6 +13,7 @@ class GameData:
     width: int
     sq_size: int
     size: Tuple[int, int]
+
     game_over: bool
     turn: int
     last_move_row: [int]
