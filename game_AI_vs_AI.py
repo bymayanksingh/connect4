@@ -1,11 +1,9 @@
 import sys
 
 import pygame
-from pygame.locals import KEYDOWN
 
 from config import black, white
 from connect_game import ConnectGame
-from events import MouseClickEvent, MouseHoverEvent, bus
 from game_data import GameData
 from game_renderer import GameRenderer
 
