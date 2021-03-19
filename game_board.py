@@ -13,12 +13,10 @@ class GameBoard:
     cols: int
     rows: int
 
-    # Class variables to reduce the number of operations by remembering previous calculus
-    # (specially useful for the AI agents):
     slots_filled: int
-    # The squares where if a player had a piece would win the game
-    p1_win_squares: Set[Tuple[int, int]]  # {(row, col), ...}
-    p2_win_squares: Set[Tuple[int, int]]
+
+    p1_win_squares: Set[Tuple[int, int]]  # The squares where if a player had a piece would win the game
+    p2_win_squares: Set[Tuple[int, int]]  # {(row, col), ...}
 
     def __init__(self, rows=6, cols=7):
         """
@@ -28,7 +26,7 @@ class GameBoard:
         """
         self.rows = rows
         self.cols = cols
-        self.board = zeros((rows, cols))
+        self.board = zeros((rows, cols), dtype=int)
         self.slots_filled = 0
         self.p1_win_squares = set()
         self.p2_win_squares = set()
@@ -49,19 +47,18 @@ class GameBoard:
         :param col: The column of the slot.
         :param piece: The piece to drop.
         """
+        assert isinstance(row, int)
         self.board[row][col] = piece
         self.slots_filled += 1
-
+        self._analyze_square(piece, row, col)
         coord = (row, col)
+
         if piece == 1:
             if coord in self.p2_win_squares:
                 self.p2_win_squares.remove(coord)
         elif piece == 2:
             if coord in self.p1_win_squares:
                 self.p1_win_squares.remove(coord)
-
-        print("P1:", self.p1_win_squares)
-        print("P2:", self.p2_win_squares)
 
     def is_valid_location(self, col):
         """
@@ -77,6 +74,7 @@ class GameBoard:
         :param col: The column to check for a free space.
         :return: The next free row for a column.
         """
+        assert self.rows > 0
         for row in range(self.rows):
             if self.board[row][col] == 0:
                 return row
@@ -182,7 +180,9 @@ class GameBoard:
         :param c: The column.
         :return: Whether there is a horizontal win at the position (r, c).
         """
+        assert isinstance(r, int)
         for c in range(c - 3, c + 4):
+            assert isinstance(r, int)
             self._set_win_square(piece, r, c, "h")
 
     def _set_vertical_win_squares(self, piece, r, c):
@@ -212,7 +212,7 @@ class GameBoard:
 
     def _set_win_square(self, piece, r, c, direction: str):
         """
-        Add the given coordinates in the correspondent attribute
+        Adds the given coordinates in the correspondent attribute
         (p1_win_squares or p2_win_squares) if the correspond square is a
         win square.
         :param piece: The color of the chip to check for.
@@ -228,10 +228,8 @@ class GameBoard:
                     check = self.vertical_win(piece, r, c)
                 elif direction == "d":
                     check = self.diagonal_win(piece, r, c)
-                elif direction == "h":
-                    check = self.horizontal_win(piece, r, c)
                 else:
-                    raise ValueError("Parameter 'direction' must be: 'h', 'v' or 'd'")
+                    check = self.horizontal_win(piece, r, c)
 
                 if piece == 1 and check:
                     self.p1_win_squares.add((r, c))
@@ -242,8 +240,8 @@ class GameBoard:
 
     def _analyze_square(self, piece, r, c):
         """
-        This function find ALL the possible winning squares
-        surround the given coordinates and add them to the correspond attribute
+        This function find ALL the winning squares
+        surround the given coordinates and adds them to the correspond attribute
         (p1_win_squares or p2_win_squares)
         :param piece: The color of the chip to check for.
         :param r: The row
@@ -256,17 +254,18 @@ class GameBoard:
     def winning_move(self, piece, r, c) -> bool:
         """
         Checks if the current piece has won the game.
-        It also calls to _analyze_square().
         :param piece: The color of the chip to check for.
         :param r: The row
         :param c: The column
         :return: Whether the current piece has won the game.
         """
-        self._analyze_square(piece, r, c)
-        if piece == 1:
-            return (r, c) in self.p1_win_squares
 
-        return (r, c) in self.p2_win_squares
+        if piece == 1 and (r, c) in self.p1_win_squares:
+            return True
+        elif (r, c) in self.p2_win_squares:
+            return True
+
+        return False
 
     def tie_move(self):
         """
@@ -276,4 +275,7 @@ class GameBoard:
         return self.slots_filled == (self.rows * self.cols)
 
     def __str__(self):
-        return str(self.board)
+        return str(flip(self.board, 0))
+
+    def __iter__(self):
+        return iter(self.board)

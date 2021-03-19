@@ -7,8 +7,7 @@ from connect_game import ConnectGame
 from game_data import GameData
 from game_renderer import GameRenderer
 
-from agents import RandomAgent
-from random import choice
+from agents import MinimaxAgent, RandomAgent
 from time import sleep
 
 
@@ -17,10 +16,10 @@ def quit():
 
 
 def start():
-    agent1 = RandomAgent()
-    agent2 = RandomAgent()
+    agent1 = MinimaxAgent()  # red
+    agent2 = RandomAgent()  # yellow
 
-    delay = 1
+    delay = 0.5
     data = GameData()
     screen = pygame.display.set_mode(data.size)
     game = ConnectGame(data, GameRenderer(screen, data))
@@ -29,9 +28,9 @@ def start():
     game.draw()
 
     pygame.display.update()
-    pygame.time.wait(1000)
+    pygame.time.wait(10)
 
-    agent1_turn = choice([0, 1])
+    agent1_turn = 0
 
     # Processes mouse and keyboard events, dispatching events to the event bus.
     # The events are handled by the ConnectGame and GameRenderer classes.
@@ -42,11 +41,11 @@ def start():
 
             sleep(delay)
             if data.turn == agent1_turn and not game.game_data.game_over:
-                game.do_movement(agent1.get_move(data))
+                game.make_movement(agent1.get_move(data))
                 game.update()
                 game.draw()
             else:
-                game.do_movement(agent2.get_move(data))
+                game.make_movement(agent2.get_move(data))
                 game.update()
                 game.draw()
 
@@ -55,15 +54,15 @@ def start():
 
 
 def text_objects(text, font, color):
-    textSurface = font.render(text, True, color)
-    return textSurface, textSurface.get_rect()
+    text_surface = font.render(text, True, color)
+    return text_surface, text_surface.get_rect()
 
 
 def message_display(text, color, p, q, v):
-    largeText = pygame.font.SysFont("monospace", v)
-    TextSurf, TextRect = text_objects(text, largeText, color)
-    TextRect.center = (p, q)
-    screen.blit(TextSurf, TextRect)
+    large_text = pygame.font.SysFont("monospace", v)
+    text_surf, text_rect = text_objects(text, large_text, color)
+    text_rect.center = (p, q)
+    screen.blit(text_surf, text_rect)
 
 
 pygame.init()
@@ -92,10 +91,10 @@ while running:
         else:
             pygame.draw.rect(screen, ic, (x, y, w, h))
 
-        smallText = pygame.font.SysFont("monospace", 30)
-        textSurf, textRect = text_objects(msg, smallText, white)
-        textRect.center = ((x + (w / 2)), (y + (h / 2)))
-        screen.blit(textSurf, textRect)
+        small_text = pygame.font.SysFont("monospace", 30)
+        text_surf, text_rect = text_objects(msg, small_text, white)
+        text_rect.center = ((x + (w / 2)), (y + (h / 2)))
+        screen.blit(text_surf, text_rect)
 
 
     button("PLAY!", 150, 450, 100, 50, white, white, start)

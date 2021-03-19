@@ -19,9 +19,11 @@ class GameData:
     last_move_row: [int]
     last_move_col: [int]
     game_board: GameBoard
+    winner: int # 0 = Nobody yet, 1 = player1, 2 = player2
 
     def __init__(self):
         self.game_over = False
+        self.winner = 0
         self.turn = 0
         self.last_move_row = []
         self.last_move_col = []
