@@ -1,6 +1,7 @@
 import math
 import os
 import sys
+import random
 
 import pygame
 
@@ -72,6 +73,38 @@ class ConnectGame:
 
             self.game_data.turn += 1
             self.game_data.turn = self.game_data.turn % 2
+
+            col: int = random.randint(1, 6)
+
+            if self.game_data.game_board.is_valid_location(col):
+                pygame.time.wait(500)
+                row: int = self.game_data.game_board.get_next_open_row(col)
+
+                self.game_data.last_move_row.append(row)
+                self.game_data.last_move_col.append(col)
+                self.game_data.game_board.drop_piece(row, col, self.game_data.turn + 1)
+
+                self.draw()
+
+                bus.emit(
+                    "piece:drop",
+                    PieceDropEvent(self.game_data.game_board.board[row][col]),
+                )
+
+                self.print_board()
+
+                if self.game_data.game_board.winning_move(self.game_data.turn + 1):
+                    bus.emit(
+                        "game:over",
+                        self.renderer,
+                        GameOver(False, self.game_data.turn + 1),
+                    )
+                    self.game_data.game_over = True
+
+                pygame.display.update()
+
+                self.game_data.turn += 1
+                self.game_data.turn = self.game_data.turn % 2
 
     @bus.on("game:undo")
     def undo(self):
