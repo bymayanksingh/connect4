@@ -4,7 +4,7 @@ import sys
 
 import pygame
 
-from config import black
+from config import BLACK
 from events import GameOver, MouseClickEvent, PieceDropEvent, bus
 from game_data import GameData
 from game_renderer import GameRenderer
@@ -41,7 +41,7 @@ class ConnectGame:
         """
         pygame.draw.rect(
             self.renderer.screen,
-            black,
+            BLACK,
             (0, 0, self.game_data.width, self.game_data.sq_size),
         )
 

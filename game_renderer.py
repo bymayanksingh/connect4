@@ -9,7 +9,7 @@ from pygame.gfxdraw import aacircle, filled_circle
 
 from assets import (black_coin, disc_drop_1, disc_drop_2, event_sound,
                     red_coin, yellow_coin)
-from config import black, blue, red, white, yellow
+from config import BLACK, BLUE, RED, WHITE, YELLOW
 from events import GameOver, MouseHoverEvent, PieceDropEvent, bus
 from game_data import GameData
 
@@ -45,7 +45,7 @@ class GameRenderer:
         :param game_data: All of the data for the game.
         """
         self.myfont = pygame.font.SysFont("monospace", 75)
-        self.label = self.myfont.render("CONNECT FOUR!!", 1, white)
+        self.label = self.myfont.render("CONNECT FOUR!!", 1, WHITE)
         screen.blit(self.label, (40, 10))
         self.screen = screen
         self.game_data = game_data
@@ -62,7 +62,7 @@ class GameRenderer:
         posx = event.posx
 
         pygame.draw.rect(
-            self.screen, black, (0, 0, self.game_data.width, self.game_data.sq_size)
+            self.screen, BLACK, (0, 0, self.game_data.width, self.game_data.sq_size)
         )
         self.draw_coin(
             self.game_data,
@@ -119,7 +119,7 @@ class GameRenderer:
                 game_data.last_move_row,
                 game_data.last_move_col,
                 self.game_data.radius,
-                black,
+                BLACK,
             )
 
             aacircle(
@@ -127,7 +127,7 @@ class GameRenderer:
                 game_data.last_move_row,
                 game_data.last_move_col,
                 self.game_data.radius,
-                black,
+                BLACK,
             )
 
             self.draw_black_coin(
@@ -154,9 +154,9 @@ class GameRenderer:
         color = None
 
         if event.winner == 1:
-            color = red
+            color = RED
         if event.winner == 2:
-            color = yellow
+            color = YELLOW
 
         if not event.was_tie:
             self.label = self.myfont.render(f"PLAYER {event.winner} WINS!", 1, color)
@@ -168,7 +168,7 @@ class GameRenderer:
             mixer.music.load(os.path.join("sounds", "event.ogg"))
             mixer.music.play(0)
             self.myfont = pygame.font.SysFont("monospace", 75)
-            self.label = self.myfont.render("GAME DRAW !!!!", 1, white)
+            self.label = self.myfont.render("GAME DRAW !!!!", 1, WHITE)
             self.screen.blit(self.label, (40, 10))
 
     def draw_board(self, board):
@@ -184,7 +184,7 @@ class GameRenderer:
             for r in range(board.rows):
                 pygame.draw.rect(
                     self.screen,
-                    blue,
+                    BLUE,
                     (c * sq_size, (r + 1) * sq_size, sq_size, sq_size),
                 )
                 aacircle(
@@ -192,14 +192,14 @@ class GameRenderer:
                     int(c * sq_size + sq_size / 2),
                     int((r + 1) * sq_size + sq_size / 2),
                     radius,
-                    black,
+                    BLACK,
                 )
                 filled_circle(
                     self.screen,
                     int(c * sq_size + sq_size / 2),
                     int((r + 1) * sq_size + sq_size / 2),
                     radius,
-                    black,
+                    BLACK,
                 )
 
         for c in range(board.cols):
