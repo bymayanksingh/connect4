@@ -3,7 +3,7 @@ import sys
 import pygame
 from pygame.locals import KEYDOWN
 
-from config import BLACK, BLUE, WHITE
+from config import BLACK, WHITE
 from connect_game import ConnectGame
 from events import MouseClickEvent, MouseHoverEvent, bus
 from game_data import GameData
