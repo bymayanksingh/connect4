@@ -1,20 +1,25 @@
-from os.path import join
-from pygame.image import load
+"""
+Backward compatibility layer for legacy assets.py.
+For modern development, import directly from connect4.gui.assets.
+"""
+from pathlib import Path
+from connect4.config import IMAGES_DIR, SOUNDS_DIR
+from connect4.gui.assets import assets, AssetManager
 
-# The path to the event sound file.
-event_sound = join("sounds", "event.ogg")
+red_coin = str(IMAGES_DIR / "redball90px.png")
+yellow_coin = str(IMAGES_DIR / "yellowball90px.png")
+black_coin = str(IMAGES_DIR / "blackball91px.png")
+disc_drop_1 = str(SOUNDS_DIR / "drop.wav")
+disc_drop_2 = str(SOUNDS_DIR / "drop.wav")
+event_sound = str(SOUNDS_DIR / "win.wav")
 
-# The path to the first disc drop sound file.
-disc_drop_1 = join("sounds", "disc_drop_1.wav")
-
-# The path to the second disc drop sound file.
-disc_drop_2 = join("sounds", "disc_drop_2.wav")
-
-# Load the red coin image from the images folder.
-red_coin = load(join("images", "redball90px.png"))
-
-# Load the yellow coin image from the images folder.
-yellow_coin = load(join("images", "yellowball90px.png"))
-
-# Load the black coin image from the images folder.
-black_coin = load(join("images", "blackball91px.png"))
+__all__ = [
+    "assets",
+    "AssetManager",
+    "red_coin",
+    "yellow_coin",
+    "black_coin",
+    "disc_drop_1",
+    "disc_drop_2",
+    "event_sound",
+]

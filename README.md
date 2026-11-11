@@ -1,190 +1,296 @@
-# Connect4 MDP - Solving Connect Four with Markov Decision Processes
-
 <div align="center">
-<img src="./images/logo/c4.gif" alt="Connect Four Logo">
+
+<p>
+  <img src="./images/logo/c4.gif" alt="Connect Four Logo" width="220">
+</p>
+
+# Connect Four
+
+**Production-Grade Connect 4 Engine, Multi-Algorithm AI Suite & Headless Visualizer**
+
+[![Python 3.9+](https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
+[![Tests](https://img.shields.io/badge/Tests-37%20Passed%20(100%25)-brightgreen?style=for-the-badge&logo=pytest)](tests/)
+[![Build](https://img.shields.io/badge/Build-Pip%20%7C%20uv%20%7C%20Make-orange?style=for-the-badge&logo=gnu-make)](Makefile)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
 </div>
 
-## About
+---
 
-This project implements a Connect Four game with an AI agent that uses Markov Decision Processes (MDPs) and linear algebra to make optimal decisions. The AI uses value iteration and direct linear system solving to calculate the optimal policy, making it a powerful opponent that can see several moves ahead.
+## 📖 Overview
 
-The original Connect Four game was created by [Mayank Singh (code-monk08)](https://github.com/code-monk08/connect-four). This project extends the original by adding an MDP-based AI opponent using dynamic programming and linear algebra techniques.
+**Connect 4** is a modernized, production-ready implementation of the classic vertical connection game, engineered for high performance, modularity, and algorithmic depth.
 
-## Mathematical Foundation
+Originally conceived as a Pygame application by [Mayank Singh](https://github.com/bymayanksingh), this repository integrates community PRs, academic research from Columbia University on Markov Decision Processes (MDPs), and production software engineering practices:
 
-### Markov Decision Processes (MDPs)
+- **Decoupled Architecture**: Domain rules, board state, AI engines, terminal CLI, and Pygame presentation are separated into dedicated modules under `connect4/`.
+- **Multi-Modal AI Suite**:
+  - **Random Agent**: Uniform random sampling over legal open columns.
+  - **Heuristic Agent**: Fast tactical 1-ply immediate win execution, threat blocking, and center preference.
+  - **Minimax Agent**: Deep tree search with **$\alpha\text{-}\beta$ pruning**, center-first move ordering, and an **Odd-Even strategy heuristic**.
+  - **Dynamic Programming (MDP) Agent**: Finite-horizon value iteration and exact **linear system solving** ($(I - \gamma P)^{-1} R$) over transition probability matrices.
+- **Multi-Modal User Interfaces**:
+  - **Pygame Desktop GUI**: Smooth animations, theme customizer (Red/Yellow, Green/Violet, Neon/Dark Blue, Monochrome), sound effects, and runtime diagnostics panel.
+  - **Interactive ANSI Terminal**: Unicode disc display (`🔴`, `🟡`, `⚪`), full keyboard command parsing (`undo`, `restart`, `quit`), and 1-based indexing.
+  - **Headless Benchmarking**: Automated headless tournament runner simulating AI vs AI matches with statistical reporting.
+- **Configurable Dimensions & Win Conditions**: Arbitrary grid sizes (e.g. Standard 7×6 Connect 4, Mini 4×3 Connect 3, Large 8×7 Connect 4, or Custom N×M).
+- **Automated Visualization Pipeline**: Export any board state directly to standalone **SVG vector graphics** or **Graphviz DOT graphs**.
+- **100% Automated Test Coverage**: 37 unit and integration tests covering board mechanics, win detection, AI decision quality, CLI commands, and headless rendering.
 
-An MDP is a mathematical framework for modeling decision-making in situations where outcomes are partly random and partly under the control of a decision-maker. Formally, an MDP consists of:
+---
 
-- **State space (S)**: All possible game configurations
-- **Action space (A)**: Legal moves (columns) for each state
-- **Transition function (T)**: Deterministic in Connect Four - placing a piece results in a specific new state
-- **Reward function (R)**: Values assigned to states (+200 for win, -200 for loss, 0 for draw)
-- **Discount factor (γ)**: Values future rewards less than immediate ones (default: 0.95)
-
-### The Bellman Equation
-
-The value of a state is defined by the Bellman equation:
-
-```
-V(s) = max_a [ R(s,a) + γ * V(T(s,a)) ]
-```
-
-Where:
-- V(s) is the value of state s
-- R(s,a) is the reward for taking action a in state s
-- T(s,a) is the next state after taking action a in state s
-- γ is the discount factor
-
-### Linear Algebra Formulation
-
-For finite MDPs, we can represent the Bellman equation as a system of linear equations:
+## 🏛️ Architecture & Project Hierarchy
 
 ```
-V = R + γPV
+connect4/
+├── pyproject.toml              # PEP 517/621 packaging & pytest configurations
+├── setup.py                    # Setuptools package definition
+├── requirements.txt            # Core production dependencies (pygame, numpy, event-bus)
+├── requirements-dev.txt        # Development dependencies (pytest, pytest-cov, ruff)
+├── Makefile                    # Developer workflow automation
+├── connect4/                   # Main Python application package
+│   ├── types.py                # Domain models, Enums (Player, GameMode, AIDifficulty)
+│   ├── config.py               # Theme palettes, geometry constants, asset locations
+│   ├── board.py                # Pure GameBoard logic, gravity, win checks & serialization
+│   ├── game.py                 # Core game session controller, turns & undo/redo stack
+│   ├── events.py               # Decoupled EventBus and message dataclasses
+│   ├── cli.py                  # Terminal interactive mode, benchmark runner, JSON mode
+│   ├── ai/                     # Artificial Intelligence engine package
+│   │   ├── base.py             # Abstract Base Class for AI agents
+│   │   ├── random_agent.py     # Random selection
+│   │   ├── heuristic_agent.py  # Fast tactical win/block heuristic
+│   │   ├── minimax.py          # Minimax with alpha-beta & Odd-Even heuristic
+│   │   ├── dp_agent.py         # Dynamic Programming & linear algebra MDP solver
+│   │   ├── game_state.py       # State space hashable representation for MDP
+│   │   └── factory.py          # Unified AgentFactory
+│   ├── gui/                    # Desktop presentation package
+│   │   ├── app.py              # Main Pygame application loop & screen manager
+│   │   ├── renderer.py         # Board rendering, animations & console panel
+│   │   ├── menu.py             # Interactive buttons, state selectors & themes
+│   │   └── assets.py           # Safe asset loader with procedural fallbacks
+│   └── visualizer/             # Diagram and vector export pipeline
+│       └── export.py           # ASCII, SVG vector, and Graphviz DOT exporters
+├── assets/                     # Media files (images, theme sprites, sounds)
+│   ├── images/
+│   └── sounds/
+├── tests/                      # Automated test suite (37 tests)
+│   ├── conftest.py             # Headless fixtures
+│   ├── test_board.py           # Board mechanics & serialization
+│   ├── test_win_conditions.py  # Connect-N, diagonals, verticals, ties
+│   ├── test_game_flow.py       # Turn switching, undo/redo, restart
+│   ├── test_ai_agents.py       # Decision verification for all AI algorithms
+│   ├── test_agent_factory.py   # Factory validation
+│   ├── test_cli.py             # CLI parser and tournament tests
+│   ├── test_visualizer.py      # SVG/DOT/ASCII export verification
+│   └── test_gui_headless.py    # Headless GUI rendering tests
+├── scripts/                    # Developer tools & research scripts
+│   ├── param_sweep.py          # MDP parameter sweep (gamma vs horizon)
+│   ├── benchmark_ai.py         # AI tournament execution CLI
+│   └── export_diagram.py       # Board diagram exporter
+└── legacy/                     # Historical prototype archive
+    └── v1_original/
 ```
 
-Which can be rearranged as:
+---
 
-```
-(I - γP)V = R
-```
+## ⚡ Quickstart & Installation
 
-Where:
-- V is the vector of state values
-- R is the vector of rewards
-- P is the transition probability matrix
-- I is the identity matrix
+### Option 1: Using `uv` (Recommended)
 
-The solution is:
-
-```
-V = (I - γP)⁻¹R
-```
-
-This direct matrix inversion is more efficient than iterative methods for certain problem sizes and allows for exact solutions to the MDP.
-
-### Value Iteration vs. Linear System Solving
-
-This project implements both classic value iteration (an iterative method) and direct linear system solving:
-
-1. **Value Iteration**: Iteratively updates state values until convergence
-   - Pros: Works well for large state spaces, low memory requirements
-   - Cons: May require many iterations to converge
-
-2. **Linear System Solving**: Directly solves (I - γP)V = R
-   - Pros: Gets exact solution in one step, faster for small to medium problems
-   - Cons: Requires more memory, less practical for very large state spaces
-
-## Features
-
-- Full Connect Four game implementation with customizable board sizes
-- Dynamic Programming MDP agent with configurable parameters
-- Value iteration and linear algebra solving approaches
-- Interactive game modes: Player vs Player, Player vs Agent, Agent vs Agent
-- Supports multiple board sizes (standard 7×6 Connect 4 or smaller variants)
-- Detailed Bellman equation visualization for educational purposes
-- Unit tests and parameter sweep scripts for validation
-
-## Installation
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/official-Auralin/connect4-MDP.git
-cd connect4-MDP
+# Clone the repository
+git clone https://github.com/bymayanksingh/connect4.git
+cd connect4
+
+# Create virtual environment and install dependencies
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt -r requirements-dev.txt
 ```
 
-2. Install dependencies:
+### Option 2: Using standard `pip` & `make`
+
 ```bash
-pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+make dev-install
 ```
 
-## Usage
+---
 
-### Running the Game
+## 🎮 How to Play
 
-Launch the game with the GUI interface:
+### 1. Graphical User Interface (Pygame)
+
+Launch the graphical game with full menu support, board size selection, and theme customization:
+
 ```bash
 python game.py
+# or
+python -m connect4 --gui
 ```
 
-### Testing the MDP Agent
+**GUI Controls:**
+- **Mouse Movement**: Move the disc preview over the desired column.
+- **Left Click**: Drop piece into the column.
+- **Ctrl + Z**: Undo last move (in Player vs AI mode, undos both moves).
+- **R**: Restart game session.
+- **Esc**: Return to Main Menu.
 
-Test the agent in isolation:
+---
+
+### 2. Interactive Terminal CLI
+
+Play directly in your terminal with rich ANSI coloring and Unicode disc indicators:
+
 ```bash
-python -c "from dp_agent import DPAgent; agent = DPAgent(); agent.run_toy_problem(rows=3, cols=4, horizon=6)"
+# Human vs Human (PvP)
+python -m connect4 --mode pvp
+
+# Human vs AI (PvA) with Minimax AI
+python -m connect4 --mode pva --ai hard
+
+# Custom board dimensions (e.g. 8x7 Connect 4)
+python -m connect4 --rows 7 --cols 8 --connect 4
 ```
 
-Analyze a specific position:
+```text
+╔═══╦═══╦═══╦═══╦═══╦═══╦═══╗
+║ ⚪ ║ ⚪ ║ ⚪ ║ ⚪ ║ ⚪ ║ ⚪ ║ ⚪ ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ⚪ ║ ⚪ ║ ⚪ ║ ⚪ ║ ⚪ ║ ⚪ ║ ⚪ ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ⚪ ║ ⚪ ║ ⚪ ║ 🔴 ║ ⚪ ║ ⚪ ║ ⚪ ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ⚪ ║ ⚪ ║ 🟡 ║ 🔴 ║ ⚪ ║ ⚪ ║ ⚪ ║
+╠═══╬═══╬═══╬═══╬═══╬═══╬═══╣
+║ ⚪ ║ 🟡 ║ 🔴 ║ 🔴 ║ 🟡 ║ ⚪ ║ ⚪ ║
+╚═══╩═══╩═══╩═══╩═══╩═══╩═══╝
+   1   2   3   4   5   6   7
+
+Player 1 (Red) > 4
+```
+
+---
+
+### 3. Headless AI Tournament Benchmarking
+
+Run high-speed automated tournaments between any two AI engines:
+
 ```bash
-python -c "from dp_agent import DPAgent, GameState, GameBoard; import numpy as np; board = np.zeros((3, 4)); game_board = GameBoard(rows=3, cols=4); state = GameState(board, 0, game_board); agent = DPAgent(); agent.analyze_position(state)"
+python -m connect4 --benchmark --ai1 hard --ai2 easy -n 10
 ```
 
-### Running Tests
+```text
+============================================================
+         CONNECT 4 HEADLESS BENCHMARK TOURNAMENT
+============================================================
+Agent 1 (Player 1 - Red):    P1 (hard)
+Agent 2 (Player 2 - Yellow): P2 (easy)
+Board size:                  7x6 (Connect 4)
+Matches scheduled:           10
+------------------------------------------------------------
+Game  1/10: P1 WIN  in  9 moves (0.385s)
+Game  2/10: P1 WIN  in  9 moves (0.381s)
+...
+------------------------------------------------------------
+                     FINAL RESULTS
+------------------------------------------------------------
+Agent 1 (hard) Wins: 10 (100.0%)
+Agent 2 (easy) Wins: 0 (0.0%)
+Draws:                   0 (0.0%)
+Avg Moves per Match:     9.0
+Total Wall-Clock Time:   3.821s (0.382s/game)
+============================================================
+```
 
-Run the unit tests to verify the MDP implementation:
+---
+
+### 4. Vector SVG & Graphviz Diagram Export
+
+Export any board state into vector SVG or Graphviz DOT format:
+
 ```bash
-pytest tests/test_dp_agent_tiny.py
+# Export board state on game over
+python -m connect4 --export-svg docs/board.svg --export-dot docs/board.dot
+
+# Or run the export script
+python scripts/export_diagram.py --svg docs/board.svg --dot docs/board.dot
 ```
 
-### Parameter Sweep
+<div align="center">
+  <img src="./docs/board.svg" alt="Connect Four Vector Board" width="380">
+</div>
 
-Run the parameter sweep script to analyze performance with different settings:
+---
+
+## 🧠 AI Algorithms & Theoretical Foundations
+
+### 1. Markov Decision Process (MDP) & Linear Algebra Solver
+
+Connect 4 is formalized as a zero-sum, deterministic MDP $(S, A, T, R, \gamma)$:
+- **State space ($S$)**: Board configurations $(r \times c)$ and turn indicator $t \in \{0, 1\}$.
+- **Action space ($A(s)$)**: Legal open columns.
+- **Transition ($T(s, a)$)**: Deterministic gravity drop $s' = T(s, a)$.
+- **Reward ($R$)**: $+200$ for win, $-200$ for loss, $0$ for draw, $-0.01$ step cost.
+
+Under stationary policy $\pi$, the Bellman expectation equation:
+
+$$V^{\pi} = R^{\pi} + \gamma P^{\pi} V^{\pi}$$
+
+is rearranged into a solvable linear system:
+
+$$(I - \gamma P^{\pi}) V^{\pi} = R^{\pi} \implies V^{\pi} = (I - \gamma P^{\pi})^{-1} R^{\pi}$$
+
+`DPAgent` enumerates reachable states within horizon $H$, builds the transition matrix $P$, and computes exact values using `numpy.linalg.solve`.
+
+Run parameter sweeps over discount factor $\gamma$ and horizon $H$:
 ```bash
 python scripts/param_sweep.py
 ```
 
-## Implementation Details
+### 2. Minimax with $\alpha\text{-}\beta$ Pruning & Odd-Even Strategy
 
-### MDP Formulation for Connect Four
+`MinimaxAgent` explores the game tree up to depth 5 with:
+- **Alpha-Beta Pruning**: Prunes branches that cannot influence the final decision.
+- **Center-First Move Ordering**: Prioritizes central columns to trigger earlier $\alpha\text{-}\beta$ cutoffs.
+- **Odd-Even Heuristic**: Incorporates parity theory—favoring odd-row control for Player 1 and even-row control for Player 2.
 
-In our implementation, the Connect Four MDP is defined as:
+---
 
-- **State space (S)**: Each `GameState` encodes:
-  - An `r × c` board (r∈[2,6], c∈[3,7]) with 0 = empty, 1 = Player1 (P1) piece, 2 = Player2 (P2)
-  - `turn ∈ {0,1}` (0 → P1 to play, 1 → P2)
-  - A reference to the `GameBoard` object
+## 🧪 Testing & Quality Assurance
 
-- **Action space (A(s))**: Legal columns that are not full in state s
+The codebase includes 37 automated tests verifying:
+- Core board mechanics, gravity, full-column rejection, bounds safety.
+- Complete win conditions (horizontal, vertical, both diagonals, Connect-N generalizations, tie games).
+- AI decision-making (immediate wins, defensive blocks, center preference, linear algebra solver).
+- CLI commands, headless tournament execution, and JSON output.
+- Headless Pygame surface generation and rendering.
 
-- **Transition (T)**: Deterministic:
-  `s' = s.apply_action(a)` drops the current player's piece in column a
+Run all tests via:
+```bash
+make test
+# or
+pytest -v
+```
 
-- **Reward (R)**: Deterministic, zero-sum:
-  - +200 if P2 wins in s'
-  - -200 if P1 wins in s'
-  - 0 if draw
-  - -0.01 step cost otherwise (when use_heuristics=False)
+```text
+============================= test session starts ==============================
+tests/test_agent_factory.py ....                                         [ 10%]
+tests/test_ai_agents.py ......                                           [ 27%]
+tests/test_board.py ........                                             [ 48%]
+tests/test_cli.py .                                                      [ 51%]
+tests/test_dp_agent_tiny.py .                                            [ 54%]
+tests/test_game_flow.py .....                                            [ 67%]
+tests/test_gui_headless.py ..                                            [ 72%]
+tests/test_visualizer.py ....                                            [ 83%]
+tests/test_win_conditions.py ......                                      [100%]
+============================== 37 passed in 14.33s =============================
+```
 
-- **Discount factor (γ)**: Configurable (default 0.95)
+---
 
-### DP Agent Pipeline
-
-1. **Enumerate** reachable states up to horizon H
-2. **Set global index** for states
-3. **Initialize** value function
-4. **Value-iteration** until convergence
-5. **Greedy policy extraction**
-6. **Output** state values and optimal actions
-
-## Differences from Original Project
-
-Our project extends the original Connect Four implementation in several key ways:
-
-
-1. **AI Opponent**: Added an MDP-based AI that uses dynamic programming for optimal play
-2. **Mathematical Framework**: Implemented the Bellman equation and linear system solving
-3. **Configurable Parameters**: Added tunable discount factor, horizon, and other MDP parameters
-4. **Theoretical Foundation**: Provided rigorous mathematical basis for AI decision-making
-5. **Educational Value**: Added visualization of Bellman backups for educational purposes
-
-**To see the original README.md**: view [README_old.md](./README_old.md) or visit the original repo at [code-monk08/connect-four](https://github.com/code-monk08/connect-four) for the latest version.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Original Connect Four implementation by [Mayank Singh (code-monk08)](https://github.com/code-monk08/connect-four)
-- The MDP framework is inspired by classical works in reinforcement learning and dynamic programming by Richard Bellman and other pioneers in the field 
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
+Original implementation by [Mayank Singh](https://github.com/bymayanksingh).
+MDP research contributions by Bobby Veihman (Columbia University).
