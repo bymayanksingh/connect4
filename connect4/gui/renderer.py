@@ -5,7 +5,7 @@ import random
 from typing import List, Optional, Set, Tuple
 
 import pygame
-from pygame.gfxdraw import aacircle, filled_circle
+from pygame.gfxdraw import aacircle, aapolygon, filled_circle, filled_polygon
 
 from connect4.config import (
     AMBER,
@@ -171,6 +171,7 @@ class GameRenderer:
         self.celebration_started: bool = False
 
         self._board_surface_cache: Optional[pygame.Surface] = None
+        self._well_surface_cache: Optional[pygame.Surface] = None
         self._cached_dims: Optional[Tuple[int, int, int]] = None
         self._init_fonts()
 
@@ -260,6 +261,65 @@ class GameRenderer:
     def is_animating(self) -> bool:
         return len(self.active_drops) > 0
 
+    def _get_well_surface(self) -> pygame.Surface:
+        """Cached 2x supersampled empty slot well with smooth inner ambient occlusion."""
+        if self._well_surface_cache is not None:
+            return self._well_surface_cache
+
+        scale = 2
+        hi_r = self.radius * scale
+        hi_size = hi_r * 2
+        hi_surf = pygame.Surface((hi_size, hi_size), pygame.SRCALPHA)
+
+        # Deep dark backdrop well
+        filled_circle(hi_surf, hi_r, hi_r, hi_r - 2, SLATE_950)
+        aacircle(hi_surf, hi_r, hi_r, hi_r - 2, SLATE_950)
+
+        # Smooth inner upper recessed shadow arc
+        rect = pygame.Rect(0, 0, hi_size, hi_size)
+        pygame.draw.arc(hi_surf, (5, 8, 14, 230), rect, 0.15, 3.0, 6)
+        # Smooth lower subtle highlight arc
+        pygame.draw.arc(hi_surf, (30, 58, 138, 180), rect, 3.4, 6.0, 4)
+
+        self._well_surface_cache = pygame.transform.smoothscale(
+            hi_surf, (self.radius * 2, self.radius * 2)
+        )
+        return self._well_surface_cache
+
+    def _draw_aa_capsule_line(
+        self,
+        surf: pygame.Surface,
+        p1: Tuple[float, float],
+        p2: Tuple[float, float],
+        color: Tuple[int, int, int],
+        width: float,
+    ) -> None:
+        """Renders an anti-aliased thick line segment with rounded end caps."""
+        x1, y1 = p1
+        x2, y2 = p2
+        dx = x2 - x1
+        dy = y2 - y1
+        dist = math.hypot(dx, dy)
+        if dist == 0:
+            return
+        half_w = width / 2.0
+        nx = -dy / dist * half_w
+        ny = dx / dist * half_w
+        pts = [
+            (int(round(x1 + nx)), int(round(y1 + ny))),
+            (int(round(x2 + nx)), int(round(y2 + ny))),
+            (int(round(x2 - nx)), int(round(y2 - ny))),
+            (int(round(x1 - nx)), int(round(y1 - ny))),
+        ]
+        filled_polygon(surf, pts, color)
+        aapolygon(surf, pts, color)
+        cap_r = int(round(half_w))
+        if cap_r >= 1:
+            filled_circle(surf, int(round(x1)), int(round(y1)), cap_r, color)
+            aacircle(surf, int(round(x1)), int(round(y1)), cap_r, color)
+            filled_circle(surf, int(round(x2)), int(round(y2)), cap_r, color)
+            aacircle(surf, int(round(x2)), int(round(y2)), cap_r, color)
+
     def _get_board_surface(self, cols: int, rows: int) -> pygame.Surface:
         """Generates or retrieves cached front blue board plate with transparent hole cutouts."""
         cache_key = (cols, rows, self.sq_size)
@@ -283,9 +343,14 @@ class GameRenderer:
             board_surf, BOARD_BLUE_RIM, (0, 0, board_w, board_h), width=2, border_radius=14
         )
 
-        # 3. Transparent hole cutout cutter
-        cutter = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
-        pygame.draw.circle(cutter, (255, 255, 255, 255), (self.radius, self.radius), self.radius)
+        # 3. Transparent hole cutout cutter generated with 4x supersampling (SSAA)
+        scale = 4
+        hi_radius = self.radius * scale
+        hi_size = hi_radius * 2
+        hi_cutter = pygame.Surface((hi_size, hi_size), pygame.SRCALPHA)
+        # Using RGB=(0, 0, 0, 255) ensures pure alpha subtraction with zero color contamination
+        pygame.draw.circle(hi_cutter, (0, 0, 0, 255), (hi_radius, hi_radius), hi_radius)
+        cutter = pygame.transform.smoothscale(hi_cutter, (self.radius * 2, self.radius * 2))
 
         for c in range(cols):
             for r in range(rows):
@@ -296,6 +361,8 @@ class GameRenderer:
                     (cx - self.radius, cy - self.radius),
                     special_flags=pygame.BLEND_RGBA_SUB,
                 )
+                # Delicate anti-aliased bevel rim around each hole opening
+                aacircle(board_surf, cx, cy, self.radius, (45, 80, 185))
 
         self._board_surface_cache = board_surf
         self._cached_dims = cache_key
@@ -328,20 +395,12 @@ class GameRenderer:
             self.trigger_win_celebration(winning_coords, cols)
 
         # Layer 2: Empty slot recessed hole depth (ambient inner shadows)
+        well_surf = self._get_well_surface()
         for c in range(cols):
             for r in range(rows):
                 cx = c * self.sq_size + self.sq_size // 2
                 cy = (r + 1) * self.sq_size + self.sq_size // 2
-                # Deep dark backdrop well
-                filled_circle(self.screen, cx, cy, self.radius, SLATE_950)
-                aacircle(self.screen, cx, cy, self.radius, SLATE_950)
-                # Upper recessed shadow
-                shadow_rect = pygame.Rect(
-                    cx - self.radius, cy - self.radius, self.radius * 2, self.radius * 2
-                )
-                pygame.draw.arc(self.screen, (5, 8, 14), shadow_rect, 0.15, 3.0, 3)
-                # Lower subtle rim highlight
-                pygame.draw.arc(self.screen, (30, 58, 138), shadow_rect, 3.4, 6.0, 2)
+                self.screen.blit(well_surf, (cx - self.radius, cy - self.radius))
 
         # Layer 3: Placed Discs & Active Falling Drops (rendered behind front plate)
         # Set of drop positions to avoid double-drawing during physics animation
@@ -415,10 +474,11 @@ class GameRenderer:
                 self.screen.blit(
                     hover_chip, (int(chip_cx - self.radius), int(chip_cy - self.radius))
                 )
-                # Subtle indicator chevron arrow pointing down
+                # Subtle indicator chevron arrow pointing down (Anti-aliased)
                 arrow_y = int(self.sq_size - 14 + math.sin(self.time_elapsed * 6.0) * 2.0)
                 pts = [(chip_cx - 6, arrow_y), (chip_cx + 6, arrow_y), (chip_cx, arrow_y + 6)]
-                pygame.draw.polygon(self.screen, WHITE, pts)
+                filled_polygon(self.screen, pts, WHITE)
+                aapolygon(self.screen, pts, WHITE)
             else:
                 # Dimmed chip with full column indicator
                 dimmed = hover_chip.copy()
@@ -433,42 +493,47 @@ class GameRenderer:
             pulse = math.sin(self.time_elapsed * 7.0)
             halo_r = int(self.radius + 3 + pulse * 3)
 
-            # Pulsing golden halos on winning chips
+            # Pulsing golden halos on winning chips (2x supersampled anti-aliasing)
             for r, c in winning_coords:
                 visual_r = rows - 1 - r
                 cx = c * self.sq_size + self.sq_size // 2
                 cy = (visual_r + 1) * self.sq_size + self.sq_size // 2
 
-                # Halo ring
-                halo_surf = pygame.Surface((halo_r * 2 + 6, halo_r * 2 + 6), pygame.SRCALPHA)
+                # Anti-aliased 2x supersampled halo ring
+                scale = 2
+                hi_halo_r = halo_r * scale
+                hi_size = (halo_r * 2 + 8) * scale
+                hi_halo = pygame.Surface((hi_size, hi_size), pygame.SRCALPHA)
                 pygame.draw.circle(
-                    halo_surf,
+                    hi_halo,
                     (251, 191, 36, int(180 + pulse * 60)),
-                    (halo_r + 3, halo_r + 3),
-                    halo_r,
-                    width=4,
+                    (hi_size // 2, hi_size // 2),
+                    hi_halo_r,
+                    width=4 * scale,
                 )
-                self.screen.blit(halo_surf, (cx - halo_r - 3, cy - halo_r - 3))
+                halo_surf = pygame.transform.smoothscale(hi_halo, (halo_r * 2 + 8, halo_r * 2 + 8))
+                self.screen.blit(halo_surf, (cx - halo_r - 4, cy - halo_r - 4))
 
                 # Center golden star highlight
                 star_surf = self.hud_font.render("★", True, WHITE)
                 self.screen.blit(star_surf, star_surf.get_rect(center=(cx, cy)))
 
-            # Laser beam connecting winning sequence
+            # Anti-aliased laser beam connecting winning sequence
             if len(winning_coords) >= 2:
                 # Sort coordinates to trace clean path
                 sorted_coords = sorted(winning_coords)
                 pts = [
                     (
-                        c * self.sq_size + self.sq_size // 2,
-                        (rows - 1 - r + 1) * self.sq_size + self.sq_size // 2,
+                        float(c * self.sq_size + self.sq_size // 2),
+                        float((rows - 1 - r + 1) * self.sq_size + self.sq_size // 2),
                     )
                     for r, c in sorted_coords
                 ]
-                # Outer glow line
-                pygame.draw.lines(self.screen, GOLD, False, pts, 7)
-                # Inner brilliant white laser line
-                pygame.draw.lines(self.screen, WHITE, False, pts, 3)
+                for i in range(len(pts) - 1):
+                    # Outer gold laser beam
+                    self._draw_aa_capsule_line(self.screen, pts[i], pts[i + 1], GOLD, 8.0)
+                    # Inner brilliant white core
+                    self._draw_aa_capsule_line(self.screen, pts[i], pts[i + 1], WHITE, 3.5)
 
         # Layer 7: Confetti Particles
         for particle in self.particles:
@@ -500,7 +565,7 @@ class GameRenderer:
         )
         self.screen.blit(glass, hud_rect.topleft)
 
-        # Player 1 Badge (Left)
+        # Player 1 Badge (Left) - Anti-aliased
         p1_active = game.current_player == Player.P1 and not game.is_game_over
         p1_cx = hud_rect.left + 32
         p1_cy = hud_rect.centery
@@ -508,12 +573,14 @@ class GameRenderer:
 
         if p1_active:
             pulse = int(4 + math.sin(self.time_elapsed * 8.0) * 2)
-            pygame.draw.circle(self.screen, EMERALD, (p1_cx, p1_cy), 18 + pulse, 2)
-        pygame.draw.circle(self.screen, p1_color, (p1_cx, p1_cy), 14)
+            aacircle(self.screen, p1_cx, p1_cy, 18 + pulse, EMERALD)
+            aacircle(self.screen, p1_cx, p1_cy, 17 + pulse, EMERALD)
+        filled_circle(self.screen, p1_cx, p1_cy, 14, p1_color)
+        aacircle(self.screen, p1_cx, p1_cy, 14, p1_color)
         p1_label = self.hud_font.render("PLAYER 1", True, WHITE if p1_active else GRAY)
         self.screen.blit(p1_label, (p1_cx + 20, p1_cy - 9))
 
-        # Player 2 Badge (Right)
+        # Player 2 Badge (Right) - Anti-aliased
         p2_active = game.current_player == Player.P2 and not game.is_game_over
         p2_cx = hud_rect.right - 32
         p2_cy = hud_rect.centery
@@ -521,8 +588,10 @@ class GameRenderer:
 
         if p2_active:
             pulse = int(4 + math.sin(self.time_elapsed * 8.0) * 2)
-            pygame.draw.circle(self.screen, EMERALD, (p2_cx, p2_cy), 18 + pulse, 2)
-        pygame.draw.circle(self.screen, p2_color, (p2_cx, p2_cy), 14)
+            aacircle(self.screen, p2_cx, p2_cy, 18 + pulse, EMERALD)
+            aacircle(self.screen, p2_cx, p2_cy, 17 + pulse, EMERALD)
+        filled_circle(self.screen, p2_cx, p2_cy, 14, p2_color)
+        aacircle(self.screen, p2_cx, p2_cy, 14, p2_color)
         p2_name = "AI AGENT" if game.agent2 else "PLAYER 2"
         p2_label = self.hud_font.render(p2_name, True, WHITE if p2_active else GRAY)
         self.screen.blit(p2_label, (p2_cx - 20 - p2_label.get_width(), p2_cy - 9))

@@ -5,6 +5,7 @@ import sys
 from typing import Optional
 
 import pygame
+from pygame.gfxdraw import aacircle, filled_circle
 
 from connect4.ai.factory import AgentFactory
 from connect4.config import (
@@ -422,10 +423,13 @@ class Connect4App:
             swatch_x1 = btn.rect.right - 44
             swatch_x2 = btn.rect.right - 18
             swatch_y = btn.rect.centery
-            pygame.draw.circle(self.screen, c1, (swatch_x1, swatch_y), chip_r)
-            pygame.draw.circle(self.screen, c2, (swatch_x2, swatch_y), chip_r)
-            pygame.draw.circle(self.screen, WHITE, (swatch_x1, swatch_y), chip_r, width=1)
-            pygame.draw.circle(self.screen, WHITE, (swatch_x2, swatch_y), chip_r, width=1)
+            # Anti-aliased circular preview swatch chips
+            filled_circle(self.screen, swatch_x1, swatch_y, chip_r, c1)
+            aacircle(self.screen, swatch_x1, swatch_y, chip_r, c1)
+            filled_circle(self.screen, swatch_x2, swatch_y, chip_r, c2)
+            aacircle(self.screen, swatch_x2, swatch_y, chip_r, c2)
+            aacircle(self.screen, swatch_x1, swatch_y, chip_r, WHITE)
+            aacircle(self.screen, swatch_x2, swatch_y, chip_r, WHITE)
 
         back_btn.draw(self.screen, self.font)
 

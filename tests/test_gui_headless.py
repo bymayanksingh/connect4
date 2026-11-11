@@ -26,3 +26,21 @@ def test_headless_game_renderer_draw():
     renderer.draw_board(game)
     game.make_move(3)
     renderer.draw_board(game)
+
+    # Test winning line anti-aliased laser rendering
+    winning_coords = [(0, 0), (0, 1), (0, 2), (0, 3)]
+    renderer.draw_board(game, winning_coords=winning_coords)
+    assert renderer.celebration_started is False  # game not marked over yet
+
+
+def test_menu_elements_anti_aliased():
+    from connect4.gui.menu import Button, FloatingDisc
+
+    screen = pygame.Surface((400, 400), pygame.SRCALPHA)
+    disc = FloatingDisc(400, 400)
+    disc.draw(screen)
+
+    font = pygame.font.SysFont("monospace", 14)
+    btn = Button("Test", 10, 10, 100, 40, selected=True)
+    btn.draw(screen, font)
+    assert screen.get_width() == 400

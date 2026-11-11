@@ -4,6 +4,7 @@ import random
 from typing import Callable, Optional, Tuple
 
 import pygame
+from pygame.gfxdraw import aacircle, filled_circle
 
 from connect4.config import (
     AMBER,
@@ -43,11 +44,15 @@ class FloatingDisc:
             self.vy *= -1
 
     def draw(self, screen: pygame.Surface) -> None:
-        size = int(self.radius * 2)
+        rad = int(self.radius)
+        if rad < 2:
+            return
+        size = rad * 2
         surf = pygame.Surface((size, size), pygame.SRCALPHA)
         color_rgba = (self.color[0], self.color[1], self.color[2], self.alpha)
-        pygame.draw.circle(surf, color_rgba, (int(self.radius), int(self.radius)), int(self.radius))
-        screen.blit(surf, (int(self.x - self.radius), int(self.y - self.radius)))
+        filled_circle(surf, rad, rad, rad - 1, color_rgba)
+        aacircle(surf, rad, rad, rad - 1, color_rgba)
+        screen.blit(surf, (int(self.x - rad), int(self.y - rad)))
 
 
 class Button:
@@ -94,8 +99,9 @@ class Button:
         # Border outline (Glows on hover or when selected)
         if self.selected:
             pygame.draw.rect(screen, EMERALD, self.rect, width=2, border_radius=self.border_radius)
-            # Small green active indicator dot
-            pygame.draw.circle(screen, EMERALD, (self.rect.left + 16, self.rect.centery), 4)
+            # Small green active indicator dot (Anti-aliased)
+            filled_circle(screen, self.rect.left + 16, self.rect.centery, 4, EMERALD)
+            aacircle(screen, self.rect.left + 16, self.rect.centery, 4, EMERALD)
         elif self._hover_progress > 0.05:
             # Subtle hover glow
             border_c = (
