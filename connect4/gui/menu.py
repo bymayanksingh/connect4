@@ -1,38 +1,23 @@
 from __future__ import annotations
 
-import math
 import random
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, Optional, Tuple
+
 import pygame
-from pygame.gfxdraw import aacircle, filled_circle
 
 from connect4.config import (
     AMBER,
-    BLACK,
-    BLUE,
-    BOARD_PRESETS,
-    COLOR_THEMES,
     CRIMSON,
     CYAN,
-    DEFAULT_FPS,
     EMERALD,
-    GOLD,
-    GRAY,
-    GREEN,
-    LIGHT_BLUE,
     PURPLE,
-    RED,
     SLATE_600,
     SLATE_700,
     SLATE_800,
     SLATE_850,
-    SLATE_900,
-    SLATE_950,
     WHITE,
-    YELLOW,
 )
 from connect4.gui.assets import assets
-from connect4.types import AIDifficulty, BoardDimensions, GameMode
 
 
 class FloatingDisc:
@@ -120,7 +105,9 @@ class Button:
             )
             pygame.draw.rect(screen, border_c, self.rect, width=2, border_radius=self.border_radius)
         else:
-            pygame.draw.rect(screen, self.color, self.rect, width=1, border_radius=self.border_radius)
+            pygame.draw.rect(
+                screen, self.color, self.rect, width=1, border_radius=self.border_radius
+            )
 
         # Text label
         txt_color = WHITE if (is_hover or self.selected) else (210, 220, 235)

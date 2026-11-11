@@ -1,4 +1,3 @@
-import pytest
 from connect4.board import GameBoard
 
 

@@ -1,23 +1,13 @@
 from __future__ import annotations
 
-import math
-import os
 import random
-from pathlib import Path
 from typing import Dict, Optional, Tuple
+
 import pygame
 from pygame.gfxdraw import aacircle, filled_circle
 
 from connect4.config import (
-    ASSETS_DIR,
-    COLOR_THEMES,
-    IMAGES_DIR,
     SOUNDS_DIR,
-    BLACK,
-    WHITE,
-    BLUE,
-    RED,
-    YELLOW,
 )
 
 

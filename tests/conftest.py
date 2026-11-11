@@ -1,6 +1,6 @@
 import os
+
 import pytest
-import numpy as np
 
 # Ensure Pygame runs headless during testing
 os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -8,7 +8,7 @@ os.environ["SDL_AUDIODRIVER"] = "dummy"
 
 from connect4.board import GameBoard
 from connect4.game import Connect4Game
-from connect4.types import BoardDimensions, GameMode, Player
+from connect4.types import GameMode
 
 
 @pytest.fixture

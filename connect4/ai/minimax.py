@@ -71,14 +71,14 @@ class MinimaxAgent(Agent):
         for r in range(board.rows):
             row_array = [int(board.board[r][c]) for c in range(board.cols)]
             for c in range(board.cols - k + 1):
-                window = row_array[c:c + k]
+                window = row_array[c : c + k]
                 score += cls.evaluate_window(window, piece)
 
         # Vertical
         for c in range(board.cols):
             col_array = [int(board.board[r][c]) for r in range(board.rows)]
             for r in range(board.rows - k + 1):
-                window = col_array[r:r + k]
+                window = col_array[r : r + k]
                 score += cls.evaluate_window(window, piece)
 
         # Positive Diagonal
@@ -107,9 +107,7 @@ class MinimaxAgent(Agent):
         opp = 1 if piece == 2 else 2
         valid_locations = self.get_ordered_columns(board)
         is_terminal = (
-            board.winning_move(piece)
-            or board.winning_move(opp)
-            or len(valid_locations) == 0
+            board.winning_move(piece) or board.winning_move(opp) or len(valid_locations) == 0
         )
 
         if depth == 0 or is_terminal:

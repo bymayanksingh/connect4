@@ -1,5 +1,5 @@
-import pytest
 import numpy as np
+
 from connect4.board import GameBoard
 from connect4.types import BoardDimensions
 

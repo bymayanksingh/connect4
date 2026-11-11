@@ -1,12 +1,9 @@
 from __future__ import annotations
 
-import io
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
-import numpy as np
 
 from connect4.board import GameBoard
-from connect4.types import Player
 
 
 class Visualizer:
@@ -77,14 +74,14 @@ class Visualizer:
         svg_parts = [
             f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" '
             f'width="{width}" height="{height}">',
-            '  <defs>',
+            "  <defs>",
             '    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">',
             '      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>',
-            '    </filter>',
-            '  </defs>',
-            '  <!-- Background -->',
+            "    </filter>",
+            "  </defs>",
+            "  <!-- Background -->",
             f'  <rect width="{width}" height="{height}" fill="#1A202C" rx="10"/>',
-            '  <!-- Blue Board Frame -->',
+            "  <!-- Blue Board Frame -->",
             f'  <rect x="{margin}" y="{margin}" width="{board.cols * cell_size}" '
             f'height="{board.rows * cell_size}" rx="12" fill="#1E40AF" filter="url(#shadow)"/>',
         ]
@@ -125,7 +122,7 @@ class Visualizer:
                 f'font-weight="bold" fill="#94A3B8" text-anchor="middle">{c + 1}</text>'
             )
 
-        svg_parts.append('</svg>')
+        svg_parts.append("</svg>")
         return "\n".join(svg_parts)
 
     @staticmethod
@@ -139,11 +136,11 @@ class Visualizer:
         """
         win_set = set(winning_coords or [])
         lines = [
-            f'digraph {title} {{',
-            '  rankdir=TB;',
+            f"digraph {title} {{",
+            "  rankdir=TB;",
             '  node [shape=circle, width=0.6, fixedsize=true, fontname="Helvetica"];',
-            '  edge [style=invis];',
-            '  compound=true;',
+            "  edge [style=invis];",
+            "  compound=true;",
         ]
 
         # Define grid nodes
@@ -167,7 +164,7 @@ class Visualizer:
                     font = "gray"
                     label = ""
 
-                border = 'penwidth=3.0, color="#10B981"' if is_win else 'penwidth=1.0'
+                border = 'penwidth=3.0, color="#10B981"' if is_win else "penwidth=1.0"
                 lines.append(
                     f'  {node_id} [label="{label}", style=filled, fillcolor="{fill}", '
                     f'fontcolor="{font}", {border}];'
@@ -175,14 +172,14 @@ class Visualizer:
                 row_nodes.append(node_id)
 
             # Keep row nodes on same rank
-            lines.append(f'  {{ rank=same; {" ".join(row_nodes)} }}')
+            lines.append(f"  {{ rank=same; {' '.join(row_nodes)} }}")
 
         # Vertical edges to maintain grid ordering
         for c in range(board.cols):
             for r in range(board.rows - 1, 0, -1):
-                lines.append(f"  cell_{r}_{c} -> cell_{r-1}_{c};")
+                lines.append(f"  cell_{r}_{c} -> cell_{r - 1}_{c};")
 
-        lines.append('}')
+        lines.append("}")
         return "\n".join(lines)
 
     @classmethod
@@ -196,7 +193,9 @@ class Visualizer:
     ) -> None:
         p = Path(path)
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(cls.to_svg(board, cell_size=cell_size, margin=margin, winning_coords=winning_coords))
+        p.write_text(
+            cls.to_svg(board, cell_size=cell_size, margin=margin, winning_coords=winning_coords)
+        )
 
     @classmethod
     def save_dot(

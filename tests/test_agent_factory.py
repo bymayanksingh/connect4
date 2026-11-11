@@ -1,9 +1,10 @@
 import pytest
+
+from connect4.ai.dp_agent import DPAgent
 from connect4.ai.factory import AgentFactory, make_agent
 from connect4.ai.heuristic_agent import HeuristicAgent
 from connect4.ai.minimax import MinimaxAgent
 from connect4.ai.random_agent import RandomAgent
-from connect4.ai.dp_agent import DPAgent
 from connect4.types import AIDifficulty
 
 

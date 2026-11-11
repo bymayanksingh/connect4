@@ -1,6 +1,3 @@
-import pytest
-from pathlib import Path
-from connect4.board import GameBoard
 from connect4.visualizer.export import Visualizer
 
 
@@ -38,7 +35,7 @@ def test_visualizer_dot_output(board_7x6):
     dot_str = Visualizer.to_dot(b, title="TestConnectFour")
     assert "digraph TestConnectFour" in dot_str
     assert "cell_0_3" in dot_str
-    assert 'rankdir=TB' in dot_str
+    assert "rankdir=TB" in dot_str
 
 
 def test_visualizer_file_exports(board_7x6, tmp_path):

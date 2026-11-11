@@ -36,7 +36,16 @@ benchmark:
 sweep:
 	$(PYTHON) scripts/param_sweep.py
 
+lint:
+	$(PYTHON) -m ruff check connect4/ tests/ scripts/
+
+format:
+	$(PYTHON) -m ruff format connect4/ tests/ scripts/
+
+coverage:
+	$(PYTHON) -m pytest --cov=connect4 --cov-report=term-missing
+
 clean:
-	rm -rf build/ dist/ *.egg-info .pytest_cache .coverage htmlcov
+	rm -rf build/ dist/ *.egg-info .pytest_cache .coverage htmlcov .ruff_cache
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	find . -type f -name "*.pyc" -delete

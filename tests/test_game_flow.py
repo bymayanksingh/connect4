@@ -1,6 +1,6 @@
 import pytest
-from connect4.game import Connect4Game
-from connect4.types import GameMode, GameStatus, Player
+
+from connect4.types import GameStatus, Player
 
 
 def test_game_turn_progression(pvp_game):

@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, List, Optional, Union
 
 from connect4.ai.base import Agent
+from connect4.ai.dp_agent import DPAgent
 from connect4.ai.heuristic_agent import HeuristicAgent
 from connect4.ai.minimax import MinimaxAgent
 from connect4.ai.random_agent import RandomAgent
-from connect4.ai.dp_agent import DPAgent
 from connect4.types import AIDifficulty
 
 

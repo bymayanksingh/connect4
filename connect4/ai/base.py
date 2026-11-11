@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import abc
-from typing import Any, List, Optional
+from typing import Any, Optional
+
 from connect4.types import AIDifficulty, Player
 
 

@@ -4,12 +4,11 @@ import argparse
 import json
 import sys
 import time
-from typing import List, Optional
+from typing import Optional
 
 from connect4.ai.factory import AgentFactory
-from connect4.board import GameBoard
 from connect4.game import Connect4Game
-from connect4.types import BoardDimensions, GameMode, GameStatus, Player
+from connect4.types import BoardDimensions, GameMode, GameStatus
 from connect4.visualizer.export import Visualizer
 
 
@@ -25,7 +24,11 @@ def play_terminal_interactive(
     print("=" * 50)
     print(f"Board: {game.board.cols}x{game.board.rows} (Connect {game.board.win_condition})")
     print(f"Mode:  {game.mode.value.upper()}")
-    print("Commands: Enter column number (1..{0}), 'u' (undo), 'r' (restart), 'q' (quit)\n".format(game.board.cols))
+    print(
+        "Commands: Enter column number (1..{0}), 'u' (undo), 'r' (restart), 'q' (quit)\n".format(
+            game.board.cols
+        )
+    )
 
     while not game.is_game_over:
         print(Visualizer.to_ascii(game.board, use_unicode=use_unicode))
@@ -70,7 +73,11 @@ def play_terminal_interactive(
             print("Game restarted.")
             continue
         elif raw_input in ("h", "help", "?"):
-            print("Help: Enter column 1 to {0}, or type 'undo', 'restart', 'quit'.".format(game.board.cols))
+            print(
+                "Help: Enter column 1 to {0}, or type 'undo', 'restart', 'quit'.".format(
+                    game.board.cols
+                )
+            )
             continue
 
         # Parse column
@@ -86,7 +93,9 @@ def play_terminal_interactive(
 
             game.make_move(col_0based)
         except ValueError:
-            print(f"Unrecognized input '{raw_input}'. Type a column number (1..{game.board.cols}) or 'help'.")
+            print(
+                f"Unrecognized input '{raw_input}'. Type a column number (1..{game.board.cols}) or 'help'."
+            )
 
     # Game Over summary
     print("\n" + "=" * 50)
@@ -157,7 +166,9 @@ def run_benchmark(
             draws += 1
             res = "DRAW   "
 
-        print(f"Game {game_idx:2d}/{num_games}: {res} in {len(game.move_history):2d} moves ({elapsed:.3f}s)")
+        print(
+            f"Game {game_idx:2d}/{num_games}: {res} in {len(game.move_history):2d} moves ({elapsed:.3f}s)"
+        )
 
     total_time = time.perf_counter() - start_time
     print("-" * 60)
@@ -176,9 +187,7 @@ def main() -> None:
         prog="connect4",
         description="Connect 4: Production-Grade Game, AI Engine & Visualizer",
     )
-    parser.add_argument(
-        "--gui", action="store_true", help="Launch the graphical Pygame interface"
-    )
+    parser.add_argument("--gui", action="store_true", help="Launch the graphical Pygame interface")
     parser.add_argument(
         "--mode",
         choices=["pvp", "pva", "ava"],
@@ -211,12 +220,8 @@ def main() -> None:
     parser.add_argument(
         "-n", "--games", type=int, default=5, help="Number of benchmark games to run"
     )
-    parser.add_argument(
-        "--rows", type=int, default=6, help="Grid rows (default: 6)"
-    )
-    parser.add_argument(
-        "--cols", type=int, default=7, help="Grid columns (default: 7)"
-    )
+    parser.add_argument("--rows", type=int, default=6, help="Grid rows (default: 6)")
+    parser.add_argument("--cols", type=int, default=7, help="Grid columns (default: 7)")
     parser.add_argument(
         "--connect", type=int, default=4, help="Consecutive chips to win (default: 4)"
     )
@@ -239,6 +244,7 @@ def main() -> None:
     if args.gui:
         try:
             from connect4.gui.app import run_gui
+
             run_gui()
             return
         except ImportError as e:

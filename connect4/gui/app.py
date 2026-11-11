@@ -2,42 +2,34 @@ from __future__ import annotations
 
 import math
 import sys
-import time
-from typing import List, Optional, Tuple
+from typing import Optional
+
 import pygame
 
 from connect4.ai.factory import AgentFactory
-from connect4.board import GameBoard
 from connect4.config import (
     AMBER,
-    BLACK,
     BLUE,
-    BOARD_PRESETS,
-    COLOR_THEMES,
     CRIMSON,
     CYAN,
     DEFAULT_FPS,
     DEFAULT_SQ_SIZE,
     EMERALD,
-    GOLD,
     GRAY,
     GREEN,
-    LIGHT_BLUE,
     PURPLE,
     RED,
     SLATE_700,
-    SLATE_800,
     SLATE_850,
     SLATE_900,
     SLATE_950,
     WHITE,
-    YELLOW,
 )
 from connect4.game import Connect4Game
 from connect4.gui.assets import assets
 from connect4.gui.menu import Button, FloatingDisc
 from connect4.gui.renderer import GameRenderer
-from connect4.types import AIDifficulty, BoardDimensions, GameMode, GameStatus, Player
+from connect4.types import AIDifficulty, BoardDimensions, GameMode
 
 
 class Connect4App:
@@ -77,7 +69,9 @@ class Connect4App:
         self.renderer: Optional[GameRenderer] = None
 
         # Ambient floating discs for menu background
-        self.floating_discs = [FloatingDisc(self.screen_width, self.screen_height) for _ in range(9)]
+        self.floating_discs = [
+            FloatingDisc(self.screen_width, self.screen_height) for _ in range(9)
+        ]
 
     def start_game(self) -> None:
         """Initializes a new gameplay session and sets up geometry."""
@@ -85,10 +79,14 @@ class Connect4App:
         agent2 = None
 
         if self.mode == GameMode.PVA:
-            agent2 = AgentFactory.create_agent(self.ai_difficulty, name=f"AI ({self.ai_difficulty.value.title()})")
+            agent2 = AgentFactory.create_agent(
+                self.ai_difficulty, name=f"AI ({self.ai_difficulty.value.title()})"
+            )
         elif self.mode == GameMode.AVA:
             agent1 = AgentFactory.create_agent(AIDifficulty.HARD, name="AI P1 (Hard)")
-            agent2 = AgentFactory.create_agent(self.ai_difficulty, name=f"AI P2 ({self.ai_difficulty.value.title()})")
+            agent2 = AgentFactory.create_agent(
+                self.ai_difficulty, name=f"AI P2 ({self.ai_difficulty.value.title()})"
+            )
 
         self.game = Connect4Game(
             dimensions=self.dimensions,
@@ -151,11 +149,17 @@ class Connect4App:
         title_surf = self.title_font.render("CONNECT FOUR", True, WHITE)
         self.screen.blit(title_surf, title_surf.get_rect(center=(cx, 80)))
 
-        sub_title = self.sub_font.render("PRODUCTION EDITION  •  AI ENGINE & GAME SUITE", True, CYAN)
+        sub_title = self.sub_font.render(
+            "PRODUCTION EDITION  •  AI ENGINE & GAME SUITE", True, CYAN
+        )
         self.screen.blit(sub_title, sub_title.get_rect(center=(cx, 125)))
 
         # Current configuration badge
-        mode_label = "P vs P" if self.mode == GameMode.PVP else ("P vs AI" if self.mode == GameMode.PVA else "AI vs AI")
+        mode_label = (
+            "P vs P"
+            if self.mode == GameMode.PVP
+            else ("P vs AI" if self.mode == GameMode.PVA else "AI vs AI")
+        )
         diff_str = f" ({self.ai_difficulty.value.title()})" if self.mode != GameMode.PVP else ""
         cfg_str = f"{self.dimensions.cols}x{self.dimensions.rows} Board  |  Connect {self.dimensions.win_condition}  |  {mode_label}{diff_str}"
         cfg_surf = self.sub_font.render(cfg_str, True, AMBER)
@@ -169,11 +173,29 @@ class Connect4App:
         btn_w = 380
         btn_x = (self.screen_width - btn_w) // 2
         buttons = [
-            Button("▶   START GAME", btn_x, 225, btn_w, 54, lambda: self.start_game(), color=EMERALD, hover_color=GREEN),
+            Button(
+                "▶   START GAME",
+                btn_x,
+                225,
+                btn_w,
+                54,
+                lambda: self.start_game(),
+                color=EMERALD,
+                hover_color=GREEN,
+            ),
             Button("🎮   Game Mode & AI", btn_x, 298, btn_w, 50, lambda: self._set_state("MODE")),
             Button("📐   Board Dimensions", btn_x, 365, btn_w, 50, lambda: self._set_state("SIZE")),
             Button("🎨   Themes & Colors", btn_x, 432, btn_w, 50, lambda: self._set_state("THEME")),
-            Button("✕   QUIT GAME", btn_x + 60, 525, btn_w - 120, 48, lambda: sys.exit(0), color=CRIMSON, hover_color=RED),
+            Button(
+                "✕   QUIT GAME",
+                btn_x + 60,
+                525,
+                btn_w - 120,
+                48,
+                lambda: sys.exit(0),
+                color=CRIMSON,
+                hover_color=RED,
+            ),
         ]
 
         for btn in buttons:
@@ -200,19 +222,51 @@ class Connect4App:
         btn_w = 400
         btn_x = (self.screen_width - btn_w) // 2
         buttons = [
-            Button("Standard 7x6 (Connect 4)", btn_x, 190, btn_w, 52,
-                   lambda: self._set_dims(7, 6, 4),
-                   selected=(self.dimensions == BoardDimensions(7, 6, 4))),
-            Button("Mini 4x3 (Connect 3)", btn_x, 260, btn_w, 52,
-                   lambda: self._set_dims(4, 3, 3),
-                   selected=(self.dimensions == BoardDimensions(4, 3, 3))),
-            Button("Large 8x7 (Connect 4)", btn_x, 330, btn_w, 52,
-                   lambda: self._set_dims(8, 7, 4),
-                   selected=(self.dimensions == BoardDimensions(8, 7, 4))),
-            Button("Challenge 7x6 (Connect 5)", btn_x, 400, btn_w, 52,
-                   lambda: self._set_dims(7, 6, 5),
-                   selected=(self.dimensions == BoardDimensions(7, 6, 5))),
-            Button("← Back to Menu", btn_x + 75, 495, btn_w - 150, 48, lambda: self._set_state("MENU"), color=SLATE_700),
+            Button(
+                "Standard 7x6 (Connect 4)",
+                btn_x,
+                190,
+                btn_w,
+                52,
+                lambda: self._set_dims(7, 6, 4),
+                selected=(self.dimensions == BoardDimensions(7, 6, 4)),
+            ),
+            Button(
+                "Mini 4x3 (Connect 3)",
+                btn_x,
+                260,
+                btn_w,
+                52,
+                lambda: self._set_dims(4, 3, 3),
+                selected=(self.dimensions == BoardDimensions(4, 3, 3)),
+            ),
+            Button(
+                "Large 8x7 (Connect 4)",
+                btn_x,
+                330,
+                btn_w,
+                52,
+                lambda: self._set_dims(8, 7, 4),
+                selected=(self.dimensions == BoardDimensions(8, 7, 4)),
+            ),
+            Button(
+                "Challenge 7x6 (Connect 5)",
+                btn_x,
+                400,
+                btn_w,
+                52,
+                lambda: self._set_dims(7, 6, 5),
+                selected=(self.dimensions == BoardDimensions(7, 6, 5)),
+            ),
+            Button(
+                "← Back to Menu",
+                btn_x + 75,
+                495,
+                btn_w - 150,
+                48,
+                lambda: self._set_state("MENU"),
+                color=SLATE_700,
+            ),
         ]
 
         for btn in buttons:
@@ -239,26 +293,70 @@ class Connect4App:
         btn_w = 400
         btn_x = (self.screen_width - btn_w) // 2
         buttons = [
-            Button("Player vs Player (PvP)", btn_x, 155, btn_w, 48,
-                   lambda: setattr(self, "mode", GameMode.PVP),
-                   selected=(self.mode == GameMode.PVP)),
-            Button("Player vs AI (PvA)", btn_x, 215, btn_w, 48,
-                   lambda: setattr(self, "mode", GameMode.PVA),
-                   selected=(self.mode == GameMode.PVA)),
-            Button("AI vs AI (Spectate)", btn_x, 275, btn_w, 48,
-                   lambda: setattr(self, "mode", GameMode.AVA),
-                   selected=(self.mode == GameMode.AVA)),
+            Button(
+                "Player vs Player (PvP)",
+                btn_x,
+                155,
+                btn_w,
+                48,
+                lambda: setattr(self, "mode", GameMode.PVP),
+                selected=(self.mode == GameMode.PVP),
+            ),
+            Button(
+                "Player vs AI (PvA)",
+                btn_x,
+                215,
+                btn_w,
+                48,
+                lambda: setattr(self, "mode", GameMode.PVA),
+                selected=(self.mode == GameMode.PVA),
+            ),
+            Button(
+                "AI vs AI (Spectate)",
+                btn_x,
+                275,
+                btn_w,
+                48,
+                lambda: setattr(self, "mode", GameMode.AVA),
+                selected=(self.mode == GameMode.AVA),
+            ),
             # AI Difficulty Selectors
-            Button("AI: Easy (1-Ply Tactical)", btn_x, 355, btn_w, 44,
-                   lambda: setattr(self, "ai_difficulty", AIDifficulty.EASY),
-                   selected=(self.ai_difficulty == AIDifficulty.EASY)),
-            Button("AI: Medium (Minimax D3)", btn_x, 408, btn_w, 44,
-                   lambda: setattr(self, "ai_difficulty", AIDifficulty.MEDIUM),
-                   selected=(self.ai_difficulty == AIDifficulty.MEDIUM)),
-            Button("AI: Hard (Minimax D5 Alpha-Beta)", btn_x, 461, btn_w, 44,
-                   lambda: setattr(self, "ai_difficulty", AIDifficulty.HARD),
-                   selected=(self.ai_difficulty == AIDifficulty.HARD)),
-            Button("← Back to Menu", btn_x + 75, 545, btn_w - 150, 48, lambda: self._set_state("MENU"), color=SLATE_700),
+            Button(
+                "AI: Easy (1-Ply Tactical)",
+                btn_x,
+                355,
+                btn_w,
+                44,
+                lambda: setattr(self, "ai_difficulty", AIDifficulty.EASY),
+                selected=(self.ai_difficulty == AIDifficulty.EASY),
+            ),
+            Button(
+                "AI: Medium (Minimax D3)",
+                btn_x,
+                408,
+                btn_w,
+                44,
+                lambda: setattr(self, "ai_difficulty", AIDifficulty.MEDIUM),
+                selected=(self.ai_difficulty == AIDifficulty.MEDIUM),
+            ),
+            Button(
+                "AI: Hard (Minimax D5 Alpha-Beta)",
+                btn_x,
+                461,
+                btn_w,
+                44,
+                lambda: setattr(self, "ai_difficulty", AIDifficulty.HARD),
+                selected=(self.ai_difficulty == AIDifficulty.HARD),
+            ),
+            Button(
+                "← Back to Menu",
+                btn_x + 75,
+                545,
+                btn_w - 150,
+                48,
+                lambda: self._set_state("MENU"),
+                color=SLATE_700,
+            ),
         ]
 
         for btn in buttons:
@@ -294,14 +392,28 @@ class Connect4App:
         buttons = []
         y_pos = 180
         for title, t1, t2, c1, c2 in theme_options:
-            is_active = (self.p1_theme == t1 and self.p2_theme == t2)
-            btn = Button(title, btn_x, y_pos, btn_w, 52,
-                         lambda t1=t1, t2=t2: self._set_themes(t1, t2),
-                         selected=is_active)
+            is_active = self.p1_theme == t1 and self.p2_theme == t2
+            btn = Button(
+                title,
+                btn_x,
+                y_pos,
+                btn_w,
+                52,
+                lambda t1=t1, t2=t2: self._set_themes(t1, t2),
+                selected=is_active,
+            )
             buttons.append((btn, c1, c2))
             y_pos += 68
 
-        back_btn = Button("← Back to Menu", btn_x + 85, 490, btn_w - 170, 48, lambda: self._set_state("MENU"), color=SLATE_700)
+        back_btn = Button(
+            "← Back to Menu",
+            btn_x + 85,
+            490,
+            btn_w - 170,
+            48,
+            lambda: self._set_state("MENU"),
+            color=SLATE_700,
+        )
 
         for btn, c1, c2 in buttons:
             btn.draw(self.screen, self.font)
@@ -375,7 +487,9 @@ class Connect4App:
                         col = int(math.floor(event.pos[0] / self.sq_size))
                         if self.game.board.is_valid_location(col):
                             open_row = self.game.board.get_next_open_row(col)
-                            self.renderer.trigger_drop_animation(col, open_row, self.game.current_player)
+                            self.renderer.trigger_drop_animation(
+                                col, open_row, self.game.current_player
+                            )
                             self.game.make_move(col)
 
             if event.type == pygame.KEYDOWN:

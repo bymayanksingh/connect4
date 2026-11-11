@@ -1,11 +1,9 @@
-import pytest
+from connect4.ai.dp_agent import DPAgent
 from connect4.ai.heuristic_agent import HeuristicAgent
 from connect4.ai.minimax import MinimaxAgent
 from connect4.ai.random_agent import RandomAgent
-from connect4.ai.dp_agent import DPAgent
 from connect4.board import GameBoard
-from connect4.game import Connect4Game
-from connect4.types import GameMode, Player
+from connect4.types import Player
 
 
 def test_random_agent_valid_move(board_7x6):

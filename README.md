@@ -1,7 +1,7 @@
 <div align="center">
 
 <p>
-  <img src="./images/logo/c4.gif" alt="Connect Four Logo" width="220">
+  <img src="./assets/images/logo/c4.gif" alt="Connect Four Logo" width="220">
 </p>
 
 # Connect Four

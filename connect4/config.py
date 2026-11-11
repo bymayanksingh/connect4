@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 from pathlib import Path
 from typing import Dict, Tuple
 
@@ -8,8 +7,8 @@ from typing import Dict, Tuple
 PACKAGE_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = PACKAGE_ROOT.parent
 ASSETS_DIR = REPO_ROOT / "assets"
-IMAGES_DIR = ASSETS_DIR / "images" if (ASSETS_DIR / "images").exists() else REPO_ROOT / "images"
-SOUNDS_DIR = ASSETS_DIR / "sounds" if (ASSETS_DIR / "sounds").exists() else REPO_ROOT / "sounds"
+IMAGES_DIR = ASSETS_DIR / "images"
+SOUNDS_DIR = ASSETS_DIR / "sounds"
 
 # Standard & Modern Design System RGB Colors
 BLACK: Tuple[int, int, int] = (0, 0, 0)

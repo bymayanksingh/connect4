@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional, Set, Tuple
-import numpy as np
-from numpy import flip, zeros, ndarray
 
-from connect4.types import BoardDimensions, Player
+import numpy as np
+from numpy import flip, ndarray, zeros
+
+from connect4.types import BoardDimensions
 
 
 class GameBoard:
@@ -290,7 +291,7 @@ class GameBoard:
         board = cls(
             rows=data.get("rows", 6),
             cols=data.get("cols", 7),
-            win_condition=data.get("win_condition", 4)
+            win_condition=data.get("win_condition", 4),
         )
         grid = np.array(data.get("grid", []), dtype=int)
         if grid.shape == (board.rows, board.cols):

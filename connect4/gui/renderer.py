@@ -2,17 +2,13 @@ from __future__ import annotations
 
 import math
 import random
-import time
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple
+from typing import List, Optional, Set, Tuple
+
 import pygame
 from pygame.gfxdraw import aacircle, filled_circle
 
-from connect4.board import GameBoard
 from connect4.config import (
     AMBER,
-    ANIMATION_SPEED,
-    BLACK,
-    BLUE,
     BOARD_BLUE_DARK,
     BOARD_BLUE_MID,
     BOARD_BLUE_RIM,
@@ -20,25 +16,14 @@ from connect4.config import (
     COLOR_THEMES,
     CRIMSON,
     CYAN,
-    DARK_BLUE,
-    DARK_GRAY,
-    DEFAULT_DISC_RADIUS,
     DEFAULT_SQ_SIZE,
     EMERALD,
     GOLD,
     GRAY,
-    GREEN,
-    LIGHT_BLUE,
-    PURPLE,
-    RED,
-    SLATE_600,
     SLATE_700,
-    SLATE_800,
-    SLATE_850,
     SLATE_900,
     SLATE_950,
     WHITE,
-    YELLOW,
 )
 from connect4.game import Connect4Game
 from connect4.gui.assets import assets
@@ -56,7 +41,7 @@ class ConsoleBuffer:
         for line in str(text).splitlines():
             self.lines.append(line)
         if len(self.lines) > self.max_lines:
-            self.lines = self.lines[-self.max_lines:]
+            self.lines = self.lines[-self.max_lines :]
 
     def clear(self) -> None:
         self.lines.clear()
@@ -193,9 +178,13 @@ class GameRenderer:
         if not pygame.font.get_init():
             pygame.font.init()
         font_name = "Helvetica" if "Helvetica" in pygame.font.get_fonts() else "monospace"
-        self.title_font = pygame.font.SysFont(font_name, max(18, int(self.sq_size * 0.38)), bold=True)
+        self.title_font = pygame.font.SysFont(
+            font_name, max(18, int(self.sq_size * 0.38)), bold=True
+        )
         self.hud_font = pygame.font.SysFont(font_name, max(14, int(self.sq_size * 0.22)), bold=True)
-        self.small_font = pygame.font.SysFont(font_name, max(11, int(self.sq_size * 0.16)), bold=True)
+        self.small_font = pygame.font.SysFont(
+            font_name, max(11, int(self.sq_size * 0.16)), bold=True
+        )
         self.console_font = pygame.font.SysFont("monospace", 13)
 
     def get_p1_color(self) -> Tuple[int, int, int]:
@@ -229,7 +218,9 @@ class GameRenderer:
         )
         self.active_drops.append(anim)
 
-    def trigger_win_celebration(self, winning_coords: List[Tuple[int, int]], board_cols: int) -> None:
+    def trigger_win_celebration(
+        self, winning_coords: List[Tuple[int, int]], board_cols: int
+    ) -> None:
         """Launches a festive confetti particle explosion around winning chips."""
         if not winning_coords:
             return
@@ -288,7 +279,9 @@ class GameRenderer:
             pygame.draw.line(board_surf, (br, bg, bb, 255), (0, y), (board_w, y))
 
         # 2. Beveled rounded outer border
-        pygame.draw.rect(board_surf, BOARD_BLUE_RIM, (0, 0, board_w, board_h), width=2, border_radius=14)
+        pygame.draw.rect(
+            board_surf, BOARD_BLUE_RIM, (0, 0, board_w, board_h), width=2, border_radius=14
+        )
 
         # 3. Transparent hole cutout cutter
         cutter = pygame.Surface((self.radius * 2, self.radius * 2), pygame.SRCALPHA)
@@ -298,7 +291,11 @@ class GameRenderer:
             for r in range(rows):
                 cx = c * self.sq_size + self.sq_size // 2
                 cy = r * self.sq_size + self.sq_size // 2
-                board_surf.blit(cutter, (cx - self.radius, cy - self.radius), special_flags=pygame.BLEND_RGBA_SUB)
+                board_surf.blit(
+                    cutter,
+                    (cx - self.radius, cy - self.radius),
+                    special_flags=pygame.BLEND_RGBA_SUB,
+                )
 
         self._board_surface_cache = board_surf
         self._cached_dims = cache_key
@@ -339,7 +336,9 @@ class GameRenderer:
                 filled_circle(self.screen, cx, cy, self.radius, SLATE_950)
                 aacircle(self.screen, cx, cy, self.radius, SLATE_950)
                 # Upper recessed shadow
-                shadow_rect = pygame.Rect(cx - self.radius, cy - self.radius, self.radius * 2, self.radius * 2)
+                shadow_rect = pygame.Rect(
+                    cx - self.radius, cy - self.radius, self.radius * 2, self.radius * 2
+                )
                 pygame.draw.arc(self.screen, (5, 8, 14), shadow_rect, 0.15, 3.0, 3)
                 # Lower subtle rim highlight
                 pygame.draw.arc(self.screen, (30, 58, 138), shadow_rect, 3.4, 6.0, 2)
@@ -375,8 +374,18 @@ class GameRenderer:
         # Board table stands / feet
         foot_w = int(self.sq_size * 0.45)
         foot_h = 10
-        pygame.draw.rect(self.screen, (20, 45, 110), (int(self.sq_size * 0.2), height - 6, foot_w, foot_h), border_radius=3)
-        pygame.draw.rect(self.screen, (20, 45, 110), (width - int(self.sq_size * 0.2) - foot_w, height - 6, foot_w, foot_h), border_radius=3)
+        pygame.draw.rect(
+            self.screen,
+            (20, 45, 110),
+            (int(self.sq_size * 0.2), height - 6, foot_w, foot_h),
+            border_radius=3,
+        )
+        pygame.draw.rect(
+            self.screen,
+            (20, 45, 110),
+            (width - int(self.sq_size * 0.2) - foot_w, height - 6, foot_w, foot_h),
+            border_radius=3,
+        )
 
         # Layer 5: Interactive Hover Column Beam & Floating Piece
         if not game.is_game_over and self.hover_x is not None:
@@ -396,12 +405,16 @@ class GameRenderer:
             bob_offset = math.sin(self.time_elapsed * 5.0) * 3.0
             chip_cy = float(self.sq_size // 2) + bob_offset
 
-            hover_color = self.get_p1_color() if game.current_player == Player.P1 else self.get_p2_color()
+            hover_color = (
+                self.get_p1_color() if game.current_player == Player.P1 else self.get_p2_color()
+            )
             hover_theme = self.p1_theme if game.current_player == Player.P1 else self.p2_theme
             hover_chip = assets.get_coin_surface(hover_color, self.radius, hover_theme)
 
             if is_valid_col:
-                self.screen.blit(hover_chip, (int(chip_cx - self.radius), int(chip_cy - self.radius)))
+                self.screen.blit(
+                    hover_chip, (int(chip_cx - self.radius), int(chip_cy - self.radius))
+                )
                 # Subtle indicator chevron arrow pointing down
                 arrow_y = int(self.sq_size - 14 + math.sin(self.time_elapsed * 6.0) * 2.0)
                 pts = [(chip_cx - 6, arrow_y), (chip_cx + 6, arrow_y), (chip_cx, arrow_y + 6)]
@@ -416,7 +429,7 @@ class GameRenderer:
 
         # Layer 6: Winning Line Glowing Laser & Pulsing Halo
         if winning_coords:
-            win_set = set(winning_coords)
+            set(winning_coords)
             pulse = math.sin(self.time_elapsed * 7.0)
             halo_r = int(self.radius + 3 + pulse * 3)
 
@@ -475,12 +488,20 @@ class GameRenderer:
 
         # Glassmorphic backdrop container
         glass = pygame.Surface((hud_rect.width, hud_rect.height), pygame.SRCALPHA)
-        pygame.draw.rect(glass, (20, 29, 47, 215), (0, 0, hud_rect.width, hud_rect.height), border_radius=12)
-        pygame.draw.rect(glass, (51, 65, 85, 230), (0, 0, hud_rect.width, hud_rect.height), width=1, border_radius=12)
+        pygame.draw.rect(
+            glass, (20, 29, 47, 215), (0, 0, hud_rect.width, hud_rect.height), border_radius=12
+        )
+        pygame.draw.rect(
+            glass,
+            (51, 65, 85, 230),
+            (0, 0, hud_rect.width, hud_rect.height),
+            width=1,
+            border_radius=12,
+        )
         self.screen.blit(glass, hud_rect.topleft)
 
         # Player 1 Badge (Left)
-        p1_active = (game.current_player == Player.P1 and not game.is_game_over)
+        p1_active = game.current_player == Player.P1 and not game.is_game_over
         p1_cx = hud_rect.left + 32
         p1_cy = hud_rect.centery
         p1_color = self.get_p1_color()
@@ -493,7 +514,7 @@ class GameRenderer:
         self.screen.blit(p1_label, (p1_cx + 20, p1_cy - 9))
 
         # Player 2 Badge (Right)
-        p2_active = (game.current_player == Player.P2 and not game.is_game_over)
+        p2_active = game.current_player == Player.P2 and not game.is_game_over
         p2_cx = hud_rect.right - 32
         p2_cy = hud_rect.centery
         p2_color = self.get_p2_color()
@@ -546,7 +567,9 @@ class GameRenderer:
         # Translucent dark backdrop card
         card_surf = pygame.Surface((modal_w, modal_h), pygame.SRCALPHA)
         pygame.draw.rect(card_surf, (15, 23, 42, 245), (0, 0, modal_w, modal_h), border_radius=18)
-        pygame.draw.rect(card_surf, (59, 130, 246, 220), (0, 0, modal_w, modal_h), width=2, border_radius=18)
+        pygame.draw.rect(
+            card_surf, (59, 130, 246, 220), (0, 0, modal_w, modal_h), width=2, border_radius=18
+        )
         self.screen.blit(card_surf, modal_rect.topleft)
 
         # Winner title
@@ -565,13 +588,21 @@ class GameRenderer:
             sub = f"Victory in {len(game.move_history)} moves!"
 
         title_surf = self.title_font.render(msg, True, color)
-        self.screen.blit(title_surf, title_surf.get_rect(center=(modal_rect.centerx, modal_rect.top + 45)))
+        self.screen.blit(
+            title_surf, title_surf.get_rect(center=(modal_rect.centerx, modal_rect.top + 45))
+        )
 
         sub_surf = self.hud_font.render(sub, True, WHITE)
-        self.screen.blit(sub_surf, sub_surf.get_rect(center=(modal_rect.centerx, modal_rect.top + 85)))
+        self.screen.blit(
+            sub_surf, sub_surf.get_rect(center=(modal_rect.centerx, modal_rect.top + 85))
+        )
 
-        prompt_surf = self.small_font.render("Press [R] to Play Again   •   [ESC] Main Menu", True, AMBER)
-        self.screen.blit(prompt_surf, prompt_surf.get_rect(center=(modal_rect.centerx, modal_rect.top + 125)))
+        prompt_surf = self.small_font.render(
+            "Press [R] to Play Again   •   [ESC] Main Menu", True, AMBER
+        )
+        self.screen.blit(
+            prompt_surf, prompt_surf.get_rect(center=(modal_rect.centerx, modal_rect.top + 125))
+        )
 
     def _draw_console(self, board_width: int, board_height: int) -> None:
         console_width = 300

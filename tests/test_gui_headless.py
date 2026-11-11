@@ -1,11 +1,9 @@
-import pytest
 import pygame
 
-from connect4.board import GameBoard
 from connect4.game import Connect4Game
 from connect4.gui.assets import assets
 from connect4.gui.renderer import GameRenderer
-from connect4.types import GameMode, Player
+from connect4.types import GameMode
 
 
 def test_asset_manager_surface_generation():

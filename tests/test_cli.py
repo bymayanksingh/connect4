@@ -1,4 +1,3 @@
-import pytest
 from connect4.cli import run_benchmark
 from connect4.types import BoardDimensions
 

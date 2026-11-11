@@ -3,6 +3,7 @@
 CLI Diagram Exporter.
 Exports current board state to SVG, Graphviz DOT, or ASCII diagram.
 """
+
 import argparse
 import sys
 from pathlib import Path
