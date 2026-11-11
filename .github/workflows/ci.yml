@@ -25,10 +25,16 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements-dev.txt
+        pip install -e .
+
+    - name: Run linting checks (ruff)
+      run: |
+        ruff check .
+        ruff format --check .
 
     - name: Run headless pytest test suite
       env:
         SDL_VIDEODRIVER: dummy
         SDL_AUDIODRIVER: dummy
       run: |
-        pytest -v
+        pytest -v --cov=connect4

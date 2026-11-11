@@ -1311,7 +1311,7 @@ class DPAgent(Agent):
         print("\nI - γP =")
         print(np.eye(n) - self.gamma * P)
 
-    def policy_iteration_linear(self, start_state, horizon: int | None = None):
+    def policy_iteration_linear(self, start_state, horizon: Optional[int] = None):
         """
         Perform policy iteration using direct linear algebra.
 
