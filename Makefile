@@ -1,7 +1,7 @@
 .PHONY: help install dev-install test run cli benchmark clean lint format
 
-PYTHON ?= python3
 VENV ?= .venv
+PYTHON ?= $(shell if [ -f $(VENV)/bin/python ]; then echo $(VENV)/bin/python; else echo python3; fi)
 BIN = $(VENV)/bin
 
 help:
