@@ -9,7 +9,7 @@
 **Production-Grade Connect 4 Engine, Multi-Algorithm AI Suite & Headless Visualizer**
 
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/Tests-37%20Passed%20(100%25)-brightgreen?style=for-the-badge&logo=pytest)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-38%20Passed%20(100%25)-brightgreen?style=for-the-badge&logo=pytest)](tests/)
 [![Build](https://img.shields.io/badge/Build-Pip%20%7C%20uv%20%7C%20Make-orange?style=for-the-badge&logo=gnu-make)](Makefile)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
@@ -35,7 +35,7 @@ Originally conceived as a Pygame application by [Mayank Singh](https://github.co
   - **Headless Benchmarking**: Automated headless tournament runner simulating AI vs AI matches with statistical reporting.
 - **Configurable Dimensions & Win Conditions**: Arbitrary grid sizes (e.g. Standard 7×6 Connect 4, Mini 4×3 Connect 3, Large 8×7 Connect 4, or Custom N×M).
 - **Automated Visualization Pipeline**: Export any board state directly to standalone **SVG vector graphics** or **Graphviz DOT graphs**.
-- **100% Automated Test Coverage**: 37 unit and integration tests covering board mechanics, win detection, AI decision quality, CLI commands, and headless rendering.
+- **100% Automated Test Coverage**: 38 unit and integration tests covering board mechanics, win detection, AI decision quality, CLI commands, and headless rendering.
 
 ---
 
@@ -71,7 +71,7 @@ Every community pull request submitted to the repository has been audited, prese
 | **#36 / #33** | `KomalKalyan` | Interactive Start & Quit menu buttons and layout improvements | Redesigned capsule buttons, animated drifting background discs in [`menu.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/gui/menu.py) |
 | **#32 / #18** | `amanpalariya` | Support for arbitrary board dimensions and Connect-N | Generalized [`GameBoard`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/board.py) and [`BoardDimensions`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/types.py) supporting 4×3 mini, 7×6 standard, 8×7 large |
 | **#28** | `amanpalariya` | Coin drop animation & board patterns | Realistic gravity physics drop animation with micro-bounce & audio sync in [`renderer.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/gui/renderer.py) |
-| **#24 / #22** | `Satvinder31415` | Test directory and basic win assertions | Comprehensive 37-test suite in [`tests/`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/tests/) covering win conditions, ties, AI agents, CLI, and GUI |
+| **#24 / #22** | `Satvinder31415` | Test directory and basic win assertions | Comprehensive 38-test suite in [`tests/`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/tests/) covering win conditions, ties, AI agents, CLI, and GUI |
 | **#14** | `Satvinder31415` | Move undo bug fixes | Stack-based undo/redo with board state integrity in [`game.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/game.py) |
 | **#34** | `Cypre55` | Hall of Fame section | Contributor attribution and Hall of Fame recognized in documentation |
 
@@ -111,7 +111,7 @@ connect4/
 ├── assets/                     # Media files (images, theme sprites, sounds)
 │   ├── images/
 │   └── sounds/
-├── tests/                      # Automated test suite (37 tests)
+├── tests/                      # Automated test suite (38 tests)
 │   ├── conftest.py             # Headless fixtures
 │   ├── test_board.py           # Board mechanics & serialization
 │   ├── test_win_conditions.py  # Connect-N, diagonals, verticals, ties
@@ -298,7 +298,7 @@ python scripts/param_sweep.py
 
 ## 🧪 Testing & Quality Assurance
 
-The codebase includes 37 automated tests verifying:
+The codebase includes 38 automated tests verifying:
 - Core board mechanics, gravity, full-column rejection, bounds safety.
 - Complete win conditions (horizontal, vertical, both diagonals, Connect-N generalizations, tie games).
 - AI decision-making (immediate wins, defensive blocks, center preference, linear algebra solver).
@@ -323,7 +323,7 @@ tests/test_game_flow.py .....                                            [ 67%]
 tests/test_gui_headless.py ..                                            [ 72%]
 tests/test_visualizer.py ....                                            [ 83%]
 tests/test_win_conditions.py ......                                      [100%]
-============================== 37 passed in 14.33s =============================
+============================== 38 passed in 14.33s =============================
 ```
 
 ---
