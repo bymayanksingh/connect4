@@ -39,6 +39,44 @@ Originally conceived as a Pygame application by [Mayank Singh](https://github.co
 
 ---
 
+## 🎨 Visual Showcase
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Gameplay & Active HUD</b></td>
+      <td align="center"><b>Victory Celebration & Laser</b></td>
+      <td align="center"><b>Main Menu & Customization</b></td>
+    </tr>
+    <tr>
+      <td><img src="./docs/screenshot_gameplay.png" width="270" alt="Connect 4 Gameplay"></td>
+      <td><img src="./docs/screenshot_victory.png" width="270" alt="Connect 4 Victory Celebration"></td>
+      <td><img src="./docs/screenshot_menu.png" width="270" alt="Connect 4 Modern Menu"></td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🤝 Community Pull Request Integration Audit
+
+Every community pull request submitted to the repository has been audited, preserved, and elevated into the modern modular architecture:
+
+| PR # | Author / Branch | Original Contribution | Modernized Production Implementation |
+| :--- | :--- | :--- | :--- |
+| **#44** | `official-Auralin` | Columbia Univ. MDP Dynamic Programming & parameter sweep | Modern MDP Agent ([`dp_agent.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/ai/dp_agent.py)), closed-form linear solver $(I - \gamma P)^{-1} R$, and [`scripts/param_sweep.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/scripts/param_sweep.py) |
+| **#42** | `Pabloo22` | Minimax agent with $\alpha\text{-}\beta$ pruning & Odd-Even heuristic | Production Minimax engine ([`minimax.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/ai/minimax.py)) with parity evaluation and center-first move ordering |
+| **#39** | `adnansalik` | 1-ply tactical heuristic AI | High-speed Heuristic Agent ([`heuristic_agent.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/ai/heuristic_agent.py)) for immediate win taking and threat blocking |
+| **#38 / #35** | `Xx-Ashutosh-xX` / `ajaykumarr123` | Color themes (Violet, Yellow, darkBlue, gray, green, neonBlue) | Modern theme system in [`config.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/config.py) & live in-game cycling via key `T` or GUI theme picker |
+| **#36 / #33** | `KomalKalyan` | Interactive Start & Quit menu buttons and layout improvements | Redesigned capsule buttons, animated drifting background discs in [`menu.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/gui/menu.py) |
+| **#32 / #18** | `amanpalariya` | Support for arbitrary board dimensions and Connect-N | Generalized [`GameBoard`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/board.py) and [`BoardDimensions`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/types.py) supporting 4×3 mini, 7×6 standard, 8×7 large |
+| **#28** | `amanpalariya` | Coin drop animation & board patterns | Realistic gravity physics drop animation with micro-bounce & audio sync in [`renderer.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/gui/renderer.py) |
+| **#24 / #22** | `Satvinder31415` | Test directory and basic win assertions | Comprehensive 37-test suite in [`tests/`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/tests/) covering win conditions, ties, AI agents, CLI, and GUI |
+| **#14** | `Satvinder31415` | Move undo bug fixes | Stack-based undo/redo with board state integrity in [`game.py`](file:///Users/mayank.singhhginsights.com/Documents/work/personal/connect4/connect4/game.py) |
+| **#34** | `Cypre55` | Hall of Fame section | Contributor attribution and Hall of Fame recognized in documentation |
+
+---
+
 ## 🏛️ Architecture & Project Hierarchy
 
 ```

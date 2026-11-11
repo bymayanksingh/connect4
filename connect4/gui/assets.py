@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import math
 import os
+import random
 from pathlib import Path
 from typing import Dict, Optional, Tuple
 import pygame
+from pygame.gfxdraw import aacircle, filled_circle
 
 from connect4.config import (
     ASSETS_DIR,
@@ -29,6 +32,7 @@ class AssetManager:
         self._images: Dict[str, pygame.Surface] = {}
         self._sounds: Dict[str, Optional[pygame.mixer.Sound]] = {}
         self._sound_enabled = False
+        self._muted = False
         self._init_mixer()
 
     def _init_mixer(self) -> None:
@@ -39,6 +43,15 @@ class AssetManager:
         except Exception:
             self._sound_enabled = False
 
+    def toggle_mute(self) -> bool:
+        """Toggles sound mute state and returns current muted status."""
+        self._muted = not self._muted
+        return self._muted
+
+    @property
+    def is_muted(self) -> bool:
+        return self._muted
+
     def get_coin_surface(
         self,
         color_rgb: Tuple[int, int, int],
@@ -46,61 +59,90 @@ class AssetManager:
         theme_name: Optional[str] = None,
     ) -> pygame.Surface:
         """
-        Loads coin sprite or draws an anti-aliased procedural chip surface.
+        Generates or retrieves a high-definition, photorealistic 3D acrylic chip
+        with tactile concentric grooves, subtle bevels, and specular studio gloss.
         """
         cache_key = f"{color_rgb}_{radius}_{theme_name}"
         if cache_key in self._images:
             return self._images[cache_key]
 
-        # Check if theme file exists
-        if theme_name and theme_name in COLOR_THEMES:
-            filename = COLOR_THEMES[theme_name][1]
-            img_path = IMAGES_DIR / filename
-            if img_path.exists():
-                try:
-                    loaded = pygame.image.load(str(img_path)).convert_alpha()
-                    scaled = pygame.transform.smoothscale(loaded, (radius * 2, radius * 2))
-                    self._images[cache_key] = scaled
-                    return scaled
-                except Exception:
-                    pass
+        size = radius * 2
+        surf = pygame.Surface((size, size), pygame.SRCALPHA)
+        cx, cy = radius, radius
 
-        # Procedural fallback
-        surf = pygame.Surface((radius * 2, radius * 2), pygame.SRCALPHA)
-        # Outer border
-        pygame.draw.circle(surf, (30, 30, 30), (radius, radius), radius)
-        # Inner colored coin
-        pygame.draw.circle(surf, color_rgb, (radius, radius), radius - 3)
-        # Subtle highlight reflection
-        highlight_color = (
-            min(255, color_rgb[0] + 50),
-            min(255, color_rgb[1] + 50),
-            min(255, color_rgb[2] + 50),
+        r, g, b = color_rgb
+        # Outer rim / edge bevel
+        dark_rim = (max(0, r - 75), max(0, g - 75), max(0, b - 75))
+        filled_circle(surf, cx, cy, radius - 1, dark_rim)
+        aacircle(surf, cx, cy, radius - 1, dark_rim)
+
+        # Main disc base
+        body_color = (min(255, r + 10), min(255, g + 10), min(255, b + 10))
+        filled_circle(surf, cx, cy, radius - 3, body_color)
+        aacircle(surf, cx, cy, radius - 3, body_color)
+
+        # Concentric tactile groove 1 (Classic Connect 4 outer checker ring)
+        groove1_r = max(4, int(radius * 0.72))
+        groove_dark = (max(0, r - 55), max(0, g - 55), max(0, b - 55))
+        groove_light = (min(255, r + 55), min(255, g + 55), min(255, b + 55))
+        pygame.draw.circle(surf, groove_dark, (cx, cy), groove1_r, 2)
+        pygame.draw.circle(surf, groove_light, (cx, cy + 1), groove1_r - 1, 1)
+
+        # Concentric tactile groove 2 (Inner ring)
+        groove2_r = max(3, int(radius * 0.44))
+        pygame.draw.circle(surf, groove_dark, (cx, cy), groove2_r, 2)
+        pygame.draw.circle(surf, groove_light, (cx, cy + 1), groove2_r - 1, 1)
+
+        # Center subtle indented pip
+        center_pip_r = max(2, int(radius * 0.18))
+        filled_circle(surf, cx, cy, center_pip_r, groove_dark)
+
+        # Specular studio gloss highlight arc across top-left
+        gloss = pygame.Surface((size, size), pygame.SRCALPHA)
+        highlight_rect = pygame.Rect(
+            int(radius * 0.28),
+            int(radius * 0.16),
+            int(radius * 0.95),
+            int(radius * 0.48),
         )
-        pygame.draw.circle(surf, highlight_color, (radius - radius // 4, radius - radius // 4), radius // 3)
+        pygame.draw.ellipse(gloss, (255, 255, 255, 80), highlight_rect)
+        surf.blit(gloss, (0, 0))
 
         self._images[cache_key] = surf
         return surf
 
     def play_sound(self, sound_name: str) -> None:
-        """Plays sound effect safely with exception swallowing."""
-        if not self._sound_enabled:
+        """Plays sound effect safely with exception swallowing and alias routing."""
+        if not self._sound_enabled or self._muted:
             return
 
-        if sound_name not in self._sounds:
-            sound_file = SOUNDS_DIR / f"{sound_name}.wav"
-            if not sound_file.exists():
-                sound_file = SOUNDS_DIR / f"{sound_name}.mp3"
+        # Route aliases
+        target_name = sound_name
+        if sound_name == "drop":
+            target_name = random.choice(["disc_drop_1", "disc_drop_2"])
+        elif sound_name in ("win", "victory"):
+            target_name = "event"
 
-            if sound_file.exists():
-                try:
-                    self._sounds[sound_name] = pygame.mixer.Sound(str(sound_file))
-                except Exception:
-                    self._sounds[sound_name] = None
+        if target_name not in self._sounds:
+            # Check sound file extensions
+            for ext in (".wav", ".ogg", ".mp3"):
+                sound_file = SOUNDS_DIR / f"{target_name}{ext}"
+                if sound_file.exists():
+                    try:
+                        snd = pygame.mixer.Sound(str(sound_file))
+                        # Adjust default volume levels
+                        if "drop" in target_name:
+                            snd.set_volume(0.65)
+                        elif target_name == "event":
+                            snd.set_volume(0.85)
+                        self._sounds[target_name] = snd
+                        break
+                    except Exception:
+                        pass
             else:
-                self._sounds[sound_name] = None
+                self._sounds[target_name] = None
 
-        snd = self._sounds.get(sound_name)
+        snd = self._sounds.get(target_name)
         if snd:
             try:
                 snd.play()

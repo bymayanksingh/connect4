@@ -11,7 +11,7 @@ ASSETS_DIR = REPO_ROOT / "assets"
 IMAGES_DIR = ASSETS_DIR / "images" if (ASSETS_DIR / "images").exists() else REPO_ROOT / "images"
 SOUNDS_DIR = ASSETS_DIR / "sounds" if (ASSETS_DIR / "sounds").exists() else REPO_ROOT / "sounds"
 
-# Standard RGB Colors
+# Standard & Modern Design System RGB Colors
 BLACK: Tuple[int, int, int] = (0, 0, 0)
 WHITE: Tuple[int, int, int] = (255, 255, 255)
 BLUE: Tuple[int, int, int] = (0, 0, 255)
@@ -24,6 +24,24 @@ LIGHT_BLUE: Tuple[int, int, int] = (23, 196, 243)
 VIOLET: Tuple[int, int, int] = (138, 43, 226)
 NEON_BLUE: Tuple[int, int, int] = (0, 255, 255)
 DARK_BLUE: Tuple[int, int, int] = (0, 0, 139)
+
+# Modern UI / Dark Mode Palette
+SLATE_950: Tuple[int, int, int] = (9, 13, 22)
+SLATE_900: Tuple[int, int, int] = (15, 23, 42)
+SLATE_850: Tuple[int, int, int] = (23, 32, 51)
+SLATE_800: Tuple[int, int, int] = (30, 41, 59)
+SLATE_700: Tuple[int, int, int] = (51, 65, 85)
+SLATE_600: Tuple[int, int, int] = (71, 85, 105)
+BOARD_BLUE_TOP: Tuple[int, int, int] = (37, 99, 235)
+BOARD_BLUE_MID: Tuple[int, int, int] = (29, 78, 216)
+BOARD_BLUE_DARK: Tuple[int, int, int] = (30, 58, 138)
+BOARD_BLUE_RIM: Tuple[int, int, int] = (96, 165, 250)
+GOLD: Tuple[int, int, int] = (245, 158, 11)
+AMBER: Tuple[int, int, int] = (251, 191, 36)
+CRIMSON: Tuple[int, int, int] = (239, 68, 68)
+EMERALD: Tuple[int, int, int] = (16, 185, 129)
+CYAN: Tuple[int, int, int] = (6, 182, 212)
+PURPLE: Tuple[int, int, int] = (168, 85, 247)
 
 # Backward-compatibility aliases
 black = BLACK
